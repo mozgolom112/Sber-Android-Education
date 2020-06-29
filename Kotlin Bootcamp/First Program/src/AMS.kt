@@ -23,6 +23,26 @@ println("Hello ${args[0]}!")
     println(canAddFish(10.0, listOf(), 7, true))
 
      */
+    eagerExample()
+}
+
+fun eagerExample() {
+    val decorations = listOf ("rock", "pagoda", "plastic plants", "alligator", "flowerpot")
+
+    val eager = decorations.filter { it[0] == 'p'}
+    println(eager)
+
+    val filtered = decorations.asSequence().filter { it[0] == 'p' }
+    println(filtered)
+    println(filtered.toList())
+    println(filtered.first())
+    val lazyMap = decorations.asSequence().map { println("map: $it")
+        it
+    }
+    println(lazyMap)
+    println("first: ${lazyMap.first()}")
+    println("all: ${lazyMap.toList()}")
+
 }
 
 fun getDirtySensorReading() = 20
