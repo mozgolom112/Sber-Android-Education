@@ -1,9 +1,14 @@
 fun main(args: Array<String>) {
-    for(i in 1..10) {
+    repeat(10) {
         var result = getFortuneCookie(getBirthday())
         print("Your fortune is: ${result}")
 
-        if (result.contains("Take it easy")) break
+        //if (result.contains("Take it easy")) break // Break только для циклов
+    }
+    var fortune: String = ""
+    while (!fortune.contains("Take it easy")){
+        fortune = getFortuneCookie(getBirthday())
+        println("Your fortune is: ${fortune}")
     }
 }
 
