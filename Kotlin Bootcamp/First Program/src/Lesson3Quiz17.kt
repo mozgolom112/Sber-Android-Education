@@ -6,8 +6,8 @@ fun main(args: Array<String>) {
 
     //Filter the list of spices to return all the spices that start with 'c' and end in 'e'. Do it in two different ways.
     spices.filter { it.first()=='c' && it.last() =='e' }
-    spices.filter { {it.startsWith('c') && it.endsWith('e') }
+    spices.filter { it.startsWith('c') && it.endsWith('e') }
 
     //Take the first three elements of the list and return the ones that start with 'c'.
-    spices.take(3).filter {it.startsWith('c')}
+    spices.take(3).filter{it.startsWith('c')}
 }

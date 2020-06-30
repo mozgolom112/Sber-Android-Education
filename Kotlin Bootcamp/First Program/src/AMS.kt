@@ -26,6 +26,14 @@ println("Hello ${args[0]}!")
     eagerExample()
 }
 
+val waterFilter: (Int) -> Int = { dirty -> dirty / 2}
+fun feedFish(dirty: Int) = dirty + 10
+
+fun updateDirty(dirty: Int, operator: (Int) -> Int) : Int {
+    return operator(dirty)
+}
+
+
 fun eagerExample() {
     val decorations = listOf ("rock", "pagoda", "plastic plants", "alligator", "flowerpot")
 
@@ -72,6 +80,8 @@ fun feedTheFish() {
     if (shouldChangeWater(day)){
         println("Change water today")
     }
+
+    //dirtyProcess()
 }
 
 fun randomDay() : String {
@@ -111,7 +121,13 @@ fun isTooHot(temperature: Int) = temperature > 30
 fun isDirty(dirty: Int) = dirty > 30
 
 fun isSunday(day: String) = day == "Sunday"
-
+/*
+fun dirtyProcess(){
+    dirty = updateDirty(dirty, waterFilter)
+    dirty = updateDirty(dirty, ::feedFish)
+    dirty = updateDirty(dirty) { dirty -> dirty + 50} //?
+}
+*/
 fun canAddFish(tankSize: Double,
                 currentFish: List<Int>,
                 fishSize: Int = 0,
