@@ -2,8 +2,9 @@ package Aquarium
 
 fun main(args: Array<String>) {
     //buildAquarium()
-    buildSpice()
+    //buildSpice()
     //fishExample()
+    makeFish()
 }
 
 fun buildAquarium() {
@@ -32,13 +33,18 @@ fun buildAquarium() {
     println("A2 water: ${myAquarium2.water}")
 }
 
-fun buildSpice(){
-    val mySpice = SimpleSpice()
-    val mySpices = listOf(Spice("salt","nothing"),Spice("curry", "milt"), Spice("sw","spicy"),Spice("wow"))
-    val notSpicy = mySpices.filter{it.heat < 7}
+fun feedFish(fish: FishAction){
+    fish.eat()
+}
 
-    println()
+fun makeFish() {
+    val shark = Shark()
+    val pleco = Plecostomus()
+    println("Shark: ${shark.color} Plecostomus: ${pleco.color}")
 
-    println("${mySpice.name} " +
-            "${mySpice.heat}")
+    shark.eat()
+    pleco.eat()
+
+    feedFish(shark)
+    feedFish(pleco)
 }

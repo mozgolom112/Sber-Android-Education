@@ -11,3 +11,4 @@ fun main(args: Array<String>) {
     //Take the first three elements of the list and return the ones that start with 'c'.
     spices.take(3).filter{it.startsWith('c')}
 }
+

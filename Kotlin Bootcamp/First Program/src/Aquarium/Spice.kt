@@ -1,4 +1,4 @@
-package Spice
+package Aquarium
 
 class Spice(val name: String, val spiceness: String = "mild") {
 
