@@ -1,0 +1,4 @@
+package Book
+
+class Book {
+}
