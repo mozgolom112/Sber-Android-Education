@@ -28,7 +28,7 @@ open class BaseMaterialBuilding(open val numberNeeded: Int = 1)
 class Wood(): BaseMaterialBuilding() {override val numberNeeded = 4}
 class Block(): BaseMaterialBuilding() {override val numberNeeded = 8}
 
-class Building<T: BaseMaterialBuilding>(val material: BaseMaterialBuilding){
+class Building<T: BaseMaterialBuilding>(val material: T){
 
     val numberOfMaterialNeeded : Int = 100
     val actualMaterialNeeded: Int = (numberOfMaterialNeeded * material.numberNeeded)
@@ -37,6 +37,13 @@ class Building<T: BaseMaterialBuilding>(val material: BaseMaterialBuilding){
         println("${actualMaterialNeeded} of ${material::class.simpleName} is required")
     }
 
+}
+
+fun <T: BaseMaterialBuilding>isSmallBuilding(building: Building<T>) {
+    if (building.actualMaterialNeeded < 500)
+        println("small building")
+    else
+        println("large building")
 }
 
 fun main() {
