@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">About Me</string>
+    <string name="name">Nikita Golovanov</string>
+    <string name="yellow_star">Yellow star</string>
+    <string name="bio">
+Newspapers have appeared since ancient times and remain popular, despite the enormous leap in the development of the Internet and the media. A century ago, a very interesting phrase was said by a famous American writer, reflecting that era of information dissemination. He believed that people reading the newspaper could be very misinformed, at the same time, people, who do not read newspaper, could not be trying to consider yourself informative. In this essay we will discuss this phrase from the point of view of that era, and I will express my opinion whether this is relevant today.
+Firstly, misinformation has always been a problem for society, even at that time. Newspapers were the main source of information. Sometimes some people close to the media used this deliberately for malice. Moreover, the media could make mistakes and sometimes they were not easy to detect and verify. As a consequence of this is a lot of false information.
+Nevertheless, the situation with people who did not read the newspaper was not unaffected either. People received information from other people and often it looked like a broken phone game. For most, it was not important that the story be adulteration.  Due to this, rumors spread very quickly, but as a rule there was nothing informative in them.
+Summing up to all the above, I want to note that although the expression is still quite old, it can be designed for our realities. Nowadays, it is also not easy to verify information and much that we learn could potentially be a lie.
+
+</string>
+    <string name="what_is_your_nickname">What is your Nickname?</string>
+    <string name="done">Done</string>
 </resources>
