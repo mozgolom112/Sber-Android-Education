@@ -8,30 +8,47 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import com.mozgolom112.aboutme.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val myName: MyName = MyName("Nikita Golovanov")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-        findViewById<Button>(R.id.done_button).setOnClickListener {
+        binding.myName = myName
+        //findViewById<Button>(R.id.done_button).setOnClickListener {
+        //    addNickname(it)
+        //}
+        binding.doneButton.setOnClickListener {
             addNickname(it)
         }
     }
     //в нашем случае будет кнопка, т.е. view - кнопка view which the func was called
     private fun addNickname(view: View) {
-        val editText = findViewById<EditText>(R.id.nickname_edit)
-        val nicknameTextView = findViewById<TextView>(R.id.nickname_text)
 
-        nicknameTextView.text = editText.text
-        editText.visibility = View.GONE
-        view.visibility = View.GONE //скрываем кнопку
-        nicknameTextView.visibility = View.VISIBLE
+        /*
+        binding.nicknameEdit.text = binding.nicknameEdit.text
+        binding.nicknameEdit.visibility = View.GONE
+        binding.doneButton.visibility = View.GONE //скрываем кнопку
+        binding.nicknameText.visibility = View.VISIBLE
+
+         */
+        binding.apply {
+            //вопрос, можно ли убрать binding. после знака равно?
+            //nicknameText.text = nicknameEdit.text
+            myName?.nickname = nicknameEdit.text.toString()
+            invalidateAll()
+            nicknameEdit.visibility = View.GONE
+            doneButton.visibility = View.GONE //скрываем кнопку
+            nicknameText.visibility = View.VISIBLE
+        }
 
         //Hide the keyboard
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
