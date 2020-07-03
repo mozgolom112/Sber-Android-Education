@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             //вопрос, можно ли убрать binding. после знака равно?
             //nicknameText.text = nicknameEdit.text
             myName?.nickname = nicknameEdit.text.toString()
-            invalidateAll()
+            invalidateAll() //без этого работать не будет. Текст не обновится
             nicknameEdit.visibility = View.GONE
             doneButton.visibility = View.GONE //скрываем кнопку
             nicknameText.visibility = View.VISIBLE
