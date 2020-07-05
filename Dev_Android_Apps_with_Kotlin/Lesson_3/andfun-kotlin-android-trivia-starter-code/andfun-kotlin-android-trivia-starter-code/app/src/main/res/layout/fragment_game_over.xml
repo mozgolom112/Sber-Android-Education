@@ -20,20 +20,20 @@
     tools:context="com.example.android.navigation.GameOverFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gameOverConstraintLayout"
+        android:id="@+id/ConstraintLayoutGameOver"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gameOverBackground">
 
         <ImageView
-            android:id="@+id/gameOverFragment"
+            android:id="@+id/FragGameOver"
             android:layout_width="wrap_content"
             android:layout_height="362dp"
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginEnd="@dimen/horizontal_margin"
             android:layout_marginBottom="8dp"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/tryAgainButton"
+            app:layout_constraintBottom_toTopOf="@+id/BtnTryAgain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,7 @@
             app:srcCompat="@drawable/try_again" />
 
         <Button
-            android:id="@+id/tryAgainButton"
+            android:id="@+id/BtnTryAgain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/vertical_margin"
@@ -57,6 +57,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameOverFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/FragGameOver" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

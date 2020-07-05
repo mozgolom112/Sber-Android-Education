@@ -20,13 +20,13 @@
     tools:context="com.example.android.navigation.GameWonFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gameWonConstraintLayout"
+        android:id="@+id/ConstraintLayoutGameWon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/youWinBackground">
 
         <Button
-            android:id="@+id/nextMatchButton"
+            android:id="@+id/BtnNextMatch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/button_padding"
@@ -49,7 +49,7 @@
             android:layout_marginEnd="@dimen/horizontal_margin"
             android:layout_marginBottom="@dimen/vertical_margin"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/nextMatchButton"
+            app:layout_constraintBottom_toTopOf="@+id/BtnNextMatch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

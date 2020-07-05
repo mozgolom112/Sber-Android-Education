@@ -32,12 +32,12 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/LayoutFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/questionImage"
+                android:id="@+id/ImgQuestion"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/image_header_height"
                 android:layout_marginStart="@dimen/horizontal_margin"
@@ -53,7 +53,7 @@
                 app:srcCompat="@drawable/android_category_simple" />
 
             <TextView
-                android:id="@+id/questionText"
+                android:id="@+id/TextQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -67,11 +67,11 @@
                 android:typeface="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionImage"
+                app:layout_constraintTop_toBottomOf="@+id/ImgQuestion"
                 tools:text="What color is the Android mascot?" />
 
             <RadioGroup
-                android:id="@+id/questionRadioGroup"
+                android:id="@+id/RadioGroupQuestion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -81,10 +81,10 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionText">
+                app:layout_constraintTop_toBottomOf="@+id/TextQuestion">
 
                 <RadioButton
-                    android:id="@+id/firstAnswerRadioButton"
+                    android:id="@+id/RadioBtnFirstAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
@@ -94,7 +94,7 @@
                     tools:text="Blue" />
 
                 <RadioButton
-                    android:id="@+id/secondAnswerRadioButton"
+                    android:id="@+id/RadioBtnSecondAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
@@ -103,7 +103,7 @@
                     tools:text="Green" />
 
                 <RadioButton
-                    android:id="@+id/thirdAnswerRadioButton"
+                    android:id="@+id/RadioBtnThirdAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/question_vertical_margin"
@@ -121,7 +121,7 @@
             </RadioGroup>
 
             <Button
-                android:id="@+id/submitButton"
+                android:id="@+id/BtnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -131,7 +131,7 @@
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionRadioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/RadioGroupQuestion" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

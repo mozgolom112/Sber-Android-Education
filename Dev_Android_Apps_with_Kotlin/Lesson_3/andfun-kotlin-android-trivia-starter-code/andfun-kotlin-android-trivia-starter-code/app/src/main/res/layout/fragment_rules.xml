@@ -27,7 +27,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/rulesImage"
+            android:id="@+id/ImgRules"
             android:layout_width="0dp"
             android:layout_height="@dimen/image_header_height"
             android:layout_marginStart="@dimen/horizontal_margin"
@@ -39,7 +39,7 @@
             app:srcCompat="@drawable/trivia_rules" />
 
         <TextView
-            android:id="@+id/rulesText"
+            android:id="@+id/TextRules"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontal_margin"
@@ -49,6 +49,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rulesImage" />
+            app:layout_constraintTop_toBottomOf="@+id/ImgRules" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
