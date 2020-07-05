@@ -38,10 +38,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/youWinImage" />
+            app:layout_constraintTop_toBottomOf="@+id/ImgYouWin" />
 
         <ImageView
-            android:id="@+id/youWinImage"
+            android:id="@+id/ImgYouWin"
             android:layout_width="0dp"
             android:layout_height="@dimen/game_over_height"
             android:layout_marginStart="@dimen/horizontal_margin"

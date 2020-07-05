@@ -75,16 +75,16 @@ class GameFragment : Fragment() {
         binding.game = this
 
         // Set the onClickListener for the submitButton
-        binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
+        binding.BtnSubmit.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         { view: View ->
-            val checkedId = binding.questionRadioGroup.checkedRadioButtonId
+            val checkedId = binding.RadioGroupQuestion.checkedRadioButtonId
             // Do nothing if nothing is checked (id == -1)
             if (-1 != checkedId) {
                 var answerIndex = 0
                 when (checkedId) {
-                    R.id.secondAnswerRadioButton -> answerIndex = 1
-                    R.id.thirdAnswerRadioButton -> answerIndex = 2
-                    R.id.fourthAnswerRadioButton -> answerIndex = 3
+                    R.id.RadioBtnSecondAnswer -> answerIndex = 1
+                    R.id.RadioBtnThirdAnswer -> answerIndex = 2
+                    R.id.RadioBtnFourthAnswer -> answerIndex = 3
                 }
                 // The first answer in the original question is always the correct one, so if our
                 // answer matches, we have the correct answer.

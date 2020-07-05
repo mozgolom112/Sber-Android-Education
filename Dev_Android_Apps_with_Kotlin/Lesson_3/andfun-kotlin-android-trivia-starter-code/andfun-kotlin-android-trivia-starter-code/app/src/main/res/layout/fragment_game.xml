@@ -45,7 +45,7 @@
                 android:layout_marginEnd="@dimen/horizontal_margin"
                 android:layout_marginBottom="@dimen/vertical_margin"
                 android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@+id/questionText"
+                app:layout_constraintBottom_toTopOf="@+id/TextQuestion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -112,7 +112,7 @@
                     tools:text="Yellow" />
 
                 <RadioButton
-                    android:id="@+id/fourthAnswerRadioButton"
+                    android:id="@+id/RadioBtnFourthAnswer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{game.answers[3]}"
