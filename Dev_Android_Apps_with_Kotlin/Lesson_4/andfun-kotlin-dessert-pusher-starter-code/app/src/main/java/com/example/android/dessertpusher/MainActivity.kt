@@ -91,11 +91,14 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
 
         // Set the TextViews to the right values
-        binding.revenue = revenue
-        binding.amountSold = dessertsSold
+        binding.apply {
+            revenue = revenue
+            amountSold = dessertsSold
+            // Make sure the correct dessert is showing
+            dessertButton.setImageResource(currentDessert.imageId)
+        }
 
-        // Make sure the correct dessert is showing
-        binding.dessertButton.setImageResource(currentDessert.imageId)
+
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
@@ -113,9 +116,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         // Update the score
         revenue += currentDessert.price
         dessertsSold++
+        binding.apply {
+            revenue = revenue
+            amountSold = dessertsSold
+        }
 
-        binding.revenue = revenue
-        binding.amountSold = dessertsSold
 
         // Show the next dessert
         showCurrentDessert()
@@ -177,9 +182,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         Timber.i("onSaveInstanceState Called")
-        outState?.putInt(KEY_REVENUE, revenue)
-        outState?.putInt(KEY_AMOUNT_SOLD, dessertsSold)
-        outState?.putInt(KEY_CURRENT_TIMER, dessertTimer.secondsCount)
+        outState?.apply {
+            putInt(KEY_REVENUE, revenue)
+            putInt(KEY_AMOUNT_SOLD, dessertsSold)
+            putInt(KEY_CURRENT_TIMER, dessertTimer.secondsCount)
+        }
     }
 
     override fun onStart() {
