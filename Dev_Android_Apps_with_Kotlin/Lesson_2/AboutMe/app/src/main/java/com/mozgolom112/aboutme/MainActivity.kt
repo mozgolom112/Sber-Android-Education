@@ -10,47 +10,39 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.mozgolom112.aboutme.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding
+            by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(
+                this, R.layout.activity_main)  }
 
     private val myName: MyName = MyName("Nikita Golovanov")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        binding.myName = myName
-        //findViewById<Button>(R.id.done_button).setOnClickListener {
-        //    addNickname(it)
-        //}
-        binding.doneButton.setOnClickListener {
-            addNickname(it)
+        binding.apply {
+            myName = myName
+            BtnDone.setOnClickListener {
+                    addNickname(it)
+                }
         }
     }
-    //в нашем случае будет кнопка, т.е. view - кнопка view which the func was called
     private fun addNickname(view: View) {
 
-        /*
-        binding.nicknameEdit.text = binding.nicknameEdit.text
-        binding.nicknameEdit.visibility = View.GONE
-        binding.doneButton.visibility = View.GONE //скрываем кнопку
-        binding.nicknameText.visibility = View.VISIBLE
-
-         */
         binding.apply {
-            //вопрос, можно ли убрать binding. после знака равно?
-            //nicknameText.text = nicknameEdit.text
-            myName?.nickname = nicknameEdit.text.toString()
-            invalidateAll() //без этого работать не будет. Текст не обновится
-            nicknameEdit.visibility = View.GONE
-            doneButton.visibility = View.GONE //скрываем кнопку
-            nicknameText.visibility = View.VISIBLE
+            myName?.nickname = EditTextNickname.text.toString()
+            invalidateAll()
+            EditTextNickname.visibility = View.GONE
+            BtnDone.visibility = View.GONE
+            TextNickname.visibility = View.VISIBLE
         }
 
-        //Hide the keyboard
+        hideKeyboard(view)
+    }
+
+    private fun hideKeyboard(view: View){
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
