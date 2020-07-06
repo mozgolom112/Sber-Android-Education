@@ -24,7 +24,7 @@ class TitleFragment : Fragment() {
                 inflater, R.layout.fragment_title, container, false)
 
         binding.BtnPlay.setOnClickListener(
-                Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment)
+                Navigation.createNavigateOnClickListener(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         )
 
         setHasOptionsMenu(true)
