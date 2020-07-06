@@ -22,7 +22,7 @@ class TitleFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
                 inflater, R.layout.fragment_title, container, false)
 
-        binding.BtnPlay.setOnClickListener (
+        binding.BtnPlay.setOnClickListener(
                 Navigation.createNavigateOnClickListener(R.id.action_titleFragment_to_gameFragment)
         )
 
