@@ -1,6 +1,5 @@
 package com.mozgolom112.colormyviews
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,27 +15,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListeners(){
         val clickableViews: List<View> =
-            listOf(box_one_text, box_two_text, box_three_text,
-                box_four_text, box_five_text, constraint_layout,
-                red_button, green_button, yellow_button)
-
-        for (item in clickableViews){
-            item.setOnClickListener { makeColored(it) }
+            listOf(TextBoxOne, TextBoxTwo, TextBoxThree,
+                TextBoxFour, TextBoxFive, constraint_layout,
+                BtnRed, BtnGreen, BtnYellow)
+        clickableViews.forEach{
+            it.setOnClickListener { makeColored(it) }
         }
     }
     
     private fun makeColored(view: View){
         when (view.id){
-            R.id.box_one_text -> view.setBackgroundColor(Color.BLACK)
-            R.id.box_two_text -> view.setBackgroundColor(Color.DKGRAY)
+            R.id.TextBoxOne -> view.setBackgroundColor(Color.BLACK)
+            R.id.TextBoxTwo -> view.setBackgroundColor(Color.DKGRAY)
 
-            R.id.box_three_text -> view.setBackgroundColor(Color.CYAN)
-            R.id.box_four_text -> view.setBackgroundColor(Color.BLUE)
-            R.id.box_five_text -> view.setBackgroundColor(Color.YELLOW)
+            R.id.TextBoxThree -> view.setBackgroundColor(Color.CYAN)
+            R.id.TextBoxFour -> view.setBackgroundColor(Color.BLUE)
+            R.id.TextBoxFive -> view.setBackgroundColor(Color.YELLOW)
 
-            R.id.red_button -> box_three_text.setBackgroundColor( getResources().getColor(R.color.my_red) )
-            R.id.yellow_button -> box_four_text.setBackgroundColor(getResources().getColor(R.color.my_yellow) )
-            R.id.green_button -> box_five_text.setBackgroundColor(R.color.my_green)
+            R.id.BtnRed -> TextBoxThree.setBackgroundColor( getResources().getColor(R.color.my_red) )
+            R.id.BtnYellow -> TextBoxFour.setBackgroundColor(getResources().getColor(R.color.my_yellow) )
+            R.id.BtnGreen -> TextBoxFive.setBackgroundColor(R.color.my_green)
 
             else -> view.setBackgroundColor(Color.LTGRAY)
         }
