@@ -18,6 +18,7 @@ package com.example.android.dessertpusher
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -29,7 +30,11 @@ import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_AMOUNT_SOLD = "key_amount_sold"
+const val KEY_CURRENT_TIMER = "key_current_timer"
 class MainActivity : AppCompatActivity(), LifecycleObserver {
+
 
     private var revenue = 0
     private var dessertsSold = 0
@@ -79,6 +84,12 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             onDessertClicked()
         }
 
+        if (savedInstanceState != null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE)
+            dessertsSold = savedInstanceState.getInt(KEY_AMOUNT_SOLD)
+            dessertTimer.secondsCount = savedInstanceState.getInt(KEY_CURRENT_TIMER)
+        }
+
         // Set the TextViews to the right values
         binding.revenue = revenue
         binding.amountSold = dessertsSold
@@ -87,9 +98,16 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setImageResource(currentDessert.imageId)
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+
     /**
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
+
+
     private fun onDessertClicked() {
 
         // Update the score
@@ -153,7 +171,17 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
         return super.onOptionsItemSelected(item)
     }
+
     /** Lifecycle Methods **/
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Timber.i("onSaveInstanceState Called")
+        outState?.putInt(KEY_REVENUE, revenue)
+        outState?.putInt(KEY_AMOUNT_SOLD, dessertsSold)
+        outState?.putInt(KEY_CURRENT_TIMER, dessertTimer.secondsCount)
+    }
+
     override fun onStart() {
         super.onStart()
         Timber.i("onStart Called")
