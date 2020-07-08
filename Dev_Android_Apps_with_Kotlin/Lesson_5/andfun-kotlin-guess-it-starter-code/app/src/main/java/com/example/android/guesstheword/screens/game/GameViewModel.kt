@@ -8,14 +8,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
+private val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
+private val PANIC_BUZZ_PATTERN = longArrayOf(0, 200)
+private val GAME_OVER_BUZZ_PATTERN = longArrayOf(0, 2000)
+private val NO_BUZZ_PATTERN = longArrayOf(0)
+
 class GameViewModel : ViewModel() {
+
+    enum class BuzzType(val pattern: LongArray) {
+        CORRECT(CORRECT_BUZZ_PATTERN),
+        GAME_OVER(GAME_OVER_BUZZ_PATTERN),
+        COUNTDOWN_PANIC(PANIC_BUZZ_PATTERN),
+        NO_BUZZ(NO_BUZZ_PATTERN)
+    }
 
     companion object {
         private const val DONE = 0L
-
         private const val ONE_SECOND = 1000L
         //TODO("Change 10000 to 60000 after testing")
         private const val COUNTDOWN_TIME = 10000L
+        private const val COUNTDOWN_PANIC_SECONDS = 3000L
     }
 
     private val timer: CountDownTimer by lazy {
@@ -23,10 +35,15 @@ class GameViewModel : ViewModel() {
             override fun onTick(millisUntilFinished: Long) {
                 Log.i("Check Timer", DateUtils.formatElapsedTime(millisUntilFinished / ONE_SECOND))
                 _currentTime.value = (millisUntilFinished / ONE_SECOND)
+                if (millisUntilFinished / ONE_SECOND <= COUNTDOWN_PANIC_SECONDS) {
+                    _eventBuzz.value = BuzzType.COUNTDOWN_PANIC
+                }
             }
 
             override fun onFinish() {
+                _currentTime.value = DONE
                 _eventGameFinish.value = true
+                _eventBuzz.value = BuzzType.GAME_OVER
                 Log.i("Check Timer", "Game finish")
 
             }
@@ -51,6 +68,10 @@ class GameViewModel : ViewModel() {
     private val _eventGameFinish by lazy { MutableLiveData<Boolean>()}
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
+
+    private val _eventBuzz by lazy { MutableLiveData<BuzzType>() }
+    val eventBuzz: LiveData<BuzzType>
+        get() = _eventBuzz
 
     private lateinit var wordList: MutableList<String>
 
@@ -96,12 +117,17 @@ class GameViewModel : ViewModel() {
 
     fun onCorrect() {
         _score.value = (score.value)?.plus(1)
+        _eventBuzz.value = BuzzType.CORRECT
         nextWord()
     }
 
 
     fun onGameFinishComplete(){
         _eventGameFinish.value = false
+    }
+
+    fun onBuzzComplete() {
+        _eventBuzz.value = BuzzType.NO_BUZZ
     }
 
     private fun getWords() =
