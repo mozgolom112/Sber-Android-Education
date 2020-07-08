@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -42,51 +43,49 @@ class GameFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.game_fragment,
                 container,
                 false
         )
-        setOnClickListeners(binding, viewModel)
-        updateUI()
+        setOnClickListeners(binding)
+        setObservers()
         return binding.root
     }
 
-    private fun setOnClickListeners(binding: GameFragmentBinding, viewModel: GameViewModel) {
+    private fun setOnClickListeners(binding: GameFragmentBinding) {
         binding.apply {
             BtnCorrect.setOnClickListener {
                 viewModel.onCorrect()
-                updateUI()
             }
             BtnSkip.setOnClickListener {
                 viewModel.onSkip()
-                updateUI()
             }
         }
     }
 
-    /** Methods for updating the UI **/
-    private fun updateUI(): Unit{
-        updateScoreText()
-        updateWordText()
+    private fun setObservers() {
+        viewModel.score.observe(this, Observer {   newScore ->
+            updateScoreText(newScore)
+        })
+        viewModel.word.observe(this, Observer { newWord ->
+            updateWordText(newWord)
+        })
     }
 
-    private fun updateWordText() {
-        binding.TextWord.text = viewModel.word
-
+    private fun updateWordText(word: String) {
+        binding.TextWord.text = word
     }
 
-    private fun updateScoreText() {
-        binding.TextScore.text = viewModel.score.toString()
+    private fun updateScoreText(score: Int) {
+        binding.TextScore.text = score.toString()
     }
 
-    /**
-     * Called when the game is finished
-     */
+    /** Called when the game is finished **/
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score)
+        TODO("Add exception")
+        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
         findNavController(this).navigate(action)
     }
 
