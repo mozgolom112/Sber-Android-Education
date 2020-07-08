@@ -22,6 +22,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
@@ -35,6 +39,17 @@ import kotlinx.android.synthetic.main.score_fragment.*
  */
 class ScoreFragment : Fragment() {
 
+    private val viewModel: ScoreViewModel
+            by lazy {  ViewModelProvider(this, viewModelFactory)
+                    .get(ScoreViewModel::class.java)}
+
+    private val viewModelFactory: ScoreViewModelFactory by lazy {
+        val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
+        ScoreViewModelFactory(scoreFragmentArgs.score)
+    }
+
+    private lateinit var binding: ScoreFragmentBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -46,12 +61,31 @@ class ScoreFragment : Fragment() {
                 false
         )
 
-        // Get args using by navArgs property delegate
-        val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
-        binding.TextScore.text = scoreFragmentArgs.score.toString()
-        binding.BtnPlayAgain.setOnClickListener { onPlayAgain() }
+        setOnClickListeners(binding)
+        setObservers()
 
         return binding.root
+    }
+
+    private fun setOnClickListeners(binding: ScoreFragmentBinding) {
+        binding.BtnPlayAgain.setOnClickListener {
+            viewModel.onPlayButton()
+        }
+    }
+
+    private fun setObservers(){
+        viewModel.score.observe(this, Observer {
+            updateTextScore()
+        } )
+        viewModel.eventPlayAgain.observe(this, Observer { hasPressedPlayAgain ->
+            if (hasPressedPlayAgain) {
+                onPlayAgain()
+            }
+        })
+    }
+
+    private fun updateTextScore(){
+        TextScore.text = viewModel.score.value.toString()
     }
 
     private fun onPlayAgain() {
