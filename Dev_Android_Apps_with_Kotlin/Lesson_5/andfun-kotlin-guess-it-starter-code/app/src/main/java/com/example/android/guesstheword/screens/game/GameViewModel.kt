@@ -1,13 +1,18 @@
 package com.example.android.guesstheword.screens.game
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
 
-    val word by lazy { MutableLiveData<String>() }
-    val score by lazy { MutableLiveData<Int>() }
+    private val _word by lazy { MutableLiveData<String>() }
+    val word: LiveData<String>
+        get() = _word
+    private val _score by lazy { MutableLiveData<Int>() }
+    val score: LiveData<Int>
+        get() = _score
     private lateinit var wordList: MutableList<String>
 
     override fun onCleared() {
@@ -15,8 +20,8 @@ class GameViewModel : ViewModel() {
     }
 
     init {
-        word.value = ""
-        score.value = 0
+        _word.value = ""
+        _score.value = 0
         resetList()
         nextWord()
     }
@@ -31,17 +36,17 @@ class GameViewModel : ViewModel() {
             TODO("(0) Need to fix it")
             //gameFinished()
         } else {
-            word.value = wordList.removeAt(0)
+            _word.value = wordList.removeAt(0)
         }
     }
 
     fun onSkip() {
-        score.value = (score.value)?.minus(1)
+        _score.value = (score.value)?.minus(1)
         nextWord()
     }
 
     fun onCorrect() {
-        score.value = (score.value)?.plus(1)
+        _score.value = (score.value)?.plus(1)
         nextWord()
     }
 
