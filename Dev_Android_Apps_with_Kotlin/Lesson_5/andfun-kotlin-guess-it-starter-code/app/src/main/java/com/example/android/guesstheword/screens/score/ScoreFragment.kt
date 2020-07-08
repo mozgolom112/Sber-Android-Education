@@ -26,17 +26,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.ScoreFragmentBinding
+import kotlinx.android.synthetic.main.game_fragment.*
+import kotlinx.android.synthetic.main.game_fragment.TextScore
+import kotlinx.android.synthetic.main.score_fragment.*
 
 /**
  * Fragment where the final score is shown, after the game is over
  */
 class ScoreFragment : Fragment() {
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 
         // Inflate view and obtain an instance of the binding class.
         val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
@@ -48,8 +48,8 @@ class ScoreFragment : Fragment() {
 
         // Get args using by navArgs property delegate
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
-        binding.scoreText.text = scoreFragmentArgs.score.toString()
-        binding.playAgainButton.setOnClickListener { onPlayAgain() }
+        binding.TextScore.text = scoreFragmentArgs.score.toString()
+        binding.BtnPlayAgain.setOnClickListener { onPlayAgain() }
 
         return binding.root
     }
