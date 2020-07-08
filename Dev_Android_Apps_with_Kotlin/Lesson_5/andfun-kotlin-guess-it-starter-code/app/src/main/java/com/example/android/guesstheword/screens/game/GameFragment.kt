@@ -17,6 +17,7 @@
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,9 @@ class GameFragment : Fragment() {
                 viewModel.onGameFinishComplete()
             }
         })
+        viewModel.currentTime.observe(this, Observer { newTime ->
+            updateTimerText(newTime)
+        })
     }
 
     private fun updateWordText(word: String) {
@@ -89,9 +93,15 @@ class GameFragment : Fragment() {
         binding.TextScore.text = score.toString()
     }
 
+    private fun updateTimerText(time: Long){
+        binding.TextTimer.text = DateUtils.formatElapsedTime(time)
+    }
+
     /** Called when the game is finished **/
     private fun gameFinished() {
         val currentScore = viewModel.score.value ?: 0
+        //TODO("ISSUE 1 - при отсутсвии нажатий на кнопки после инициализации, выдает ошибку в
+        // навигации")
         val action = GameFragmentDirections.actionGameToScore(currentScore)
         findNavController(this).navigate(action)
     }
