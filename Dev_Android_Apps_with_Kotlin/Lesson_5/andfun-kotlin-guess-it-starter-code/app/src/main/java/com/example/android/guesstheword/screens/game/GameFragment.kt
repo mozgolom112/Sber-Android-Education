@@ -52,17 +52,18 @@ class GameFragment : Fragment() {
                 false
         )
         binding.gameViewModel = viewModel
+        binding.setLifecycleOwner(this)
         setObservers()
         return binding.root
     }
 
     private fun setObservers() {
-        viewModel.score.observe(this, Observer {   newScore ->
-            updateScoreText(newScore)
-        })
-        viewModel.word.observe(this, Observer { newWord ->
-            updateWordText(newWord)
-        })
+//        viewModel.score.observe(this, Observer {   newScore ->
+//            updateScoreText(newScore)
+//        })
+//        viewModel.word.observe(this, Observer { newWord ->
+//            updateWordText(newWord)
+//        })
         viewModel.eventGameFinish.observe(this, Observer { hasFinished ->
             if (hasFinished) {
                 gameFinished()

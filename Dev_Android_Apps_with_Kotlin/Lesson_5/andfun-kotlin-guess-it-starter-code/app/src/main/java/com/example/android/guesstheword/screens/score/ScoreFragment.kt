@@ -61,19 +61,26 @@ class ScoreFragment : Fragment() {
                 false
         )
         binding.scoreViewModel = viewModel
-        setObservers()
+        binding.setLifecycleOwner(this)
+        //setDataBinding()
+        //setObservers()
         return binding.root
+    }
+    //TODO("ISSUE 2 - выдает ошибку, что еще binging не проинициализирован)
+    private fun setDataBinding() {
+        binding.scoreViewModel = viewModel
+        binding.setLifecycleOwner(this)
     }
 
     private fun setObservers(){
-        viewModel.score.observe(this, Observer {
-            updateTextScore()
-        } )
-        viewModel.eventPlayAgain.observe(this, Observer { hasPressedPlayAgain ->
-            if (hasPressedPlayAgain) {
+      viewModel.score.observe(this, Observer {
+           updateTextScore()
+       } )
+       viewModel.eventPlayAgain.observe(this, Observer { hasPressedPlayAgain ->
+           if (hasPressedPlayAgain) {
                 onPlayAgain()
             }
-        })
+       })
     }
 
     private fun updateTextScore(){
