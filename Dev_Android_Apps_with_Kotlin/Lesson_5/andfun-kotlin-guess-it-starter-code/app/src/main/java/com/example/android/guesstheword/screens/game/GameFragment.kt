@@ -70,9 +70,9 @@ class GameFragment : Fragment() {
                 viewModel.onGameFinishComplete()
             }
         })
-        viewModel.currentTime.observe(this, Observer { newTime ->
-            updateTimerText(newTime)
-        })
+//        viewModel.currentTime.observe(this, Observer { newTime ->
+//            updateTimerText(newTime)
+//        })
     }
 
     private fun updateWordText(word: String) {
