@@ -60,17 +60,9 @@ class ScoreFragment : Fragment() {
                 container,
                 false
         )
-
-        setOnClickListeners(binding)
+        binding.scoreViewModel = viewModel
         setObservers()
-
         return binding.root
-    }
-
-    private fun setOnClickListeners(binding: ScoreFragmentBinding) {
-        binding.BtnPlayAgain.setOnClickListener {
-            viewModel.onPlayButton()
-        }
     }
 
     private fun setObservers(){

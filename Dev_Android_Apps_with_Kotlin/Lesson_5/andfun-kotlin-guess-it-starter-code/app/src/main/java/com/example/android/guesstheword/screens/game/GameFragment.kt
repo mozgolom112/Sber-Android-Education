@@ -51,20 +51,9 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
-        setOnClickListeners(binding)
+        binding.gameViewModel = viewModel
         setObservers()
         return binding.root
-    }
-
-    private fun setOnClickListeners(binding: GameFragmentBinding) {
-        binding.apply {
-            BtnCorrect.setOnClickListener {
-                viewModel.onCorrect()
-            }
-            BtnSkip.setOnClickListener {
-                viewModel.onSkip()
-            }
-        }
     }
 
     private fun setObservers() {
