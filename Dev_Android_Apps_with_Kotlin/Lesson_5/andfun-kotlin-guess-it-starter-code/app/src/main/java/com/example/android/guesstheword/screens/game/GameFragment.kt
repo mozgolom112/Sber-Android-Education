@@ -35,22 +35,13 @@ import kotlinx.android.synthetic.main.game_fragment.*
  */
 class GameFragment : Fragment() {
 
-    private lateinit var viewModel: GameViewModel
-
-    // The current word
-    private var word = ""
-
-    // The current score
-    private var score = 0
-
-    // The list of words - the front of the list is the next word to guess
-    private lateinit var wordList: MutableList<String>
+    private val viewModel: GameViewModel
+            by lazy { ViewModelProvider(this).get(GameViewModel::class.java)}
 
     private lateinit var binding: GameFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -58,96 +49,45 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
-
-        Log.i("GameFragment", "Called ViewModelProvider")
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
-
-        resetList()
-        nextWord()
-
-        binding.BtnCorrect.setOnClickListener { onCorrect() }
-        binding.BtnSkip.setOnClickListener { onSkip() }
-        updateScoreText()
-        updateWordText()
+        setOnClickListeners(binding, viewModel)
+        updateUI()
         return binding.root
-
     }
 
-    /**
-     * Resets the list of words and randomizes the order
-     */
-    private fun resetList() {
-        wordList = getWords()
-        wordList.shuffle()
-    }
-
-    /**
-     * Moves to the next word in the list
-     */
-    private fun nextWord() {
-        //Select and remove a word from the list
-        if (wordList.isEmpty()) {
-            gameFinished()
-        } else {
-            word = wordList.removeAt(0)
+    private fun setOnClickListeners(binding: GameFragmentBinding, viewModel: GameViewModel) {
+        binding.apply {
+            BtnCorrect.setOnClickListener {
+                viewModel.onCorrect()
+                updateUI()
+            }
+            BtnSkip.setOnClickListener {
+                viewModel.onSkip()
+                updateUI()
+            }
         }
-        updateWordText()
+    }
+
+    /** Methods for updating the UI **/
+    private fun updateUI(): Unit{
         updateScoreText()
+        updateWordText()
+    }
+
+    private fun updateWordText() {
+        binding.TextWord.text = viewModel.word
+
+    }
+
+    private fun updateScoreText() {
+        binding.TextScore.text = viewModel.score.toString()
     }
 
     /**
      * Called when the game is finished
      */
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(score)
+        val action = GameFragmentDirections.actionGameToScore(viewModel.score)
         findNavController(this).navigate(action)
     }
 
-    /** Methods for updating the UI **/
-
-    private fun updateWordText() {
-        binding.TextWord.text = word
-
-    }
-
-    private fun updateScoreText() {
-        binding.TextScore.text = score.toString()
-    }
-
-    /** Methods for buttons presses **/
-
-    private fun onSkip() {
-        score--
-        nextWord()
-    }
-
-    private fun onCorrect() {
-        score++
-        nextWord()
-    }
-
-    private fun getWords() =
-        mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
-        )
 }
