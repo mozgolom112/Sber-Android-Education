@@ -21,6 +21,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -72,6 +73,12 @@ class GameFragment : Fragment() {
         viewModel.word.observe(this, Observer { newWord ->
             updateWordText(newWord)
         })
+        viewModel.eventGameFinish.observe(this, Observer { hasFinished ->
+            if (hasFinished) {
+                gameFinished()
+                viewModel.onGameFinishComplete()
+            }
+        })
     }
 
     private fun updateWordText(word: String) {
@@ -84,8 +91,8 @@ class GameFragment : Fragment() {
 
     /** Called when the game is finished **/
     private fun gameFinished() {
-        TODO("Add exception")
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+        val currentScore = viewModel.score.value ?: 0
+        val action = GameFragmentDirections.actionGameToScore(currentScore)
         findNavController(this).navigate(action)
     }
 
