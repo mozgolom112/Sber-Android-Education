@@ -39,14 +39,10 @@ class TitleFragment : Fragment() {
         val binding: TitleFragmentBinding = DataBindingUtil.inflate(
                inflater, R.layout.title_fragment, container, false)
 
-        //выдает ошибку при использовании синтетиков, так как объект null
         binding.BtnPlayGame.setOnClickListener {
             findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
         }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }

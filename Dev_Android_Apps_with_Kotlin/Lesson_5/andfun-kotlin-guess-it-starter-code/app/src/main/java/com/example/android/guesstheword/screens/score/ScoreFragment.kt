@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -39,14 +40,12 @@ import kotlinx.android.synthetic.main.score_fragment.*
  */
 class ScoreFragment : Fragment() {
 
-    private val viewModel: ScoreViewModel
-            by lazy {  ViewModelProvider(this, viewModelFactory)
-                    .get(ScoreViewModel::class.java)}
-
     private val viewModelFactory: ScoreViewModelFactory by lazy {
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
         ScoreViewModelFactory(scoreFragmentArgs.score)
     }
+
+    private val viewModel: ScoreViewModel by viewModels { viewModelFactory }
 
     private lateinit var binding: ScoreFragmentBinding
 
