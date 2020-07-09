@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
             android:text="@string/start"
+            android:onClick="@{() -> sleepTrackerViewModel.onStartTrackingClick()}"
             app:layout_constraintBaseline_toBaselineOf="@id/btnStop"
             app:layout_constraintEnd_toStartOf="@+id/btnStop"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -85,6 +86,7 @@
             android:layout_marginTop="@dimen/margin"
             android:layout_marginEnd="@dimen/margin"
             android:text="@string/stop"
+            android:onClick="@{() -> sleepTrackerViewModel.onStopTrackingClick()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnStart"
             app:layout_constraintTop_toTopOf="parent" />
@@ -98,6 +100,7 @@
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
             android:text="@string/clear"
+            android:onClick="@{() -> sleepTrackerViewModel.onClearClick()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
