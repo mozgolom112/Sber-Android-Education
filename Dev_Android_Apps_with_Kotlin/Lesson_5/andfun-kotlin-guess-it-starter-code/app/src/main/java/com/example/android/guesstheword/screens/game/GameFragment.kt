@@ -33,13 +33,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
 import kotlinx.android.synthetic.main.game_fragment.*
 
-/**
- * Fragment where the game is played
- */
 class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel
@@ -55,55 +53,40 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
-        binding.gameViewModel = viewModel
-        binding.setLifecycleOwner(this)
+
+        setDataBinding()
         setObservers()
         return binding.root
     }
 
+    private fun setDataBinding() {
+        binding.apply {
+            gameViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+    }
+
     private fun setObservers() {
-//        viewModel.score.observe(this, Observer {   newScore ->
-//            updateScoreText(newScore)
-//        })
-//        viewModel.word.observe(this, Observer { newWord ->
-//            updateWordText(newWord)
-//        })
-        viewModel.eventGameFinish.observe(this, Observer { hasFinished ->
-            if (hasFinished) {
-                gameFinished()
-                viewModel.onGameFinishComplete()
-            }
-        })
-//        viewModel.currentTime.observe(this, Observer { newTime ->
-//            updateTimerText(newTime)
-//        })
-        viewModel.eventBuzz.observe(this, Observer { buzzType ->
-            if (buzzType != GameViewModel.BuzzType.NO_BUZZ) {
-                buzz(buzzType.pattern)
-                viewModel.onBuzzComplete()
-            }
-        })
-    }
-
-    private fun updateWordText(word: String) {
-        binding.TextWord.text = word
-    }
-
-    private fun updateScoreText(score: Int) {
-        binding.TextScore.text = score.toString()
-    }
-
-    private fun updateTimerText(time: Long){
-        binding.TextTimer.text = DateUtils.formatElapsedTime(time)
+        viewModel.apply {
+            eventGameFinish.observe(viewLifecycleOwner, Observer { hasFinished ->
+                if (hasFinished) {
+                    gameFinished()
+                    onGameFinishComplete()
+                }
+            })
+            eventBuzz.observe(viewLifecycleOwner, Observer { buzzType ->
+                if (buzzType != GameViewModel.BuzzType.NO_BUZZ) {
+                    buzz(buzzType.pattern)
+                    onBuzzComplete()
+                }
+            })
+        }
     }
 
     /** Called when the game is finished **/
     private fun gameFinished() {
-        val currentScore = viewModel.score.value ?: 0
-        //TODO("ISSUE 1 - при отсутсвии нажатий на кнопки после инициализации, выдает ошибку в
-        // навигации")
-        val action = GameFragmentDirections.actionGameToScore(currentScore)
-        findNavController(this).navigate(action)
+        val action = GameFragmentDirections.actionGameToScore(viewModel.score.value ?: 0)
+        findNavController().navigate(action)
     }
 
     private fun buzz(pattern: LongArray) {

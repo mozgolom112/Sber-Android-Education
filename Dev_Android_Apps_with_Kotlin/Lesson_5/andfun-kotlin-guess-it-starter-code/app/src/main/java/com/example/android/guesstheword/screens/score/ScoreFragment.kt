@@ -54,37 +54,29 @@ class ScoreFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         // Inflate view and obtain an instance of the binding class.
-        val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.score_fragment,
                 container,
                 false
         )
-        binding.scoreViewModel = viewModel
-        binding.setLifecycleOwner(this)
-        //setDataBinding()
+        setDataBinding()
         setObservers()
         return binding.root
     }
-    //TODO("ISSUE 2 - выдает ошибку, что еще binging не проинициализирован)
     private fun setDataBinding() {
-        binding.scoreViewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.apply {
+            scoreViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
     private fun setObservers(){
-      //viewModel.score.observe(this, Observer {
-      //     updateTextScore()
-      // } )
-       viewModel.eventPlayAgain.observe(this, Observer { hasPressedPlayAgain ->
+       viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { hasPressedPlayAgain ->
            if (hasPressedPlayAgain) {
                 onPlayAgain()
             }
         })
-    }
-
-    private fun updateTextScore(){
-        TextScore.text = viewModel.score.value.toString()
     }
 
     private fun onPlayAgain() {

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ScoreViewModel(finalScore: Int) : ViewModel() {
+class ScoreViewModel(finalScore: Int = 0) : ViewModel() {
 
     private val _score by lazy { MutableLiveData<Int>() }
     val score: LiveData<Int>

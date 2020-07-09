@@ -31,45 +31,48 @@ class GameViewModel : ViewModel() {
     }
 
     private val timer: CountDownTimer by lazy {
-        object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) {
-                Log.i("Check Timer", DateUtils.formatElapsedTime(millisUntilFinished / ONE_SECOND))
-                _currentTime.value = (millisUntilFinished / ONE_SECOND)
-                if (millisUntilFinished / ONE_SECOND <= COUNTDOWN_PANIC_SECONDS) {
-                    _eventBuzz.value = BuzzType.COUNTDOWN_PANIC
-                }
-            }
+        initCountDownTimer()
+    }
 
-            override fun onFinish() {
-                _currentTime.value = DONE
-                _eventGameFinish.value = true
-                _eventBuzz.value = BuzzType.GAME_OVER
-                Log.i("Check Timer", "Game finish")
-
+    private fun initCountDownTimer() = object : CountDownTimer(COUNTDOWN_TIME, ONE_SECOND) {
+        override fun onTick(millisUntilFinished: Long) {
+            Log.i("Check Timer", DateUtils.formatElapsedTime(millisUntilFinished / ONE_SECOND))
+            _currentTime.value = (millisUntilFinished / ONE_SECOND)
+            if (millisUntilFinished / ONE_SECOND <= COUNTDOWN_PANIC_SECONDS) {
+                _eventBuzz.value = BuzzType.COUNTDOWN_PANIC
             }
+        }
+
+        override fun onFinish() {
+            _currentTime.value = DONE
+            _eventGameFinish.value = true
+            //timer.cancel()
+            _eventBuzz.value = BuzzType.GAME_OVER
+            Log.i("Check Timer", "Game finish")
+
         }
     }
 
-    private val _currentTime by lazy { MutableLiveData<Long>() }
-    val currentTime : LiveData<Long>
+    private val _currentTime = MutableLiveData<Long>()
+    private val currentTime : LiveData<Long>
         get() = _currentTime
-    val currentTimeString = Transformations.map(currentTime, { time ->
+    val currentTimeString = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime(time)
-    })
+    }
 
-    private val _word by lazy { MutableLiveData<String>() }
+    private val _word = MutableLiveData<String>()
     val word: LiveData<String>
         get() = _word
 
-    private val _score by lazy { MutableLiveData<Int>() }
+    private val _score = MutableLiveData<Int>()
     val score: LiveData<Int>
         get() = _score
 
-    private val _eventGameFinish by lazy { MutableLiveData<Boolean>()}
+    private val _eventGameFinish  = MutableLiveData<Boolean>()
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
 
-    private val _eventBuzz by lazy { MutableLiveData<BuzzType>() }
+    private val _eventBuzz = MutableLiveData<BuzzType>()
     val eventBuzz: LiveData<BuzzType>
         get() = _eventBuzz
 
@@ -81,15 +84,16 @@ class GameViewModel : ViewModel() {
     }
 
     init {
+        startInitialization()
+    }
+
+    private fun startInitialization() {
         _eventGameFinish.value = false
         _currentTime.value = 0
         _word.value = ""
         _score.value = 0
         resetList()
         nextWord()
-
-        timer.start()
-
     }
 
     private fun resetList() {
@@ -98,9 +102,8 @@ class GameViewModel : ViewModel() {
     }
 
     private fun nextWord() {
-        if (wordList.isEmpty()) {
-            resetList()
-        }
+        if (wordList.isEmpty()) resetList()
+
         _word.value = wordList.removeAt(0)
         restartTimer()
     }
