@@ -33,7 +33,7 @@
         tools:context=".sleepquality.SleepQualityFragment">
 
         <TextView
-            android:id="@+id/title_text"
+            android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
@@ -42,45 +42,45 @@
             android:fontFamily="@font/roboto"
             android:text="@string/how_was_hour_sleep"
             android:textSize="@dimen/title_text_size"
-            app:layout_constraintBottom_toTopOf="@+id/quality_zero_image"
+            app:layout_constraintBottom_toTopOf="@+id/imgViewQualityZero"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/quality_zero_image"
+            android:id="@+id/imgViewQualityZero"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/margin"
             android:layout_marginTop="@dimen/margin"
             android:contentDescription="@string/quality_0"
-            app:layout_constraintEnd_toStartOf="@+id/quality_one_image"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewQualityOne"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_text"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
             app:srcCompat="@drawable/ic_sleep_0" />
 
         <ImageView
-            android:id="@+id/quality_one_image"
+            android:id="@+id/imgViewQualityOne"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:contentDescription="@string/quality_1"
-            app:layout_constraintBottom_toBottomOf="@+id/quality_zero_image"
-            app:layout_constraintEnd_toStartOf="@+id/quality_two_image"
-            app:layout_constraintStart_toEndOf="@+id/quality_zero_image"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewQualityZero"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewQualityTwo"
+            app:layout_constraintStart_toEndOf="@+id/imgViewQualityZero"
             app:srcCompat="@drawable/ic_sleep_1" />
 
         <ImageView
-            android:id="@+id/quality_two_image"
+            android:id="@+id/imgViewQualityTwo"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginEnd="@dimen/margin"
             android:contentDescription="@string/quality_2"
-            app:layout_constraintBottom_toBottomOf="@+id/quality_one_image"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewQualityOne"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/quality_one_image"
+            app:layout_constraintStart_toEndOf="@+id/imgViewQualityOne"
             app:srcCompat="@drawable/ic_sleep_2" />
 
         <ImageView
-            android:id="@+id/quality_three_image"
+            android:id="@+id/imgViewQualityThree"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/margin"
@@ -88,33 +88,33 @@
             android:layout_marginBottom="@dimen/margin"
             android:contentDescription="@string/quality_3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/quality_four_image"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewQualityFour"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quality_zero_image"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewQualityZero"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_sleep_3" />
 
         <ImageView
-            android:id="@+id/quality_four_image"
+            android:id="@+id/imgViewQualityFour"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:contentDescription="@string/quality_4"
-            app:layout_constraintBottom_toBottomOf="@+id/quality_three_image"
-            app:layout_constraintEnd_toStartOf="@+id/quality_five_image"
-            app:layout_constraintStart_toEndOf="@+id/quality_three_image"
-            app:layout_constraintTop_toTopOf="@+id/quality_three_image"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewQualityThree"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewQualityFive"
+            app:layout_constraintStart_toEndOf="@+id/imgViewQualityThree"
+            app:layout_constraintTop_toTopOf="@+id/imgViewQualityThree"
             app:srcCompat="@drawable/ic_sleep_4" />
 
         <ImageView
-            android:id="@+id/quality_five_image"
+            android:id="@+id/imgViewQualityFive"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginEnd="@dimen/margin"
             android:contentDescription="@string/quality_5"
-            app:layout_constraintBottom_toBottomOf="@+id/quality_four_image"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewQualityFour"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/quality_four_image"
-            app:layout_constraintTop_toTopOf="@+id/quality_four_image"
+            app:layout_constraintStart_toEndOf="@+id/imgViewQualityFour"
+            app:layout_constraintTop_toTopOf="@+id/imgViewQualityFour"
             app:srcCompat="@drawable/ic_sleep_5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
