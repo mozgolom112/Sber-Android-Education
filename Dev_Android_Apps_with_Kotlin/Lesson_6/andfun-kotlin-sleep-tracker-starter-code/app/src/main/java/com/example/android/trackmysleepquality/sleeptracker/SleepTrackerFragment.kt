@@ -23,40 +23,31 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.room.PrimaryKey
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
+import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
 import kotlinx.android.synthetic.main.fragment_sleep_tracker.*
 
-/**
- * A fragment with buttons to record start and end times for sleep, which are saved in
- * a database. Cumulative data is displayed in a simple scrollable TextView.
- * (Because we have not learned about RecyclerView yet.)
- */
+
 class SleepTrackerFragment : Fragment() {
 
-    /**
-     * Called when the Fragment is ready to display content to the screen.
-     *
-     * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
-     */
+    private val sleepTrackerViewModel by lazy { initSleepViewModel() }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val sleepTrackerViewModel = initSleepViewModel()
-
         //TODO("Remove data binding, if it's possible")
-        val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_tracker, container, false)
+        val binding = initBinding(inflater, container)
 
-        binding.apply {
-            this.sleepTrackerViewModel = sleepTrackerViewModel
-            setLifecycleOwner(viewLifecycleOwner)
-            //TODO("It's okey use the code below?")
-            //return root
-        }
+        fulfillBinding(binding)
+
+        setObservers()
 
         return binding.root
     }
@@ -68,5 +59,33 @@ class SleepTrackerFragment : Fragment() {
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
         val sleepTrackerViewModel: SleepTrackerViewModel by viewModels { viewModelFactory }
         return  sleepTrackerViewModel
+    }
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?)
+            : FragmentSleepTrackerBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_sleep_tracker, container, false)
+
+    private fun fulfillBinding(binding: FragmentSleepTrackerBinding){
+        //TODO("Remove this variable")
+        val sleepTrackerViewModel = sleepTrackerViewModel
+        binding.apply {
+            this.sleepTrackerViewModel = sleepTrackerViewModel
+            setLifecycleOwner(viewLifecycleOwner)
+        }
+    }
+
+    private fun setObservers(){
+        sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
+            night -> navigateToSleepQuality(night)
+        })
+    }
+    
+    private fun navigateToSleepQuality(night: SleepNight?){
+        night?.let {
+            this.findNavController().navigate(
+                    SleepTrackerFragmentDirections
+                            .actionSleepTrackerFragmentToSleepQualityFragment(night.nightId))
+            sleepTrackerViewModel.doneNavigation()
+        }
     }
 }
