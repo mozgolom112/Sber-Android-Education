@@ -40,16 +40,15 @@ class SleepTrackerFragment : Fragment() {
 
     private val sleepTrackerViewModel by lazy { initSleepViewModel() }
 
+    private val sleepNightAdapter by lazy { SleepNightAdapter() }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         //TODO("Remove data binding, if it's possible")
         val binding = initBinding(inflater, container)
-
         fulfillBinding(binding)
-
         setObservers()
-
         return binding.root
     }
 
@@ -72,6 +71,7 @@ class SleepTrackerFragment : Fragment() {
         binding.apply {
             this.sleepTrackerViewModel = sleepTrackerViewModel
             setLifecycleOwner(viewLifecycleOwner)
+            recyclevSleep.adapter = sleepNightAdapter
         }
     }
 
@@ -82,6 +82,11 @@ class SleepTrackerFragment : Fragment() {
             })
             showSnackbarEvent.observe(viewLifecycleOwner, Observer { hasShowed ->
                 showSnackbar(hasShowed)
+            })
+            sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    sleepNightAdapter.data = it
+                }
             })
         }
 
