@@ -77,7 +77,7 @@ class SleepTrackerFragment : Fragment() {
             setLifecycleOwner(viewLifecycleOwner)
             recyclevSleep.apply {
                 adapter = sleepNightAdapter
-                layoutManager = GridLayoutManager(activity, 3)
+                layoutManager = customManager()
             }
         }
     }
@@ -89,7 +89,7 @@ class SleepTrackerFragment : Fragment() {
             })
             nights.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    sleepNightAdapter.submitList(it)
+                    sleepNightAdapter.addHeaderAndSubmitList(it)
                 }
             })
             navigateToSleepQuality.observe(viewLifecycleOwner, Observer { night ->
@@ -116,6 +116,18 @@ class SleepTrackerFragment : Fragment() {
         findNavController().navigate(SleepTrackerFragmentDirections
                 .actionSleepTrackerFragmentToSleepDetailFragment(night))
         sleepTrackerViewModel.onSleepDataQualityNavigated()
+    }
+
+
+    private fun customManager(): GridLayoutManager {
+        val manager = GridLayoutManager(activity, 3)
+        manager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int) = when(position) {
+                0 -> 3
+                else -> 1
+            }
+        }
+        return manager
     }
 
     private fun showSnackbar(hasShowed: Boolean){
