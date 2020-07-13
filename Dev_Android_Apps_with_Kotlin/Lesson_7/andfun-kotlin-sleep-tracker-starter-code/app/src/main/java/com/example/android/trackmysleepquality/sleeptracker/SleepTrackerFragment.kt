@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,15 +43,13 @@ class SleepTrackerFragment : Fragment() {
 
     private val sleepTrackerViewModel by lazy { initSleepViewModel() }
 
-    private val sleepNightAdapter by lazy { SleepNightAdapter() }
+    private val sleepNightAdapter by lazy { SleepNightAdapter(SleepNightListener {
+        nightId -> Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
+    }) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = initBinding(inflater, container)
-
-        var manager = GridLayoutManager(activity, 3)
-        binding.recyclevSleep.layoutManager = manager
-
         fulfillBinding(binding)
         setObservers()
         return binding.root
@@ -74,19 +73,10 @@ class SleepTrackerFragment : Fragment() {
         val sleepTrackerViewModel = sleepTrackerViewModel
         binding.apply {
             this.sleepTrackerViewModel = sleepTrackerViewModel
-            //TODO("Null ptr exception")
-            //setLifecycleOwner(viewLifecycleOwner)
             recyclevSleep.apply {
                 adapter = sleepNightAdapter
                 layoutManager = GridLayoutManager(activity, 3)
             }
-        }
-    }
-
-    private fun setPreferenceRecycleView(binding: FragmentSleepTrackerBinding){
-        recyclevSleep.apply {
-            adapter = sleepNightAdapter
-            layoutManager = GridLayoutManager(activity, 3)
         }
     }
 
@@ -106,7 +96,6 @@ class SleepTrackerFragment : Fragment() {
         }
     }
 
-    
     private fun navigateToSleepQuality(night: SleepNight?){
         night?.let {
             this.findNavController().navigate(
