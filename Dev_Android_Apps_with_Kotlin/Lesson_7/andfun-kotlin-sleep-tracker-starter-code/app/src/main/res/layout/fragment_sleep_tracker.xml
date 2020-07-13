@@ -46,10 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnStop" />
 
-        <!-- With data binding and LiveData, we can track the buttons' visibility states
-             from the ViewModel. The click handler is in the ViewModel as well, and
-             you can set it for the Views using this lambda pattern. -->
-
         <Button
             android:id="@+id/btnStart"
             style="@style/SleepButtons"
@@ -77,7 +73,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnStart"
             app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/btnClear"
             style="@style/SleepButtons"

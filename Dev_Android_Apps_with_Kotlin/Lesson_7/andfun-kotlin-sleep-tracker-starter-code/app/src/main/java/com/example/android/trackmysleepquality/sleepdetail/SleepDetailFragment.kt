@@ -30,15 +30,6 @@ import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepDetailBinding
 
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [SleepDetailFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [SleepDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class SleepDetailFragment : Fragment() {
 
     private val sleepDetailViewModel by lazy { initSleepDetailViewModel() }
@@ -48,11 +39,8 @@ class SleepDetailFragment : Fragment() {
 
         val binding: FragmentSleepDetailBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sleep_detail, container, false)
-        val sleepDetailViewModel = initSleepDetailViewModel()
         fulfillBinding(binding)
-
         setObservers()
-
         return binding.root
     }
 
@@ -71,7 +59,6 @@ class SleepDetailFragment : Fragment() {
             setLifecycleOwner(viewLifecycleOwner)
         }
     }
-
 
     private fun setObservers() {
         sleepDetailViewModel.apply {
