@@ -28,6 +28,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.PrimaryKey
@@ -44,7 +45,7 @@ class SleepTrackerFragment : Fragment() {
     private val sleepTrackerViewModel by lazy { initSleepViewModel() }
 
     private val sleepNightAdapter by lazy { SleepNightAdapter(SleepNightListener {
-        nightId -> Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
+        nightId -> sleepTrackerViewModel.onSleepNightClicked(nightId)
     }) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -88,9 +89,16 @@ class SleepTrackerFragment : Fragment() {
             showSnackbarEvent.observe(viewLifecycleOwner, Observer { hasShowed ->
                 showSnackbar(hasShowed)
             })
-            sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+            nights.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     sleepNightAdapter.submitList(it)
+                }
+            })
+            navigateToSleepDataQuality.observe(viewLifecycleOwner, Observer { night ->
+                night?.let {
+                    findNavController().navigate(SleepTrackerFragmentDirections
+                            .actionSleepTrackerFragmentToSleepDetailFragment(night))
+                    sleepTrackerViewModel.onSleepDataQualityNavigated()
                 }
             })
         }

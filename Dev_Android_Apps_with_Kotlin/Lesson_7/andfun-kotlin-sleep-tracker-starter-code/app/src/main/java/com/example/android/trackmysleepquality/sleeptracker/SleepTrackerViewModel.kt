@@ -32,11 +32,6 @@ class SleepTrackerViewModel(
         application: Application) : AndroidViewModel(application) {
     private var viewModelJob = Job()
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _tonight = MutableLiveData<SleepNight?>()
@@ -51,10 +46,6 @@ class SleepTrackerViewModel(
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
     val navigateToSleepQuality: LiveData<SleepNight>
         get() = _navigateToSleepQuality
-
-    fun doneNavigation() {
-        _navigateToSleepQuality.value = null
-    }
 
     val startButtonVisible = Transformations.map(tonight) {
         null == it
@@ -72,16 +63,31 @@ class SleepTrackerViewModel(
     val showSnackbarEvent: LiveData<Boolean>
         get() = _showSnackbarEvent
 
-    fun doneSnackBarEvent() {
-        _showSnackbarEvent.value = false
-    }
+    private val _navigateToSleepDataQuality = MutableLiveData<Long>()
+    val navigateToSleepDataQuality: LiveData<Long>
+        get() = _navigateToSleepDataQuality
 
     init {
         initializeTonight()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     private fun initializeTonight() {
         uiScope.launch {
+            _tonight.value = getTonightFromDatabase()
+        }
+    }
+
+    fun onStartTrackingClick() {
+        uiScope.launch {
+            val newNight = SleepNight()
+
+            insert(newNight)
+
             _tonight.value = getTonightFromDatabase()
         }
     }
@@ -96,20 +102,18 @@ class SleepTrackerViewModel(
         }
     }
 
-    fun onStartTrackingClick() {
-        uiScope.launch {
-            val newNight = SleepNight()
-
-            insert(newNight)
-
-            _tonight.value = getTonightFromDatabase()
-        }
-    }
-
     private suspend fun insert(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.insert(night)
         }
+    }
+
+    fun doneNavigation() {
+        _navigateToSleepQuality.value = null
+    }
+
+    fun doneSnackBarEvent() {
+        _showSnackbarEvent.value = false
     }
 
     fun onStopTrackingClick() {
@@ -141,6 +145,14 @@ class SleepTrackerViewModel(
         withContext(Dispatchers.IO){
             database.clear()
         }
+    }
+
+    fun onSleepNightClicked(id: Long){
+        _navigateToSleepDataQuality.value = id
+    }
+
+    fun onSleepDataQualityNavigated() {
+        _navigateToSleepDataQuality.value = null
     }
 }
 
