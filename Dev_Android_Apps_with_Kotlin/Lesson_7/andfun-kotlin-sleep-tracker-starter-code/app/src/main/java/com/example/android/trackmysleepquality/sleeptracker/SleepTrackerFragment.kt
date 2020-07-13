@@ -62,7 +62,7 @@ class SleepTrackerFragment : Fragment() {
         val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
         val sleepTrackerViewModel: SleepTrackerViewModel by viewModels { viewModelFactory }
-        return  sleepTrackerViewModel
+        return sleepTrackerViewModel
     }
 
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?)
@@ -71,9 +71,10 @@ class SleepTrackerFragment : Fragment() {
 
     private fun fulfillBinding(binding: FragmentSleepTrackerBinding){
         //TODO("Remove this variable")
-        val sleepTrackerViewModel = sleepTrackerViewModel
+        val sleepTrackerViewModelCopy = sleepTrackerViewModel
         binding.apply {
-            this.sleepTrackerViewModel = sleepTrackerViewModel
+            this.sleepTrackerViewModel = sleepTrackerViewModelCopy
+            setLifecycleOwner(viewLifecycleOwner)
             recyclevSleep.apply {
                 adapter = sleepNightAdapter
                 layoutManager = GridLayoutManager(activity, 3)
@@ -83,9 +84,6 @@ class SleepTrackerFragment : Fragment() {
 
     private fun setObservers(){
         sleepTrackerViewModel.apply {
-            navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
-                night -> navigateToSleepQuality(night)
-            })
             showSnackbarEvent.observe(viewLifecycleOwner, Observer { hasShowed ->
                 showSnackbar(hasShowed)
             })
@@ -94,11 +92,12 @@ class SleepTrackerFragment : Fragment() {
                     sleepNightAdapter.submitList(it)
                 }
             })
-            navigateToSleepDataQuality.observe(viewLifecycleOwner, Observer { night ->
+            navigateToSleepQuality.observe(viewLifecycleOwner, Observer { night ->
+                navigateToSleepQuality(night)
+            })
+            navigateToSleepDataQuality.observe(viewLifecycleOwner, Observer {night ->
                 night?.let {
-                    findNavController().navigate(SleepTrackerFragmentDirections
-                            .actionSleepTrackerFragmentToSleepDetailFragment(night))
-                    sleepTrackerViewModel.onSleepDataQualityNavigated()
+                    navigateToSleepDetail(night)
                 }
             })
         }
@@ -111,6 +110,12 @@ class SleepTrackerFragment : Fragment() {
                             .actionSleepTrackerFragmentToSleepQualityFragment(night.nightId))
             sleepTrackerViewModel.doneNavigation()
         }
+    }
+
+    private fun navigateToSleepDetail(night: Long) {
+        findNavController().navigate(SleepTrackerFragmentDirections
+                .actionSleepTrackerFragmentToSleepDetailFragment(night))
+        sleepTrackerViewModel.onSleepDataQualityNavigated()
     }
 
     private fun showSnackbar(hasShowed: Boolean){

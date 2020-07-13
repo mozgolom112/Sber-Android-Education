@@ -54,8 +54,9 @@ class SleepDetailFragment : Fragment() {
     }
 
     private fun fulfillBinding(binding: FragmentSleepDetailBinding) {
+        val sleepDetailViewModelCopy = sleepDetailViewModel
         binding.apply {
-            this.sleepDetailViewModel = sleepDetailViewModel
+            this.sleepDetailViewModel = sleepDetailViewModelCopy
             setLifecycleOwner(viewLifecycleOwner)
         }
     }
