@@ -45,10 +45,6 @@ class SleepQualityFragment : Fragment() {
         return binding.root
     }
 
-    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?)
-            : FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
-
     private fun initViewModel(): SleepQualityViewModel {
 
         val application = requireNotNull(this.activity).application
@@ -60,10 +56,16 @@ class SleepQualityFragment : Fragment() {
         return  viewModel
     }
 
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?)
+            : FragmentSleepQualityBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_sleep_quality, container, false)
+
+
     private fun fulfillBinding(binding: FragmentSleepQualityBinding){
         val sleepQualityViewModel = sleepQualityViewModel
         binding.apply {
             this.sleepQualityViewModel = sleepQualityViewModel
+            setLifecycleOwner(viewLifecycleOwner)
         }
     }
 
@@ -78,7 +80,7 @@ class SleepQualityFragment : Fragment() {
     }
 
     private fun navigateToSleepTracker(){
-        this.findNavController().navigate(
+        findNavController().navigate(
                 SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
         sleepQualityViewModel.doneNavigating()
     }

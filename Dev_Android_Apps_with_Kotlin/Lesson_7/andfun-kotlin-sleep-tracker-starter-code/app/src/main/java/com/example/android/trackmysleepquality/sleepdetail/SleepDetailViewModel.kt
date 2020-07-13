@@ -35,8 +35,6 @@ class SleepDetailViewModel(
 
     val database = dataSource
 
-    private val viewModelJob = Job()
-
     private val night = MediatorLiveData<SleepNight>()
 
     fun getNight() = night
@@ -49,11 +47,6 @@ class SleepDetailViewModel(
 
     val navigateToSleepTracker: LiveData<Boolean?>
         get() = _navigateToSleepTracker
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     fun doneNavigating() {
         _navigateToSleepTracker.value = null

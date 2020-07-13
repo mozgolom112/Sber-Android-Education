@@ -44,9 +44,9 @@ class SleepTrackerFragment : Fragment() {
 
     private val sleepTrackerViewModel by lazy { initSleepViewModel() }
 
-    private val sleepNightAdapter by lazy { SleepNightAdapter(SleepNightListener {
-        nightId -> sleepTrackerViewModel.onSleepNightClicked(nightId)
-    }) }
+    private val sleepNightAdapter by lazy {
+        SleepNightAdapter { nightId -> sleepTrackerViewModel.onSleepNightClicked(nightId) }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -118,7 +118,6 @@ class SleepTrackerFragment : Fragment() {
         sleepTrackerViewModel.onSleepDataQualityNavigated()
     }
 
-
     private fun customManager(): GridLayoutManager {
         val manager = GridLayoutManager(activity, 3)
         manager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
@@ -133,7 +132,7 @@ class SleepTrackerFragment : Fragment() {
     private fun showSnackbar(hasShowed: Boolean){
         if (hasShowed) {
             Snackbar.make(
-                    activity!!.findViewById(android.R.id.content),
+                    requireActivity().findViewById(android.R.id.content),
                     getString(R.string.cleared_message),
                     Snackbar.LENGTH_SHORT
             ).show()
