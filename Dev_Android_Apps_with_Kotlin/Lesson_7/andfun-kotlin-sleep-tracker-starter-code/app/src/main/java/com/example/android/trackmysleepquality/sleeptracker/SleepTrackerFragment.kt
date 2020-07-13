@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,6 +28,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.PrimaryKey
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepDatabase
@@ -44,9 +46,11 @@ class SleepTrackerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        //TODO("Remove data binding, if it's possible")
         val binding = initBinding(inflater, container)
+
+        var manager = GridLayoutManager(activity, 3)
+        binding.recyclevSleep.layoutManager = manager
+
         fulfillBinding(binding)
         setObservers()
         return binding.root
@@ -70,8 +74,19 @@ class SleepTrackerFragment : Fragment() {
         val sleepTrackerViewModel = sleepTrackerViewModel
         binding.apply {
             this.sleepTrackerViewModel = sleepTrackerViewModel
-            setLifecycleOwner(viewLifecycleOwner)
-            recyclevSleep.adapter = sleepNightAdapter
+            //TODO("Null ptr exception")
+            //setLifecycleOwner(viewLifecycleOwner)
+            recyclevSleep.apply {
+                adapter = sleepNightAdapter
+                layoutManager = GridLayoutManager(activity, 3)
+            }
+        }
+    }
+
+    private fun setPreferenceRecycleView(binding: FragmentSleepTrackerBinding){
+        recyclevSleep.apply {
+            adapter = sleepNightAdapter
+            layoutManager = GridLayoutManager(activity, 3)
         }
     }
 
@@ -89,8 +104,8 @@ class SleepTrackerFragment : Fragment() {
                 }
             })
         }
-
     }
+
     
     private fun navigateToSleepQuality(night: SleepNight?){
         night?.let {
