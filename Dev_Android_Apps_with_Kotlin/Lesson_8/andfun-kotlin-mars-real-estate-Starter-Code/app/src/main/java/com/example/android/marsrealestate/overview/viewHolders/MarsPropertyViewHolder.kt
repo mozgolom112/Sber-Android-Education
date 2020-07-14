@@ -8,7 +8,7 @@ import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.bindImage
 import com.example.android.marsrealestate.network.MarsProperty
 
-class MarsPropertyViewHolder(private var view: View) :
+class MarsPropertyViewHolder(private val view: View) :
         RecyclerView.ViewHolder(view) {
     private val imageView : ImageView = view.findViewById(R.id.imgvMars)
 
