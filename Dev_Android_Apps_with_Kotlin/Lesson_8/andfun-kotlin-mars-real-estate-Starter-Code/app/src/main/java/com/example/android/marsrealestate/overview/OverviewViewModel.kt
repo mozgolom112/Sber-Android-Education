@@ -35,6 +35,7 @@ class OverviewViewModel : ViewModel() {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val properties = MutableLiveData<List<MarsProperty>>()
     val status = MutableLiveData<MarsApiStatus>()
+    val navigateToSelectedProperty = MutableLiveData<MarsProperty>()
 
     init {
         getMarsRealEstateProperties()
@@ -60,5 +61,13 @@ class OverviewViewModel : ViewModel() {
                 properties.value = ArrayList()
             }
         }
+    }
+
+    fun displayPropertyDetails(marsProperty: MarsProperty) {
+        navigateToSelectedProperty.value = marsProperty
+    }
+
+    fun displayPropertyDetailsComplete() {
+        navigateToSelectedProperty.value = null
     }
 }
