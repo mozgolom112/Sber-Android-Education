@@ -17,6 +17,7 @@
 
 package com.example.android.marsrealestate.overview
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.marsrealestate.network.MarsApi
@@ -25,15 +26,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.Exception
 
 class OverviewViewModel : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    val response = MutableLiveData<String>()
+    val property = MutableLiveData<MarsProperty>()
+    val status = MutableLiveData<String>()
 
     init {
         getMarsRealEstateProperties()
@@ -49,9 +48,14 @@ class OverviewViewModel : ViewModel() {
             var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
                 var listResult = getPropertiesDeferred.await()
-                response.value = "Success: ${listResult.size} Mars properties retrieve"
+                status.value = "Success: ${listResult.size} Mars properties retrieve"
+                Log.i("Status", "${status.value}")
+                if (listResult.isNotEmpty()){
+                    property.value = listResult[0]
+                }
+                Log.i("SrcUrlDownload", "${property.value?.imgSrcUrl}")
             } catch (e: Exception) {
-                response.value = "Failure: " + e.message
+                status.value = "Failure: " + e.message
             }
         }
     }
