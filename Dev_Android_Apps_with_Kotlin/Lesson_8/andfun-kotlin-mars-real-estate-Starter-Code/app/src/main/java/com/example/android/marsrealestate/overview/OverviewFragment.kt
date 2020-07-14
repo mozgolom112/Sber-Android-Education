@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.android.marsrealestate.R
 import kotlinx.android.synthetic.main.fragment_overview.*
 
@@ -31,6 +32,7 @@ class OverviewFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val viewRoot = inflater.inflate(R.layout.fragment_overview, container, false)
+        setObservers()
         setHasOptionsMenu(true)
         return viewRoot
     }
@@ -38,7 +40,7 @@ class OverviewFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //устанавливаем базовые значения для views здесь
-        setResponse()
+        setResponse("Base url")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -46,7 +48,15 @@ class OverviewFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun setResponse(){
-        txtvResponse.text = viewModel.response.value
+    private fun setObservers() {
+        viewModel.apply {
+            response.observe(viewLifecycleOwner, Observer { response ->
+                setResponse(response)
+            })
+        }
+    }
+
+    private fun setResponse(response: String){
+        txtvResponse.text = response
     }
 }
