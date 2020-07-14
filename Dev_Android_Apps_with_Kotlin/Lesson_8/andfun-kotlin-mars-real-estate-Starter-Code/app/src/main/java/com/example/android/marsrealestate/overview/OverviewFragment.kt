@@ -21,9 +21,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
 import com.example.android.marsrealestate.R
-import com.example.android.marsrealestate.databinding.FragmentOverviewBinding
+import kotlinx.android.synthetic.main.fragment_overview.*
 
 class OverviewFragment : Fragment() {
 
@@ -31,23 +30,23 @@ class OverviewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = FragmentOverviewBinding.inflate(inflater)
-        fulfillBinding(binding)
-
+        val viewRoot = inflater.inflate(R.layout.fragment_overview, container, false)
         setHasOptionsMenu(true)
-        return binding.root
+        return viewRoot
     }
 
-    private fun fulfillBinding(binding: FragmentOverviewBinding) {
-        binding.apply{
-            lifecycleOwner = viewLifecycleOwner
-            viewModelOverview = viewModel
-        }
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //устанавливаем базовые значения для views здесь
+        setResponse()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun setResponse(){
+        txtvResponse.text = viewModel.response.value
     }
 }
