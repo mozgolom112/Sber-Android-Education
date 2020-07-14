@@ -31,7 +31,7 @@ import java.lang.Exception
 class OverviewViewModel : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    val property = MutableLiveData<MarsProperty>()
+    val properties = MutableLiveData<List<MarsProperty>>()
     val status = MutableLiveData<String>()
 
     init {
@@ -51,9 +51,8 @@ class OverviewViewModel : ViewModel() {
                 status.value = "Success: ${listResult.size} Mars properties retrieve"
                 Log.i("Status", "${status.value}")
                 if (listResult.isNotEmpty()){
-                    property.value = listResult[0]
+                    properties.value = listResult
                 }
-                Log.i("SrcUrlDownload", "${property.value?.imgSrcUrl}")
             } catch (e: Exception) {
                 status.value = "Failure: " + e.message
             }
