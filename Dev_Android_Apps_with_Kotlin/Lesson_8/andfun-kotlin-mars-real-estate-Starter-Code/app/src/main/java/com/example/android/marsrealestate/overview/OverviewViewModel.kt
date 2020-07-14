@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class OverviewViewModel : ViewModel() {
     private var viewModelJob = Job()
@@ -49,8 +50,8 @@ class OverviewViewModel : ViewModel() {
             try {
                 var listResult = getPropertiesDeferred.await()
                 response.value = "Success: ${listResult.size} Mars properties retrieve"
-            } catch (t: Throwable) {
-                response.value = "Failure: " + t.message
+            } catch (e: Exception) {
+                response.value = "Failure: " + e.message
             }
         }
     }
