@@ -25,6 +25,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.bindRecyclerView
+import com.example.android.marsrealestate.bindStatus
 import com.example.android.marsrealestate.overview.adapters.PhotoGridAdapter
 import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.grid_view_item.*
@@ -54,7 +55,8 @@ class OverviewFragment : Fragment() {
     private fun setObservers() {
         Log.i("SetObservers", "Setted")
         viewModel.apply {
-            status.observe(viewLifecycleOwner, Observer { response ->
+            status.observe(viewLifecycleOwner, Observer { status ->
+                imgvStatus.bindStatus(status)
             })
             properties.observe(viewLifecycleOwner, Observer { propertyList ->
                 gridvPhotos.bindRecyclerView(propertyList)
