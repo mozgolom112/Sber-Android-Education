@@ -23,12 +23,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.bindRecyclerView
 import com.example.android.marsrealestate.bindStatus
 import com.example.android.marsrealestate.overview.adapters.PhotoGridAdapter
 import kotlinx.android.synthetic.main.fragment_overview.*
-import kotlinx.android.synthetic.main.grid_view_item.*
 
 class OverviewFragment : Fragment() {
 
@@ -61,10 +61,23 @@ class OverviewFragment : Fragment() {
             properties.observe(viewLifecycleOwner, Observer { propertyList ->
                 gridvPhotos.bindRecyclerView(propertyList)
             })
+            navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {marsProperty ->
+                if (marsProperty != null){
+                    findNavController()
+                            .navigate(OverviewFragmentDirections.actionShowDetail(marsProperty))
+                    viewModel.displayPropertyDetailsComplete()
+                }
+            })
         }
     }
 
     private fun setAdapter() {
-        gridvPhotos.adapter = PhotoGridAdapter()
+        gridvPhotos.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {marsProperty ->
+            viewModel.displayPropertyDetails(marsProperty)
+        })
+    }
+
+    private fun onItemClick(){
+
     }
 }
