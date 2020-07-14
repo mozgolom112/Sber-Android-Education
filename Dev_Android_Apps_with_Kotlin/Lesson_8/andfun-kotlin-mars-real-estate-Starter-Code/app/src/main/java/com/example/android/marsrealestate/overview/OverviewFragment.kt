@@ -18,16 +18,21 @@
 package com.example.android.marsrealestate.overview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.android.marsrealestate.R
+import com.example.android.marsrealestate.overview.adapter.ImageAdapter
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_overview.*
+import kotlinx.android.synthetic.main.grid_view_item.*
 
 class OverviewFragment : Fragment() {
 
     private val viewModel: OverviewViewModel by viewModels()
+    private val imageAdapter: ImageAdapter = ImageAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,6 +46,7 @@ class OverviewFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         //устанавливаем базовые значения для views здесь
         setResponse("Base url")
+        //setPicture()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -49,14 +55,30 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setObservers() {
+        Log.i("SetObservers", "Setted")
         viewModel.apply {
-            response.observe(viewLifecycleOwner, Observer { response ->
+            status.observe(viewLifecycleOwner, Observer { response ->
                 setResponse(response)
+            })
+            property.observe(viewLifecycleOwner, Observer { property ->
+                setUrlToImgText(property.imgSrcUrl)
+                Log.i("SrcURLIntoObserver", "${property.imgSrcUrl}")
+                //setPicture()
             })
         }
     }
 
     private fun setResponse(response: String){
         txtvResponse.text = response
+    }
+
+    private fun setPicture() {
+        val imgSrcUrl = viewModel.property.value?.imgSrcUrl
+        Log.i("SrcURLIntoObserver", "${imgSrcUrl}")
+        imageAdapter.bindImage(imgvMars, imgSrcUrl)
+    }
+
+    private fun setUrlToImgText(url: String){
+        txtvResponse.text = url
     }
 }
