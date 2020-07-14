@@ -27,7 +27,7 @@ import com.example.android.marsrealestate.overview.viewHolders.MarsPropertyViewH
 import kotlinx.android.synthetic.main.grid_view_item.view.*
 import java.util.zip.Inflater
 
-class PhotoGridAdapter: ListAdapter<MarsProperty, MarsPropertyViewHolder>(DiffCallback){
+class PhotoGridAdapter(private val onClickListener: OnClickListener): ListAdapter<MarsProperty, MarsPropertyViewHolder>(DiffCallback){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarsPropertyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -36,6 +36,12 @@ class PhotoGridAdapter: ListAdapter<MarsProperty, MarsPropertyViewHolder>(DiffCa
     }
 
     override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
-         holder.bind(getItem(position))
+        val marsProperty = getItem(position)
+        holder.itemView.setOnClickListener { onClickListener.onClick(marsProperty) }
+        holder.bind(marsProperty)
+    }
+
+    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit){
+        fun onClick(marsProperty: MarsProperty) = clickListener(marsProperty)
     }
 }
