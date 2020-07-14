@@ -31,10 +31,15 @@ class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        @Suppress("UNUSED_VARIABLE")
         val application = requireNotNull(activity).application
         val binding = FragmentDetailBinding.inflate(inflater)
-        binding.setLifecycleOwner(this)
+        fulfillBinding(binding)
         return binding.root
+    }
+
+    private fun fulfillBinding(binding: FragmentDetailBinding){
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 }
