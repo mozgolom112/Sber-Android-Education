@@ -28,11 +28,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
+enum class MarsApiStatus {LOADING, ERROR, DONE}
+
 class OverviewViewModel : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val properties = MutableLiveData<List<MarsProperty>>()
-    val status = MutableLiveData<String>()
+    val status = MutableLiveData<MarsApiStatus>()
 
     init {
         getMarsRealEstateProperties()
@@ -47,14 +49,15 @@ class OverviewViewModel : ViewModel() {
         uiScope.launch {
             var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
+                status.value = MarsApiStatus.LOADING
                 var listResult = getPropertiesDeferred.await()
-                status.value = "Success: ${listResult.size} Mars properties retrieve"
-                Log.i("Status", "${status.value}")
+                status.value = MarsApiStatus.DONE
                 if (listResult.isNotEmpty()){
                     properties.value = listResult
                 }
             } catch (e: Exception) {
-                status.value = "Failure: " + e.message
+                status.value = MarsApiStatus.ERROR
+                properties.value = ArrayList()
             }
         }
     }
