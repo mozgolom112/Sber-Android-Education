@@ -27,6 +27,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.android.marsrealestate.R
 import com.example.android.marsrealestate.bindRecyclerView
 import com.example.android.marsrealestate.bindStatus
+import com.example.android.marsrealestate.network.MarsApiFilter
 import com.example.android.marsrealestate.overview.adapters.PhotoGridAdapter
 import kotlinx.android.synthetic.main.fragment_overview.*
 
@@ -69,6 +70,17 @@ class OverviewFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        viewModel.updateFilter(
+                when (item.itemId) {
+                    R.id.menuShowAll -> MarsApiFilter.SHOW_ALL
+                    R.id.menuShowBuy -> MarsApiFilter.SHOW_BUY
+                    else -> MarsApiFilter.SHOW_RENT
+                }
+        )
+        return true
     }
 
     private fun setAdapter() {
