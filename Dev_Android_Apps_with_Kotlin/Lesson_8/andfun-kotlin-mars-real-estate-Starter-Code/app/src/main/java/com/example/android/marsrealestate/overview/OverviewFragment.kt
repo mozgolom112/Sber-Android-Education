@@ -24,15 +24,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.android.marsrealestate.R
-import com.example.android.marsrealestate.overview.adapter.ImageAdapter
-import kotlinx.android.synthetic.main.fragment_detail.*
+import com.example.android.marsrealestate.bindRecyclerView
+import com.example.android.marsrealestate.overview.adapters.PhotoGridAdapter
 import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.grid_view_item.*
 
 class OverviewFragment : Fragment() {
 
     private val viewModel: OverviewViewModel by viewModels()
-    private val imageAdapter: ImageAdapter = ImageAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,9 +43,7 @@ class OverviewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //устанавливаем базовые значения для views здесь
-        setResponse("Base url")
-        //setPicture()
+        setAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -58,27 +55,14 @@ class OverviewFragment : Fragment() {
         Log.i("SetObservers", "Setted")
         viewModel.apply {
             status.observe(viewLifecycleOwner, Observer { response ->
-                setResponse(response)
             })
-            property.observe(viewLifecycleOwner, Observer { property ->
-                setUrlToImgText(property.imgSrcUrl)
-                Log.i("SrcURLIntoObserver", "${property.imgSrcUrl}")
-                //setPicture()
+            properties.observe(viewLifecycleOwner, Observer { propertyList ->
+                gridvPhotos.bindRecyclerView(propertyList)
             })
         }
     }
 
-    private fun setResponse(response: String){
-        txtvResponse.text = response
-    }
-
-    private fun setPicture() {
-        val imgSrcUrl = viewModel.property.value?.imgSrcUrl
-        Log.i("SrcURLIntoObserver", "${imgSrcUrl}")
-        imageAdapter.bindImage(imgvMars, imgSrcUrl)
-    }
-
-    private fun setUrlToImgText(url: String){
-        txtvResponse.text = url
+    private fun setAdapter() {
+        gridvPhotos.adapter = PhotoGridAdapter()
     }
 }
