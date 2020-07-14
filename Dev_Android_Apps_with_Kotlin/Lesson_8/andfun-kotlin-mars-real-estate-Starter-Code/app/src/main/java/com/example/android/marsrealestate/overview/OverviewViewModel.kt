@@ -21,28 +21,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.marsrealestate.network.MarsApi
 import com.example.android.marsrealestate.network.MarsProperty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class OverviewViewModel : ViewModel() {
-
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val response = MutableLiveData<String>()
 
     init {
         getMarsRealEstateProperties()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.getProperties().enqueue(object: Callback<List<MarsProperty>> {
-            override fun onFailure(call: Call<List<MarsProperty>>, t: Throwable) {
+        uiScope.launch {
+            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
+            try {
+                var listResult = getPropertiesDeferred.await()
+                response.value = "Success: ${listResult.size} Mars properties retrieve"
+            } catch (t: Throwable) {
                 response.value = "Failure: " + t.message
             }
-            override fun onResponse(
-                    call: Call<List<MarsProperty>>,
-                    responseFromServer: Response<List<MarsProperty>>) {
-                response.value = "Success: ${responseFromServer.body()?.size} Mars properties retrieve"
-            }
-        })
+        }
     }
 }
