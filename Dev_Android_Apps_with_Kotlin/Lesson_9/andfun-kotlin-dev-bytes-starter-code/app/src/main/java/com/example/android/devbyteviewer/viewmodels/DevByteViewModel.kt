@@ -19,14 +19,12 @@ package com.example.android.devbyteviewer.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.android.devbyteviewer.domain.Video
-import com.example.android.devbyteviewer.network.Network
-import com.example.android.devbyteviewer.network.asDomainModel
+import com.example.android.devbyteviewer.database.getDatabase
+import com.example.android.devbyteviewer.repository.VideosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 /**
  * DevByteViewModel designed to store and manage UI-related data in a lifecycle conscious way. This
@@ -41,13 +39,15 @@ import java.io.IOException
 class DevByteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val viewModelJob = SupervisorJob()
-
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob )
-
-    val playlist = MutableLiveData<List<Video>>()
+    private val database = getDatabase(application.applicationContext)
+    private val videosRepository = VideosRepository(database)
+    val playlist = videosRepository.videos
 
     init {
-        refreshDataFromNetwork()
+        viewModelScope.launch {
+            videosRepository.refreshVideos()
+        }
     }
 
     override fun onCleared() {
@@ -55,23 +55,6 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
         viewModelJob.cancel()
     }
 
-    /**
-     * Refresh data from network and pass it via LiveData. Use a coroutine launch to get to
-     * background thread.
-     */
-    private fun refreshDataFromNetwork() = viewModelScope.launch {
-        try {
-            val downloadPlaylist = Network.devbytes.getPlaylist().await()
-            playlist.postValue(downloadPlaylist.asDomainModel())
-        } catch (networkError: IOException) {
-            // Show an infinite loading spinner if the request fails
-            // challenge exercise: show an error to the user if the network request fails
-        }
-    }
-
-    /**
-     * Factory for constructing DevByteViewModel with parameter
-     */
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
