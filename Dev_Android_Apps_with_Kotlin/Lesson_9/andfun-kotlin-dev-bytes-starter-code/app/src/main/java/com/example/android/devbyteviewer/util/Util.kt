@@ -17,6 +17,12 @@
 
 package com.example.android.devbyteviewer.util
 
+import android.net.Uri
+import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.example.android.devbyteviewer.domain.Video
+
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
 /**
@@ -47,4 +53,23 @@ fun String.smartTruncate(length: Int): String {
         builder.append("...")
     }
     return builder.toString()
+}
+
+/**
+ * Helper method to generate YouTube app links
+ */
+val Video.launchUri: Uri
+    get() {
+        val httpUri = Uri.parse(url)
+        return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))
+    }
+
+fun View.goneIfNotNull(it: Any?) {
+    visibility = if (it != null) View.GONE else View.VISIBLE
+}
+
+fun ImageView.setImageUrl(url: String) {
+    Glide.with(context)
+            .load(url)
+            .into(this)
 }
