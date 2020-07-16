@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import com.example.android.gdgfinder.databinding.FragmentGdgListBinding
+import com.example.android.gdgfinder.R
+import com.example.android.gdgfinder.bindRecyclerView
+import com.example.android.gdgfinder.showOnlyWhenEmpty
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_gdg_list.*
 
 private const val LOCATION_PERMISSION_REQUEST = 1
 
@@ -21,44 +24,49 @@ private const val LOCATION_PERMISSION = "android.permission.ACCESS_FINE_LOCATION
 
 class GdgListFragment : Fragment() {
 
+    private val viewModel: GdgListViewModel by viewModels()
 
-    private val viewModel: GdgListViewModel by lazy {
-        ViewModelProviders.of(this).get(GdgListViewModel::class.java)
-    }
+    private var viewModelAdapter: GdgListAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val binding = FragmentGdgListBinding.inflate(inflater)
+                              savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_gdg_list, container, false)
 
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.setLifecycleOwner(this)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Giving the binding access to the OverviewViewModel
-        binding.viewModel = viewModel
-
-        val adapter = GdgListAdapter(GdgClickListener { chapter ->
+        viewModelAdapter = GdgListAdapter { chapter ->
             val destination = Uri.parse(chapter.website)
             startActivity(Intent(Intent.ACTION_VIEW, destination))
-        })
-
+        }
         // Sets the adapter of the RecyclerView
-        binding.gdgChapterList.adapter = adapter
+        recyclevGdgList.adapter = viewModelAdapter
 
-        viewModel.showNeedLocation.observe(viewLifecycleOwner, object: Observer<Boolean> {
-            override fun onChanged(show: Boolean?) {
-                // Snackbar is like Toast but it lets us show forever
-                if (show == true) {
-                    Snackbar.make(
-                        binding.root,
-                        "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
-            }
-        })
+        setObserver(view)
 
         setHasOptionsMenu(true)
-        return binding.root
+    }
+
+    private fun setObserver(view: View) {
+        viewModel.apply {
+            showNeedLocation.observe(viewLifecycleOwner, Observer { show -> // Snackbar is like Toast but it lets us show forever
+                    if (show == true) {
+                        showSnackbar(view)
+                    }
+                })
+            gdgList.observe(viewLifecycleOwner, Observer {
+                txtvWarningText.showOnlyWhenEmpty(it)
+                recyclevGdgList.bindRecyclerView(it)
+            })
+        }
+    }
+
+    private fun showSnackbar(view: View) {
+        Snackbar.make(
+            view,
+            "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

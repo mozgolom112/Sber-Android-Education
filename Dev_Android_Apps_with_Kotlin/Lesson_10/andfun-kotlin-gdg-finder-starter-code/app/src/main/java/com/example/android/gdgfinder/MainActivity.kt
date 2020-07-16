@@ -9,15 +9,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.android.gdgfinder.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
         setupNavigation()
     }
@@ -28,7 +26,7 @@ class MainActivity : AppCompatActivity() {
      * Delegate this to Navigation.
      */
     override fun onSupportNavigateUp()
-            = navigateUp(findNavController(R.id.nav_host_fragment), binding.drawerLayout)
+            = navigateUp(findNavController(R.id.nav_host_fragment), drawer_layout)
 
     /**
      * Setup Navigation for this Activity
@@ -37,25 +35,25 @@ class MainActivity : AppCompatActivity() {
         // first find the nav controller
         val navController = findNavController(R.id.nav_host_fragment)
 
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(toolbar)
 
         // then setup the action bar, tell it about the DrawerLayout
-        setupActionBarWithNavController(navController, binding.drawerLayout)
+        setupActionBarWithNavController(navController, drawer_layout)
 
 
         // finally setup the left drawer (called a NavigationView)
-        binding.navigationView.setupWithNavController(navController)
+        vNavigation.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
             when(destination.id) {
                 R.id.home -> {
                     toolBar.setDisplayShowTitleEnabled(false)
-                    binding.heroImage.visibility = View.VISIBLE
+                    imgvHero.visibility = View.VISIBLE
                 }
                 else -> {
                     toolBar.setDisplayShowTitleEnabled(true)
-                    binding.heroImage.visibility = View.GONE
+                    imgvHero.visibility = View.GONE
                 }
             }
         }

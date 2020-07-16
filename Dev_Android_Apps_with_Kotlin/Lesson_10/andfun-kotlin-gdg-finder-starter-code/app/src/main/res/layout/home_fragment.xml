@@ -13,7 +13,7 @@
             tools:context=".home.HomeFragment">
 
         <ImageView
-                android:id="@+id/image"
+                android:id="@+id/imgvImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:srcCompat="@drawable/behind"
@@ -24,53 +24,53 @@
                 app:layout_constraintDimensionRatio="4:3"/>
 
         <TextView
-                android:id="@+id/title"
+                android:id="@+id/txtvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/about_google_developer_groups"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/imgvImage"
                 app:layout_constraintEnd_toStartOf="@+id/end_grid"
                 app:layout_constraintStart_toStartOf="@+id/start_grid"/>
 
         <TextView
-                android:id="@+id/intro_text"
+                android:id="@+id/txtvIntro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/txtvTitle"
                 app:layout_constraintStart_toStartOf="@+id/start_grid"
                 app:layout_constraintEnd_toStartOf="@+id/end_grid"
                 android:text="@string/gdg_description_long"
                 android:layout_marginTop="8dp"/>
 
         <TextView
-                android:id="@+id/subtitle"
+                android:id="@+id/txtvSubtitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/gdgs_are"
                 android:layout_marginTop="13dp"
                 app:layout_constraintStart_toEndOf="@id/start_grid"
                 app:layout_constraintEnd_toStartOf="@id/end_grid"
-                app:layout_constraintTop_toBottomOf="@+id/intro_text"/>
+                app:layout_constraintTop_toBottomOf="@+id/txtvIntro"/>
 
         <TextView
-                android:id="@+id/description"
+                android:id="@+id/txtvDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/gdg_description_bullets"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/subtitle"
+                app:layout_constraintTop_toBottomOf="@id/txtvSubtitle"
                 app:layout_constraintStart_toStartOf="@+id/start_grid"
                 app:layout_constraintEnd_toStartOf="@+id/end_grid"/>
 
         <ImageView
-                android:id="@+id/end_image"
+                android:id="@+id/imgvEnd"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="16dp"
                 app:srcCompat="@drawable/wtm"
-                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintTop_toBottomOf="@id/txtvDescription"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintDimensionRatio="3:1.5"
