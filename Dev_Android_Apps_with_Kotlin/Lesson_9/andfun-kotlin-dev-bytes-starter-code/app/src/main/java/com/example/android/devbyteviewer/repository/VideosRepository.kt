@@ -19,11 +19,11 @@ package com.example.android.devbyteviewer.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.example.android.devbyteviewer.asDatabaseModel
-import com.example.android.devbyteviewer.asDomainModel
 import com.example.android.devbyteviewer.database.VideosDatabase
 import com.example.android.devbyteviewer.domain.Video
 import com.example.android.devbyteviewer.network.Network
+import com.example.android.devbyteviewer.util.asDatabaseModel
+import com.example.android.devbyteviewer.util.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

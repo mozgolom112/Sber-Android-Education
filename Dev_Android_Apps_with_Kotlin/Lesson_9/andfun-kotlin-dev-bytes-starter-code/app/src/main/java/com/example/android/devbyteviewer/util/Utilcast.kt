@@ -1,4 +1,4 @@
-package com.example.android.devbyteviewer
+package com.example.android.devbyteviewer.util
 
 import com.example.android.devbyteviewer.database.DatabaseVideo
 import com.example.android.devbyteviewer.domain.Video

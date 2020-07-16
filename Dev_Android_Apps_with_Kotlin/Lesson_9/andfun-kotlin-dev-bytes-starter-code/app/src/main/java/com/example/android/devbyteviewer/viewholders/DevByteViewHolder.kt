@@ -14,14 +14,17 @@ class DevByteViewHolder(private val view: View) :
     private val titleText: TextView = view.findViewById(R.id.txtvTitle)
     private val shortDescriptionText: TextView = view.findViewById(R.id.txtvDescription)
     private val videoThumbnail: ImageView = view.findViewById(R.id.imgvVideoThumbnail)
+
     companion object {
         @LayoutRes
         val LAYOUT = R.layout.devbyte_item
     }
-    fun bind(inputVideo: Video) = inputVideo.apply {
-            titleText.text = title
-            shortDescriptionText.text = shortDescription
-            videoThumbnail.setImageUrl(thumbnail)
+
+    fun bind(inputVideo: Video, clickListener: (Video) -> Unit) = inputVideo.let {
+            itemView.setOnClickListener { clickListener(inputVideo) }
+            titleText.text = it.title
+            shortDescriptionText.text = it.shortDescription
+            videoThumbnail.setImageUrl(it.thumbnail)
         }
 
 }

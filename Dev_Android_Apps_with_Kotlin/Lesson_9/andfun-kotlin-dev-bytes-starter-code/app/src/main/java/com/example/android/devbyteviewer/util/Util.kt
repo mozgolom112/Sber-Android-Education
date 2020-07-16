@@ -21,7 +21,9 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.android.devbyteviewer.database.DatabaseVideo
 import com.example.android.devbyteviewer.domain.Video
+import com.example.android.devbyteviewer.network.NetworkVideoContainer
 
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
