@@ -25,18 +25,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
-const val BASE_URL = "https://devbytes.udacity.com/"
-
 interface DevbyteService {
     @GET("devbytes.json")
     fun getPlaylist(): Deferred<NetworkVideoContainer>
 }
 
-private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
-
 object Network {
+    const val BASE_URL = "https://devbytes.udacity.com/"
+    private val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
     private val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))

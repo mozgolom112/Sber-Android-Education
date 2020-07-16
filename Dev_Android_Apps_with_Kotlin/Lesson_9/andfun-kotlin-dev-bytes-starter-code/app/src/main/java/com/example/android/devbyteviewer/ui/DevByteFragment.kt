@@ -82,7 +82,7 @@ class DevByteFragment : Fragment() {
         viewModel.apply {
             playlist.observe(viewLifecycleOwner, Observer<List<Video>> { videos ->
                 progbLoadingSpinner.goneIfNotNull(videos)
-                videos?.apply {
+                requireContext().apply {
                     viewModelAdapter?.submitList(videos)
                 }
             })

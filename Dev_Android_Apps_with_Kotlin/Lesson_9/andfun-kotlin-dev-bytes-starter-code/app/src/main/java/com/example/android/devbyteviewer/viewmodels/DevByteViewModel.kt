@@ -19,7 +19,7 @@ package com.example.android.devbyteviewer.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.android.devbyteviewer.database.getDatabase
+import com.example.android.devbyteviewer.database.VideosDatabase
 import com.example.android.devbyteviewer.repository.VideosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,8 +40,10 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     private val viewModelJob = SupervisorJob()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob )
-    private val database = getDatabase(application.applicationContext)
-    private val videosRepository = VideosRepository(database)
+    private val database
+            by lazy(Dispatchers.IO) { VideosDatabase.getInstance(application.applicationContext) }
+    private val videosRepository
+            by lazy(Dispatchers.IO) { VideosRepository(database) }
     val playlist = videosRepository.videos
 
     init {

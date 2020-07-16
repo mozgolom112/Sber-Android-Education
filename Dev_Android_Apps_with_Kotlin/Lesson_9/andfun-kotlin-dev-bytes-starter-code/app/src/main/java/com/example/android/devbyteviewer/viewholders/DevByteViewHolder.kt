@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.devbyteviewer.R
 import com.example.android.devbyteviewer.domain.Video
 import com.example.android.devbyteviewer.util.setImageUrl
+import com.example.android.devbyteviewer.util.shortDescription
 
 class DevByteViewHolder(private val view: View) :
         RecyclerView.ViewHolder(view) {
@@ -23,7 +24,7 @@ class DevByteViewHolder(private val view: View) :
     fun bind(inputVideo: Video, clickListener: (Video) -> Unit) = inputVideo.let {
             itemView.setOnClickListener { clickListener(inputVideo) }
             titleText.text = it.title
-            shortDescriptionText.text = it.shortDescription
+            shortDescriptionText.text = it.shortDescription()
             videoThumbnail.setImageUrl(it.thumbnail)
         }
 

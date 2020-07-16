@@ -75,3 +75,5 @@ fun ImageView.setImageUrl(url: String) {
             .load(url)
             .into(this)
 }
+
+fun Video.shortDescription(): String = description.smartTruncate(200)
