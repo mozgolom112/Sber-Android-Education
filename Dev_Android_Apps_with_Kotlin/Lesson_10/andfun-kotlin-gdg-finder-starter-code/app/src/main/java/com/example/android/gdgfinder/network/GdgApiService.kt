@@ -15,7 +15,9 @@ interface GdgApiService {
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<GdgResponse>
 }
+
 object GdgApi {
+    //TODO("ISSUE(1) Link doesn't work. Also, app crashed by this issue")
     private const val BASE_URL = "https://developers.google.com/community/gdg/directory/"
 
     private val moshi = Moshi.Builder()
@@ -28,5 +30,5 @@ object GdgApi {
         .baseUrl(BASE_URL)
         .build()
 
-    val retrofitService : GdgApiService by lazy { retrofit.create(GdgApiService::class.java) }
+    val retrofitService: GdgApiService by lazy { retrofit.create(GdgApiService::class.java) }
 }
