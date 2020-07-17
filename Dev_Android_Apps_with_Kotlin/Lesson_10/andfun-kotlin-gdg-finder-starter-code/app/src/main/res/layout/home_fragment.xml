@@ -27,17 +27,27 @@
             android:id="@+id/txtvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            style="@style/TextAppearance.Title"
             android:layout_marginTop="16dp"
             android:background="#ff9999"
             android:fontFamily="monospace"
             android:text="@string/about_google_developer_groups"
             android:textAllCaps="true"
-            android:textColor="#555555"
-            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/end_grid"
             app:layout_constraintStart_toStartOf="@+id/start_grid"
             app:layout_constraintTop_toBottomOf="@id/imgvImage" />
+
+        <TextView
+            android:id="@+id/txtvSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="@string/gdgs_are"
+            style="@style/TextAppearance.Subtitle"
+            app:layout_constraintEnd_toStartOf="@id/end_grid"
+            app:layout_constraintStart_toEndOf="@id/start_grid"
+            app:layout_constraintTop_toBottomOf="@+id/txtvIntro" />
 
         <TextView
             android:id="@+id/txtvIntro"
@@ -48,18 +58,6 @@
             app:layout_constraintEnd_toStartOf="@+id/end_grid"
             app:layout_constraintStart_toStartOf="@+id/start_grid"
             app:layout_constraintTop_toBottomOf="@id/txtvTitle" />
-
-        <TextView
-            android:id="@+id/txtvSubtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:text="@string/gdgs_are"
-            android:textColor="#555555"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@id/end_grid"
-            app:layout_constraintStart_toEndOf="@id/start_grid"
-            app:layout_constraintTop_toBottomOf="@+id/txtvIntro" />
 
         <TextView
             android:id="@+id/txtvDescription"
