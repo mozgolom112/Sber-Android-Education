@@ -2,13 +2,16 @@ package com.example.android.gdgfinder.search
 
 import android.location.Location
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.android.gdgfinder.network.GdgApi
 import com.example.android.gdgfinder.network.GdgChapter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
+import java.lang.Exception
 
 
 class GdgListViewModel : ViewModel() {
@@ -22,6 +25,7 @@ class GdgListViewModel : ViewModel() {
     val gdgList = MutableLiveData<List<GdgChapter>>()
     val regionList = MutableLiveData<List<String>>()
     val showNeedLocation = MutableLiveData<Boolean>()
+    val exceptionError = MutableLiveData<Exception>()
 
     init {
         // process the initial filter
@@ -48,13 +52,18 @@ class GdgListViewModel : ViewModel() {
                 }
             } catch (e: IOException) {
                 gdgList.value = listOf()
+                exceptionError.value = e
             }
         }
     }
 
     fun onLocationUpdated(location: Location) {
         viewModelScope.launch {
-            repository.onLocationChanged(location)
+            try {
+                repository.onLocationChanged(location)
+            } catch (exp: HttpException) {
+                exceptionError.value = exp
+            }
             onQueryChanged()
         }
     }

@@ -1,15 +1,10 @@
 package com.example.android.gdgfinder.search
 
 import android.location.Location
-import com.example.android.gdgfinder.network.GdgApiService
-import com.example.android.gdgfinder.network.GdgChapter
-import com.example.android.gdgfinder.network.GdgResponse
-import com.example.android.gdgfinder.network.LatLong
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
+import android.widget.Toast
+import com.example.android.gdgfinder.network.*
+import kotlinx.coroutines.*
+import retrofit2.HttpException
 
 class GdgChapterRepository(gdgApiService: GdgApiService) {
 
@@ -97,7 +92,14 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             // cache the Deferred so any future requests can wait for this sort
             inProgressSort = deferred
             // and return the result of this sort
-            deferred.await()
+            try {
+                deferred.await()
+            }
+            catch (exp: HttpException){
+                this.cancel()
+                SortedData.from(GdgResponse(Filter(listOf()), listOf()), location)
+                //throw(exp)
+            }
         }
         return result
     }
