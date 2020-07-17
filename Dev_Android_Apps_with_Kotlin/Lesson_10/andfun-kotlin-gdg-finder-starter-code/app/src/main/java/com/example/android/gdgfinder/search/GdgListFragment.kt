@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.android.gdgfinder.R
-import com.example.android.gdgfinder.bindRecyclerView
 import com.example.android.gdgfinder.showOnlyWhenEmpty
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
@@ -70,7 +68,7 @@ class GdgListFragment : Fragment() {
                 txtvWarningText.showOnlyWhenEmpty(it)
                 viewModelAdapter?.submitList(it)
             })
-            exceptionError.observe(viewLifecycleOwner, Observer {
+            errorHttpException.observe(viewLifecycleOwner, Observer {
                 showHttpExp(it as HttpException)
             })
         }
@@ -85,7 +83,7 @@ class GdgListFragment : Fragment() {
     }
 
     fun showHttpExp(exp: HttpException){
-        Toast.makeText(this.context, "Link doesn't work ${exp.message()}", Toast.LENGTH_SHORT)
+        Toast.makeText(this.context, "Link doesn't work ${exp.message()}", Toast.LENGTH_SHORT).show()
     }
 
     /**

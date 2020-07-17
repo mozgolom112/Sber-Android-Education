@@ -1,8 +1,6 @@
 package com.example.android.gdgfinder.search
 
 import android.location.Location
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.android.gdgfinder.network.GdgApi
 import com.example.android.gdgfinder.network.GdgChapter
@@ -10,8 +8,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.io.IOException
-import java.lang.Exception
 
 
 class GdgListViewModel : ViewModel() {
@@ -25,7 +21,7 @@ class GdgListViewModel : ViewModel() {
     val gdgList = MutableLiveData<List<GdgChapter>>()
     val regionList = MutableLiveData<List<String>>()
     val showNeedLocation = MutableLiveData<Boolean>()
-    val exceptionError = MutableLiveData<Exception>()
+    val errorHttpException = MutableLiveData<HttpException>()
 
     init {
         // process the initial filter
@@ -43,16 +39,17 @@ class GdgListViewModel : ViewModel() {
             try {
                 // this will run on a thread managed by Retrofit
                 gdgList.value = repository.getChaptersForFilter(filter.currentValue)
-                Log.i("onQueryChanged", gdgList.value.toString())
                 repository.getFilters().let {
                     // only update the filters list if it's changed since the last time
                     if (it != regionList.value) {
                         regionList.value = it
                     }
                 }
-            } catch (e: IOException) {
+            } catch (e: Throwable) {
+                when (e) {
+                     is HttpException -> errorHttpException.value = e
+                }
                 gdgList.value = listOf()
-                exceptionError.value = e
             }
         }
     }
@@ -62,7 +59,7 @@ class GdgListViewModel : ViewModel() {
             try {
                 repository.onLocationChanged(location)
             } catch (exp: Throwable) {
-                exceptionError.value = exp as HttpException
+                errorHttpException.value = exp as HttpException
             }
             onQueryChanged()
         }

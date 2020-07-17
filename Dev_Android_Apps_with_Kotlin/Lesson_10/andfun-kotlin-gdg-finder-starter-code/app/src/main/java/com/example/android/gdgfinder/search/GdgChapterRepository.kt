@@ -93,13 +93,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             // cache the Deferred so any future requests can wait for this sort
             inProgressSort = deferred
             // and return the result of this sort
-            try {
-                deferred.await()
-            }
-            catch (exp: Throwable){
-                Log.e("Error http", exp.message)
-                SortedData.from(GdgResponse(Filter(listOf()), listOf()), location)
-            }
+            deferred.await()
         }
         return result
     }
@@ -119,10 +113,8 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
         // by specifying the dispatcher we can protect against incorrect usage.
         withContext(Dispatchers.Main) {
             isFullyInitialized = true
-
             // cancel any in progress sorts, their result is not valid anymore.
             inProgressSort?.cancel()
-
             doSortData(location)
         }
     }
