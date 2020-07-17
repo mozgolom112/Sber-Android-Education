@@ -29,11 +29,10 @@
 
             <TextView
                 android:id="@+id/txtvTitle"
-                style="@style/TextAppearance.Title"
+                android:textAppearance="?attr/textAppearanceHeadline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="#ff9999"
                 android:fontFamily="monospace"
                 android:text="@string/about_google_developer_groups"
                 android:textAllCaps="true"
@@ -44,7 +43,7 @@
 
             <TextView
                 android:id="@+id/txtvSubtitle"
-                style="@style/TextAppearance.Subtitle"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
@@ -104,9 +103,6 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnFloatingAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_gdg" />
+        app:srcCompat="@drawable/ic_gdg"
+        style="@style/fab" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
