@@ -1,6 +1,7 @@
 package com.example.android.gdgfinder.search
 
 import android.location.Location
+import android.util.Log
 import android.widget.Toast
 import com.example.android.gdgfinder.network.*
 import kotlinx.coroutines.*
@@ -95,10 +96,9 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             try {
                 deferred.await()
             }
-            catch (exp: HttpException){
-                this.cancel()
+            catch (exp: Throwable){
+                Log.e("Error http", exp.message)
                 SortedData.from(GdgResponse(Filter(listOf()), listOf()), location)
-                //throw(exp)
             }
         }
         return result

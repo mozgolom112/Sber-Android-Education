@@ -61,8 +61,8 @@ class GdgListViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 repository.onLocationChanged(location)
-            } catch (exp: HttpException) {
-                exceptionError.value = exp
+            } catch (exp: Throwable) {
+                exceptionError.value = exp as HttpException
             }
             onQueryChanged()
         }
