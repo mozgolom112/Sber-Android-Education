@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GDG Поиск</string>
+    <string name="hello_blank_fragment">Привет blank fragment</string>
+    <string name="add_gdg">"Не можете найти свой регион? Отлично! Забейте и начните новый! Заполните ниже форму и расскажите о себе кратко! "
+    </string>
+    <string name="application_submitted">Got your application request!! Oh well, not really. This is a test form just
+        for educational purposes. If you really want to submit your application please visit the website!
+    </string>
+    <string name="gdg_search">GDG Поиск</string>
+    <string name="gdg_apply">принять GDG</string>
+    <string name="gdgs_are">GDGs здесь…</string>
+    <string name="gdg_description_long">GDG - это локальные группы разработчиков, которые особенно заинтересованы в Google
+         продукты и API. Каждая локальная группа называется главой GDG и может принимать различные технические мероприятия для
+         разработчики - от нескольких человек, которые собираются вместе, чтобы посмотреть наши последние видео, до больших собраний с демонстрациями
+         и технические переговоры, хакатоны. Разработчики Google поддерживают и распознают главы GDG, но не владеют и не управляют
+         их.
+    </string>
+    <string name="about_google_developer_groups">About Google Developer Groups</string>
+    <string name="gdg_description_bullets">Управляйте страстными людьми в местных сообществах разработчиков \n
+         GroupГруппа для обмена идеями и общения с другими разработчиками \n
+         Place Место, где можно узнать о технологиях и инструментах разработки Google \n
+         Открыто и бесплатно для всех заинтересованных
+    </string>
+    <string name="waiting_for_location_and_network">Ожидание местоположения и сетевого результата.\n\n Если работает на
+         эмулятор откройте приложение «Карты», чтобы включить службы определения местоположения.
+    </string>
+    <string name="stage_image_description">Photo from stage from a devfest</string>
+    <string name="submit_button_description">Button to submit form</string>
+    <string name="form_name_description">enter your name</string>
+    <string name="motivation">Tell us a bit more about why do you want to start a GDG</string>
+    <string name="your_name_label">Ваше имя</string>
+    <string name="email_label">e-mail</string>
+    <string name="city_label">город</string>
+    <string name="country_label">страна</string>
+    <string name="region_label">регион</string>
+    <string name="enter_motivation">Please enter your motivation in 1-2 sentences</string>
+    <string name="submitted">Submitted, no need to submit again</string>
+    <string name="done">Готово</string>
+    <string name="submit">Принять</string>
+</resources>
