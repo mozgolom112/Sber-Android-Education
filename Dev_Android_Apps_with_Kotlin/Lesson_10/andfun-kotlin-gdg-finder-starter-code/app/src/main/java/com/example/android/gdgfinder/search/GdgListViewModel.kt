@@ -1,6 +1,7 @@
 package com.example.android.gdgfinder.search
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.android.gdgfinder.network.GdgApi
 import com.example.android.gdgfinder.network.GdgChapter
@@ -10,7 +11,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-class GdgListViewModel: ViewModel() {
+class GdgListViewModel : ViewModel() {
 
     private val repository = GdgChapterRepository(GdgApi.retrofitService)
 
@@ -38,6 +39,7 @@ class GdgListViewModel: ViewModel() {
             try {
                 // this will run on a thread managed by Retrofit
                 gdgList.value = repository.getChaptersForFilter(filter.currentValue)
+                Log.i("onQueryChanged", gdgList.value.toString())
                 repository.getFilters().let {
                     // only update the filters list if it's changed since the last time
                     if (it != regionList.value) {

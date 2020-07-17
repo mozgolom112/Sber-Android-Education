@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -26,19 +27,20 @@ class GdgListFragment : Fragment() {
 
     private val viewModel: GdgListViewModel by viewModels()
 
-    private var viewModelAdapter: GdgListAdapter? = null
+    private val viewModelAdapter: GdgListAdapter by lazy { GdgListAdapter { chapter ->
+        val destination = Uri.parse(chapter.website)
+        startActivity(Intent(Intent.ACTION_VIEW, destination))}
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? =
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
         inflater.inflate(R.layout.fragment_gdg_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModelAdapter = GdgListAdapter { chapter ->
-            val destination = Uri.parse(chapter.website)
-            startActivity(Intent(Intent.ACTION_VIEW, destination))
-        }
         // Sets the adapter of the RecyclerView
         recyclevGdgList.adapter = viewModelAdapter
 
@@ -49,14 +51,16 @@ class GdgListFragment : Fragment() {
 
     private fun setObserver(view: View) {
         viewModel.apply {
-            showNeedLocation.observe(viewLifecycleOwner, Observer { show -> // Snackbar is like Toast but it lets us show forever
+            showNeedLocation.observe(
+                viewLifecycleOwner,
+                Observer { show -> // Snackbar is like Toast but it lets us show forever
                     if (show == true) {
                         showSnackbar(view)
                     }
                 })
             gdgList.observe(viewLifecycleOwner, Observer {
                 txtvWarningText.showOnlyWhenEmpty(it)
-                recyclevGdgList.bindRecyclerView(it)
+                viewModelAdapter?.submitList(it)
             })
         }
     }
@@ -89,7 +93,11 @@ class GdgListFragment : Fragment() {
      */
     private fun requestLastLocationOrStartLocationUpdates() {
         // if we don't have permission ask for it and wait until the user grants it
-        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                LOCATION_PERMISSION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             requestLocationPermission()
             return
         }
@@ -110,14 +118,18 @@ class GdgListFragment : Fragment() {
      */
     private fun startLocationUpdates(fusedLocationClient: FusedLocationProviderClient) {
         // if we don't have permission ask for it and wait until the user grants it
-        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                LOCATION_PERMISSION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             requestLocationPermission()
             return
         }
 
 
         val request = LocationRequest().setPriority(LocationRequest.PRIORITY_LOW_POWER)
-        val callback = object: LocationCallback() {
+        val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 val location = locationResult?.lastLocation ?: return
                 viewModel.onLocationUpdated(location)
@@ -131,9 +143,13 @@ class GdgListFragment : Fragment() {
      *
      * If granted, continue with the operation that the user gave us permission to do.
      */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
+        when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestLastLocationOrStartLocationUpdates()

@@ -1,167 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:context=".add.AddGdgFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".add.AddGdgFragment">
 
-            <TextView
-                    android:id="@+id/txtvIntro"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_gdg"
-                    android:textColor="#AAAAAA"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/txtvIntro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/add_gdg"
+            android:textColor="#AAAAAA"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                    android:id="@+id/imgvMainPict"
-                    android:layout_width="411dp"
-                    android:layout_height="230dp"
-                    tools:src="@tools:sample/avatars"
-                    app:srcCompat="@drawable/behind"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="2dp"
-                    app:layout_constraintTop_toBottomOf="@+id/txtvIntro"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtName"
-                    android:scaleType="centerCrop"/>
+        <ImageView
+            android:id="@+id/imgvMainPict"
+            android:layout_width="411dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtvIntro"
+            app:srcCompat="@drawable/behind"
+            tools:src="@tools:sample/avatars" />
 
-            <EditText
-                    android:id="@+id/edtxtName"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/imgvMainPict"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtEmail"
-                    android:singleLine="true"/>
+        <EditText
+            android:id="@+id/edtxtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgvMainPict" />
 
-            <EditText
-                    android:id="@+id/edtxtEmail"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtName"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtCity"
-                    android:singleLine="true"/>
-            <EditText
-                    android:id="@+id/edtxtCity"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtEmail"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="32dp"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtCountry"
-                    android:layout_marginBottom="4dp"
-                    android:singleLine="true"/>
-            <EditText
-                    android:id="@+id/edtxtCountry"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtCity"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtRegion"
-                    android:layout_marginTop="4dp"
-                    android:singleLine="true"/>
-            <EditText
-                    android:id="@+id/edtxtRegion"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtCountry"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="4dp"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtWhy"
-                    android:singleLine="true"/>
+        <EditText
+            android:id="@+id/edtxtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtCity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtName" />
 
-            <!--wrap in a layout to group-->
-            <!--<LinearLayout -->
-            <!--android:id="@+id/contentGroup"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:focusable="true"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/EditTextRegion"-->
-            <!--android:orientation="vertical"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/EditTextRegion"-->
-            <!--app:layout_constraintEnd_toEndOf="@+id/EditTextRegion"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/button"-->
-            <!--android:layout_marginBottom="8dp">-->
+        <EditText
+            android:id="@+id/edtxtCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtCountry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtEmail" />
 
-            <TextView
-                    android:id="@+id/txtvLabelTextWhy"
-                    android:text="@string/motivation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="32dp"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtRegion"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/edtxtWhy"
-                    app:layout_constraintStart_toStartOf="parent"/>
+        <EditText
+            android:id="@+id/edtxtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtRegion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtCity" />
 
-            <EditText
-                    android:id="@+id/edtxtWhy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtRegion"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/btnEditTextWhy"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginBottom="8dp"/>
+        <EditText
+            android:id="@+id/edtxtRegion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="4dp"
+            android:singleLine="true"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtWhy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtCountry" />
 
-            <!--</LinearLayout>-->
+        <!--wrap in a layout to group-->
+        <!--<LinearLayout -->
+        <!--android:id="@+id/contentGroup"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:focusable="true"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/EditTextRegion"-->
+        <!--android:orientation="vertical"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/EditTextRegion"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/EditTextRegion"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/button"-->
+        <!--android:layout_marginBottom="8dp">-->
 
-            <Button
-                    android:id="@+id/btnEditTextWhy"
-                    android:text="Ok"
-                    android:layout_width="40dp"
-                    android:layout_height="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtxtWhy"
-                    android:backgroundTint="#00FF00"
-                    android:textColor="#FF0000"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginEnd="40dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/txtvLabelTextWhy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="1dp"
+            android:text="@string/motivation"
+            app:layout_constraintBottom_toTopOf="@+id/edtxtWhy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtRegion" />
+
+        <EditText
+            android:id="@+id/edtxtWhy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toTopOf="@+id/btnEditTextWhy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtRegion" />
+
+        <!--</LinearLayout>-->
+
+        <Button
+            android:id="@+id/btnEditTextWhy"
+            android:layout_width="40dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="#00FF00"
+            android:text="Ok"
+            android:textColor="#FF0000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtxtWhy" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 

@@ -16,9 +16,10 @@ class AddGdgFragment : Fragment() {
 
     private val viewModel: AddGdgViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View?
-            = inflater.inflate(R.layout.add_gdg_fragment, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.add_gdg_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +48,6 @@ class AddGdgFragment : Fragment() {
     }
 
     private fun setClickListeners() {
-        btnEditTextWhy.setOnClickListener {viewModel.onSubmitApplication()}
+        btnEditTextWhy.setOnClickListener { viewModel.onSubmitApplication() }
     }
 }

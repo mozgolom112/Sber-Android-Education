@@ -10,7 +10,7 @@ import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.network.GdgChapter
 
 
-class GdgListViewHolder(private var view: View):
+class GdgListViewHolder(private var view: View) :
     RecyclerView.ViewHolder(view) {
 
     private val constrainLayout: ConstraintLayout = view.findViewById(R.id.constlItem)
