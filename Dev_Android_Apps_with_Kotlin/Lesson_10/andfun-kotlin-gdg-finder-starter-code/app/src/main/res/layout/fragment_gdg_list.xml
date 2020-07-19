@@ -6,13 +6,26 @@
     android:layout_height="match_parent">
 
     <HorizontalScrollView
-        android:id="@+id/chips"
+        android:id="@+id/scrollvChips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipgrRegionsList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_normal"
+            app:singleLine="true"
+
+            app:singleSelection="true">
+
+
+        </com.google.android.material.chip.ChipGroup>
 
     </HorizontalScrollView>
 
@@ -28,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chips"
+        app:layout_constraintTop_toBottomOf="@+id/scrollvChips"
         tools:listitem="@layout/list_item" />
 
 

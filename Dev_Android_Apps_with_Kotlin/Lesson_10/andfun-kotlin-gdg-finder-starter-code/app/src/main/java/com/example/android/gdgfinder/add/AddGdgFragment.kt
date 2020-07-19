@@ -33,6 +33,10 @@ class AddGdgFragment : Fragment() {
             showSnackbarEvent.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     showSnackbar()
+                    btnEditTextWhy.apply {
+                        contentDescription=getString(R.string.submitted)
+                        text=getString(R.string.done)
+                    }
                 }
             })
         }

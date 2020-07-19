@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.showOnlyWhenEmpty
 import com.google.android.gms.location.*
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_gdg_list.*
 import retrofit2.HttpException
@@ -70,6 +71,24 @@ class GdgListFragment : Fragment() {
             })
             errorHttpException.observe(viewLifecycleOwner, Observer {
                 showHttpExp(it as HttpException)
+            })
+            regionList.observe(viewLifecycleOwner, Observer { data ->
+                val inflater = LayoutInflater.from(chipgrRegionsList.context)
+                val children = data.map { regionName ->
+                    val chip = inflater.inflate(R.layout.region, chipgrRegionsList, false) as Chip
+                    chip.apply {
+                        chip.text = regionName
+                        chip.tag = regionName
+                        chip.setOnCheckedChangeListener { button, isChecked ->
+                            viewModel.onFilterChanged(button.tag as String, isChecked)
+                        }
+
+                    }
+                    chip
+                }
+
+                chipgrRegionsList.removeAllViews()
+                children.forEach() { chipgrRegionsList.addView(it) }
             })
         }
     }

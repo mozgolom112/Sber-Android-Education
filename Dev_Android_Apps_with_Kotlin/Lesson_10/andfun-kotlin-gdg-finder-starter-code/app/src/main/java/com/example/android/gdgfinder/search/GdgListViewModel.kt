@@ -49,7 +49,9 @@ class GdgListViewModel : ViewModel() {
                 when (e) {
                      is HttpException -> errorHttpException.value = e
                 }
+                //TODO("For testing")
                 gdgList.value = listOf()
+                regionList.value = listOf("Europe", "Asia", "North America", "South America")
             }
         }
     }
