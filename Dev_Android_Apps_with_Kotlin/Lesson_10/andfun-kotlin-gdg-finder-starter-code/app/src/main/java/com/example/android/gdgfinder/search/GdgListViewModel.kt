@@ -24,9 +24,7 @@ class GdgListViewModel : ViewModel() {
     val errorHttpException = MutableLiveData<HttpException>()
 
     init {
-        // process the initial filter
         onQueryChanged()
-
         viewModelScope.launch {
             delay(5_000)
             showNeedLocation.value = !repository.isFullyInitialized
@@ -34,13 +32,11 @@ class GdgListViewModel : ViewModel() {
     }
 
     private fun onQueryChanged() {
-        Job?.cancel() // if a previous query is running cancel it before starting another
+        Job?.cancel()
         Job = viewModelScope.launch {
             try {
-                // this will run on a thread managed by Retrofit
                 gdgList.value = repository.getChaptersForFilter(filter.currentValue)
                 repository.getFilters().let {
-                    // only update the filters list if it's changed since the last time
                     if (it != regionList.value) {
                         regionList.value = it
                     }

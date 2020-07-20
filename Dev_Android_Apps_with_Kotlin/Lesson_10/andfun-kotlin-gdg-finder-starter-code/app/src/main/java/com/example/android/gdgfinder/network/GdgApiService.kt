@@ -8,19 +8,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
-const val BASE_URL = "https://developers.google.com/community/gdg/groups/"
-
 interface GdgApiService {
 
     @GET("directory.json")
     fun getChapters():
-    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<GdgResponse>
 
 }
 
 object GdgApi {
     //TODO("ISSUE(1) Link doesn't work. Also, app crashed by this issue")
+    const val BASE_URL = "https://developers.google.com/community/gdg/groups/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

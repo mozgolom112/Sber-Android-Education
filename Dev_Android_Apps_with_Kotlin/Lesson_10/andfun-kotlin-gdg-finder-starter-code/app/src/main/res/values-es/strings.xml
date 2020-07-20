@@ -31,4 +31,5 @@
     <string name="submitted">Enviado, no hay necesidad de enviar de nuevo.</string>
     <string name="done">Hecho</string>
     <string name="submit">Enviar</string>
+    <string name="noLocationError">No location. Enable location in settings (hint: test with Maps) then check app permissions!</string>
 </resources>

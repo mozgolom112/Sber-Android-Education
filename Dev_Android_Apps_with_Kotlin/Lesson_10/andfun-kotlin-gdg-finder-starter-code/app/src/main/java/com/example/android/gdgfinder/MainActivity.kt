@@ -22,28 +22,14 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
-    /**
-     * Called when the hamburger menu or back button are pressed on the Toolbar
-     *
-     * Delegate this to Navigation.
-     */
     override fun onSupportNavigateUp()
             = navigateUp(findNavController(R.id.nav_host_fragment), drawer_layout)
 
-    /**
-     * Setup Navigation for this Activity
-     */
     private fun setupNavigation() {
-        // first find the nav controller
         val navController = findNavController(R.id.nav_host_fragment)
 
         setSupportActionBar(toolbar)
-
-        // then setup the action bar, tell it about the DrawerLayout
         setupActionBarWithNavController(navController, drawer_layout)
-
-
-        // finally setup the left drawer (called a NavigationView)
         vNavigation.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->

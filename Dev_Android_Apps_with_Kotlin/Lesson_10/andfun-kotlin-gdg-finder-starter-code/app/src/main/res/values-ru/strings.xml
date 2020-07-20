@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="noLocationError">No location. Enable location in settings (hint: test with Maps) then check app permissions!</string>
+</resources>
