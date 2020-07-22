@@ -7,4 +7,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="simple_style">
+        <item name="android:textSize">@dimen/textSizeMiddle</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

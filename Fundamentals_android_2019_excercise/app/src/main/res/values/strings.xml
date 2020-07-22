@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fundamentals Android</string>
+    <string name="hello_android_academy">Hello Android Academy!</string>
+    <string name="go_to_fund_academ_s_github">Go to Fund. Academ\'s GitHub</string>
 </resources>
