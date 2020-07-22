@@ -9,17 +9,14 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.mozgolom112.opencvapplicationtemplate.CvCamera.CvCameraViewListener2
-import kotlinx.android.synthetic.main.activity_main.*
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.OpenCVLoader
-import org.opencv.core.Mat
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private val CAMERA_PERMISSION_REQUEST = 1
     private val mOpenCvCameraView: CameraBridgeViewBase
-            by lazy { findViewById<CameraBridgeViewBase>(R.id.main_surface) }
+            by lazy { findViewById<CameraBridgeViewBase>(R.id.jvcamvMainSurface) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "called onCreate")
