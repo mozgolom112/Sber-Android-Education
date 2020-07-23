@@ -2,8 +2,10 @@ package com.mozgolom112.fundamentalsandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.mozgolom112.fundamentalsandroid.actor.Actor
 import com.mozgolom112.fundamentalsandroid.actor.ActorListAdapter
+import com.mozgolom112.fundamentalsandroid.actor.ActorRecyclerAdapter
 import com.mozgolom112.fundamentalsandroid.support.DataUtil
 import kotlinx.android.synthetic.main.activity_test_actors.*
 
@@ -16,6 +18,8 @@ class ActorListActivity : AppCompatActivity() {
     }
 
     private fun setAdapters() {
-        listvActors.adapter = ActorListAdapter(this, DataUtil.generateActors())
+        recycletlistvActors.apply{
+            adapter = ActorRecyclerAdapter(context, DataUtil.generateActors())
+        }
     }
 }
