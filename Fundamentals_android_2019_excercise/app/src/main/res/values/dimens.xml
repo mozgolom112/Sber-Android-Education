@@ -4,4 +4,10 @@
     <dimen name="margin_start">16dp</dimen>
     <dimen name="margin_end">16dp</dimen>
     <dimen name="margin_top">10dp</dimen>
+    <dimen name="list_item_actor_height">108dp</dimen>
+    <dimen name="list_item_padding">4dp</dimen>
+    <dimen name="avatar_size">100dp</dimen>
+    <dimen name="name_horizontal_padding">16dp</dimen>
+    <dimen name="oscar_width_size">50dp</dimen>
+    <dimen name="oscar_height_size">100dp</dimen>
 </resources>

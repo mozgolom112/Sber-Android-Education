@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_actor_height"
+    android:padding="@dimen/list_item_padding">
+
+    <ImageView
+        android:id="@+id/imgvAvatar"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars"/>
+
+    <TextView
+        android:id="@+id/txtvName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/name_horizontal_padding"
+        android:layout_marginEnd="@dimen/name_horizontal_padding"
+        android:gravity="center|start"
+        android:lines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgvOscar"
+        app:layout_constraintStart_toEndOf="@+id/imgvAvatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/full_names"/>
+
+    <ImageView
+        android:id="@+id/imgvOscar"
+        android:layout_width="@dimen/oscar_width_size"
+        android:layout_height="@dimen/oscar_height_size"
+        android:src="@drawable/oscar"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
