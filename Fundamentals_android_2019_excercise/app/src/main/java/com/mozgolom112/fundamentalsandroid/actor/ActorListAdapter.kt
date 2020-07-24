@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.models.Actor
 import kotlinx.android.synthetic.main.list_item_actor.view.*
 
 class ActorListAdapter(context: Context, var actors: List<Actor>) : BaseAdapter(){

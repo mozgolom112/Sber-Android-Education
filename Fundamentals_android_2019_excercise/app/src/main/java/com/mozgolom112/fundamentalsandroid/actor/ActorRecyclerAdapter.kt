@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.models.Actor
 
 class ActorRecyclerAdapter(context: Context, var actors: List<Actor>):RecyclerView.Adapter<ActorViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)

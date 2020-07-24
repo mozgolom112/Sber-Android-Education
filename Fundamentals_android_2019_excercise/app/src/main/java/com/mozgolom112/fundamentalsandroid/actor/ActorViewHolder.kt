@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.models.Actor
 import kotlinx.android.synthetic.main.list_item_actor.view.*
 
 class ActorViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

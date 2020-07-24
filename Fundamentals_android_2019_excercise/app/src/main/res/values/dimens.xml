@@ -10,4 +10,7 @@
     <dimen name="name_horizontal_padding">16dp</dimen>
     <dimen name="oscar_width_size">50dp</dimen>
     <dimen name="oscar_height_size">100dp</dimen>
+    <dimen name="movie_item_height">130dp</dimen>
+    <dimen name="poster_width_size">100dp</dimen>
+    <dimen name="poster_margin">8dp</dimen>
 </resources>

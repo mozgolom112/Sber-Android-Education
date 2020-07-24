@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/movie_item_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/imgvPoster"
+        android:layout_width="@dimen/poster_width_size"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="@dimen/poster_margin"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars"/>
+
+    <TextView
+        android:id="@+id/txtvMovieTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/imgvPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center|start"
+        android:lines="1"
+        android:layout_margin="8dp"
+        tools:textSize="25sp"
+        tools:text="ffffffffffffffffffffffffffffffffffffffffffff"
+        />
+
+    <TextView
+        android:id="@+id/txtvMovieDiscription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imgvPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvMovieTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:textSize="15sp"
+        tools:text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
