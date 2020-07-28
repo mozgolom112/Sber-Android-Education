@@ -17,9 +17,8 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        recycleAdapter = MovieRecyclerAdapter{ onClickListener() }
+        
+        recycleAdapter = MovieRecyclerAdapter( onClickListener )
         recyclervMoviesList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleAdapter
@@ -27,8 +26,8 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         recycleAdapter?.submitList(DataUtil.generateMovies())
     }
 
-    private fun onClickListener() {
+    private val onClickListener: (Int)-> Unit = { position ->
         //TODO("Add action")
-        Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Position ${position} was clicked", Toast.LENGTH_SHORT).show()
     }
 }
