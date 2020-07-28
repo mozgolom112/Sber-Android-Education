@@ -1,13 +1,15 @@
 package com.mozgolom112.fundamentalsandroid.movie
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.mozgolom112.fundamentalsandroid.DetailsActivity
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.models.Movie
 import com.mozgolom112.fundamentalsandroid.support.DataUtil
 import kotlinx.android.synthetic.main.fragment_movies.*
 
@@ -17,17 +19,30 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
+        setMovieAdapter()
+    }
+
+    private fun setMovieAdapter() {
         recycleAdapter = MovieRecyclerAdapter( onClickListener )
         recyclervMoviesList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleAdapter
         }
         recycleAdapter?.submitList(DataUtil.generateMovies())
+        //TODO('Вопрос. Почему не могу поставить разделители из фрагмента?')
+        addItemDecoration()
     }
 
-    private val onClickListener: (Int)-> Unit = { position ->
-        //TODO("Add action")
-        Toast.makeText(context, "Position ${position} was clicked", Toast.LENGTH_SHORT).show()
+    private val onClickListener: (Movie)-> Unit = { movie ->
+
+        val intent = context?.let { DetailsActivity.createIntent(it, movie ) }
+        startActivity(intent)
+    }
+
+    private fun addItemDecoration() {
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL)
+        decoration.setDrawable(ContextCompat.getDrawable(requireContext(), R.color.colorPrimaryDark)!!)
+        recyclervMoviesList.addItemDecoration(decoration)
     }
 }

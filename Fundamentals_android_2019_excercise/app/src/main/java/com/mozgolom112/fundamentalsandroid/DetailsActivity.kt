@@ -1,10 +1,13 @@
 package com.mozgolom112.fundamentalsandroid
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mozgolom112.fundamentalsandroid.models.Movie
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_INT
+import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_STRING
 import com.mozgolom112.fundamentalsandroid.support.URL_TO_TRAILER
 import kotlinx.android.synthetic.main.activity_details.*
@@ -16,6 +19,14 @@ class DetailsActivity : AppCompatActivity() {
 
         setOnClickListeners()
         setContent()
+    }
+
+    companion object {
+        fun createIntent(context: Context, movie: Movie): Intent {
+            val intent = Intent(context, DetailsActivity::class.java)
+            intent.putExtra(KEY_EXTRA_MOVIE, movie)
+            return intent
+        }
     }
 
     private fun setOnClickListeners() {
@@ -30,12 +41,16 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun setContent() {
-        txtvFilmTitle.text = getString(R.string.film_title)
-        txtvOverviewText.text = getString(R.string.overview_avengers_endgame)
-        txtvReleaseDate.text = getString(R.string.release_date)
 
-        imgvBackGround.setImageResource(R.drawable.endgame_background)
-        imgvSmallImage.setImageResource(R.drawable.endgame_image)
+        val movie = intent?.getParcelableExtra<Movie>(KEY_EXTRA_MOVIE)
+        movie?.apply {
+            txtvFilmTitle.text = title
+            txtvOverviewText.text = description
+            txtvReleaseDate.text = getString(R.string.release_date)
+
+            imgvBackGround.setImageResource(posterImageId)
+            imgvSmallImage.setImageResource(posterImageId)
+        }
     }
 
 }

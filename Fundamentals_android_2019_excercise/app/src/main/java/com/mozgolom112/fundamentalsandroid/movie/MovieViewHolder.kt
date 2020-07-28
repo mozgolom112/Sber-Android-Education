@@ -17,15 +17,14 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         const val LAYOUT = R.layout.list_item_movie
     }
 
-    fun bind(movie: Movie, clickListener:(position: Int) -> Unit){
+    fun bind(movie: Movie, clickListener:(movie: Movie) -> Unit){
         setImage(movie.posterImageId, poster)
         title.text = movie.title
         description.text = movie.description
 
         //TODO('Вопрос, нужно ли выносить setOnClickListener в init метод?')
         view.setOnClickListener {
-            val position = adapterPosition
-            clickListener(position)
+            clickListener(movie)
         }
     }
 
