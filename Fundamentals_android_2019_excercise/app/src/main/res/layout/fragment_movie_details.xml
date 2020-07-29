@@ -3,13 +3,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MovieDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="40dp"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgvBackGround"
+                android:layout_width="wrap_content"
+                android:layout_height="213dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/endgame_background" />
+
+            <ImageView
+                android:id="@+id/imgvSmallImage"
+                android:layout_width="97dp"
+                android:layout_height="170dp"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginTop="@dimen/margin_top"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgvBackGround"
+                tools:src="@drawable/endgame_image" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:foregroundGravity="center"
+
+                app:layout_constraintBottom_toBottomOf="@+id/imgvSmallImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.074"
+                app:layout_constraintStart_toEndOf="@+id/imgvSmallImage"
+                app:layout_constraintTop_toBottomOf="@+id/imgvBackGround">
+
+                <TextView
+                    android:id="@+id/txtvFilmTitle"
+                    style="@style/simple_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/film_title" />
+
+                <TextView
+                    android:id="@+id/txtvReleased"
+                    style="@style/title_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="Released:"
+                    app:layout_constraintStart_toStartOf="@+id/txtvFilmTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/txtvFilmTitle" />
+
+                <TextView
+                    android:id="@+id/txtvReleaseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtvReleased"
+                    app:layout_constraintStart_toEndOf="@+id/txtvReleased"
+                    tools:text="@string/release_date" />
+
+                <Button
+                    android:id="@+id/btnvWatchTrailer"
+                    style="@style/btn_simple_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_watch_trailer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtvReleased" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtvOverviewTitle"
+                style="@style/title_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:text="Overview"
+                android:gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgvSmallImage" />
+
+            <TextView
+                android:id="@+id/txtvOverviewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_start"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_marginEnd="@dimen/margin_end"
+                android:layout_marginBottom="@dimen/margin_start"
+                android:textSize="14sp"
+                android:gravity="start"
+                app:layout_constraintTop_toBottomOf="@+id/txtvOverviewTitle"
+                tools:text="@string/overview_avengers_endgame" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </FrameLayout>

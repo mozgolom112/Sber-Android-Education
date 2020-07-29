@@ -11,7 +11,7 @@ class DetailsPagerAdapter(
     private val listOfMovies: List<Movie>
     //TODO('Когда нибудь заменить на ViewPager2')
     ) : FragmentStatePagerAdapter(fragmentManager){
-    override fun getItem(position: Int): Fragment = MovieDetailsFragment()
+    override fun getItem(position: Int): Fragment = MovieDetailsFragment.newInstance(listOfMovies[position])
 
     override fun getCount(): Int = listOfMovies.size
 }
