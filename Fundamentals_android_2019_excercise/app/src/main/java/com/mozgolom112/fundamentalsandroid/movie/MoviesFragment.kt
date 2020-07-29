@@ -6,9 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.DetailsActivity
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.adapters.MovieRecyclerAdapter
 import com.mozgolom112.fundamentalsandroid.models.Movie
 import com.mozgolom112.fundamentalsandroid.support.DataUtil
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -21,10 +21,15 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onViewCreated(view, savedInstanceState)
 
         setMovieAdapter()
+
+
     }
 
     private fun setMovieAdapter() {
-        recycleAdapter = MovieRecyclerAdapter( onClickListener )
+        recycleAdapter =
+            MovieRecyclerAdapter(
+                onClickListener
+            )
         recyclervMoviesList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleAdapter

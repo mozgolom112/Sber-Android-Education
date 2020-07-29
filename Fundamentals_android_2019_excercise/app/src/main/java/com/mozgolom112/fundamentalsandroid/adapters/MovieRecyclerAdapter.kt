@@ -1,11 +1,14 @@
-package com.mozgolom112.fundamentalsandroid.movie
+package com.mozgolom112.fundamentalsandroid.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.mozgolom112.fundamentalsandroid.models.Movie
+import com.mozgolom112.fundamentalsandroid.movie.MovieViewHolder
 
-class MovieRecyclerAdapter(private val clickListener: (Movie) -> Unit) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback){
+class MovieRecyclerAdapter(private val clickListener: (Movie) -> Unit) : ListAdapter<Movie, MovieViewHolder>(
+    MovieDiffCallback
+){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val inflater = LayoutInflater.from(parent.context)

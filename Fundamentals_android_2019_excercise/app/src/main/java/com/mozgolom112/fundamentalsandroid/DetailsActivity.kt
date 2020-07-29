@@ -6,9 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mozgolom112.fundamentalsandroid.models.Movie
-import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_INT
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
-import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_STRING
 import com.mozgolom112.fundamentalsandroid.support.URL_TO_TRAILER
 import kotlinx.android.synthetic.main.activity_details.*
 

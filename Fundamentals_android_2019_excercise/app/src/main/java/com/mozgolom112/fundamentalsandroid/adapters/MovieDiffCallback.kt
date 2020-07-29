@@ -1,4 +1,4 @@
-package com.mozgolom112.fundamentalsandroid.movie
+package com.mozgolom112.fundamentalsandroid.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.mozgolom112.fundamentalsandroid.models.Movie

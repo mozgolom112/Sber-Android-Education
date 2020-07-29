@@ -1,7 +1,6 @@
 package com.mozgolom112.fundamentalsandroid.support
 
 import com.mozgolom112.fundamentalsandroid.R
-import com.mozgolom112.fundamentalsandroid.models.Actor
 import com.mozgolom112.fundamentalsandroid.models.Movie
 
 object DataUtil {
@@ -38,59 +37,4 @@ object DataUtil {
                 "Ким Джэ-ха - бывший солдат-наёмник, его также зовут К2. Жена кандидата в президенты нанимает его телохранителем."
             )
         )
-
-    fun generateActors(): List<Actor> =
-        listOf(
-            Actor(
-                "Emma Stone",
-                "https://favera.ru/img/2014/02/01/103357_1391204149.jpg",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                false
-            ),
-            Actor(
-                "Emma Stone",
-                "https://yandex.ru/images/search?rpt=simage&noreask=1&source=qa&text=%D0%AD%D0%BC%D0%BC%D0%B0%20%D0%A1%D1%82%D0%BE%D1%83%D0%BD&stype=image&lr=21624&pos=0&img_url=https%3A%2F%2Fs.yimg.com%2Fny%2Fapi%2Fres%2F1.2%2Fu3OqDX6MEBH6MxqeXbHBUA--%2FYXBwaWQ9aGlnaGxhbmRlcjt3PTEyODA7aD0xNjYyLjkzMzMzMzMzMzMzMzQ-%2Fhttps%3A%2F%2Fs.yimg.com%2Fuu%2Fapi%2Fres%2F1.2%2FrXBuWp5u21F5mnbxeROO9w--~B%2FaD0yNTk5O3c9MjAwMDtzbT0xO2FwcGlkPXl0YWNoeW9u%2Fhttp%3A%2F%2Fmedia.zenfs.com%2Fen-US%2Fhomerun%2Finstyle_846%2Fa66edfab888f3af65e37ba4200457696",
-                true
-            )
-        )
-
 }
