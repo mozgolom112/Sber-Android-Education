@@ -9,36 +9,20 @@ import com.mozgolom112.fundamentalsandroid.models.MovieModel
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.support.KEY_POSITION
 import kotlinx.android.synthetic.main.fragment_gallery_details.*
+import java.text.FieldPosition
 
 class GalleryDetailsFragment : Fragment(R.layout.fragment_gallery_details) {
 
-    companion object {
-        fun newInstance(movies: List<MovieModel>, position: Int): GalleryDetailsFragment {
-            val fragment =
-                GalleryDetailsFragment()
-            putArguments(
-                movies,
-                position,
-                fragment
-            )
-            return fragment
-        }
-
-        private fun putArguments(
-            movies: List<MovieModel>, position: Int,
-            fragment: GalleryDetailsFragment
-        ) {
-            val args = Bundle()
-            args.run {
-                putParcelableArrayList(KEY_EXTRA_MOVIE, ArrayList(movies))
-                putInt(KEY_POSITION, position)
-            }
-            fragment.arguments = args
-        }
-    }
+    private lateinit var movies: List<MovieModel>
+    private var currentPosition: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        GalleryDetailsFragmentArgs.fromBundle(requireArguments()).apply {
+            movies = listMovies.toList()
+            currentPosition = position
+        }
 
         setPagerAdapter()
     }
@@ -46,12 +30,11 @@ class GalleryDetailsFragment : Fragment(R.layout.fragment_gallery_details) {
     private fun setPagerAdapter() {
         val pagerAdapter = DetailsPagerAdapter(
             childFragmentManager,
-            arguments?.getParcelableArrayList(KEY_EXTRA_MOVIE)
-                ?: throw IllegalArgumentException("Missing movie argument")
+            movies
         )
         vpPager.apply {
             adapter = pagerAdapter
-            currentItem = arguments?.getInt(KEY_POSITION) ?: 0
+            currentItem = currentPosition
         }
 
     }

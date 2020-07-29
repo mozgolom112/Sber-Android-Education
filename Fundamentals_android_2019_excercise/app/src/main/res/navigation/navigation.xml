@@ -9,5 +9,20 @@
         android:id="@+id/moviesFragment"
         android:name="com.mozgolom112.fundamentalsandroid.movie.MoviesFragment"
         android:label="fragment_movies"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies" >
+        <action
+            android:id="@+id/action_moviesFragment_to_galleryDetailsFragment"
+            app:destination="@id/galleryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryDetailsFragment"
+        android:name="com.mozgolom112.fundamentalsandroid.moviedetails.GalleryDetailsFragment"
+        android:label="GalleryDetailsFragment" >
+        <argument
+            android:name="listMovies"
+            app:argType="com.mozgolom112.fundamentalsandroid.models.MovieModel[]" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
 </navigation>

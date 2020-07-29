@@ -9,17 +9,5 @@ class MovieActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
-
-        setFragments()
-
-    }
-
-    private fun setFragments() {
-        val MoviesFragment = MoviesFragment.newInstance(DataUtil.generateMovies())
-        supportFragmentManager
-            .beginTransaction()
-            .addToBackStack(null)
-            .add(R.id.framelContainer, MoviesFragment)
-            .commit()
     }
 }

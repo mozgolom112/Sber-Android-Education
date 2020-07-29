@@ -4,32 +4,19 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozgolom112.fundamentalsandroid.moviedetails.GalleryDetailsFragment
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.adapters.MovieRecyclerAdapter
 import com.mozgolom112.fundamentalsandroid.models.MovieModel
-import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
+import com.mozgolom112.fundamentalsandroid.support.DataUtil
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private var recycleAdapter: MovieRecyclerAdapter? = null
-
-    companion object {
-        fun newInstance(movies: List<MovieModel>): MoviesFragment{
-            val fragment = MoviesFragment()
-            putArguments(movies, fragment)
-            return fragment
-        }
-
-        private fun putArguments(movies: List<MovieModel>, fragment: MoviesFragment) {
-            val args = Bundle()
-            args.putParcelableArrayList(KEY_EXTRA_MOVIE, ArrayList(movies))
-            fragment.arguments = args
-        }
-    }
+    private val movies = DataUtil.generateMovies()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,12 +25,11 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun setMovieAdapter() {
-        val movies = arguments?.getParcelableArrayList(KEY_EXTRA_MOVIE) ?: listOf<MovieModel>()
+
 
         recycleAdapter =
             MovieRecyclerAdapter {position ->
-                //TODO('Прокинится ли здесь movies?')
-                showDetailsFragment(movies, position)
+                navigateToDetailsFragment(movies, position)
             }
 
         recyclervMoviesList.apply {
@@ -55,15 +41,10 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         addItemDecoration()
     }
 
-    private fun showDetailsFragment(movies: List<MovieModel>, position: Int): Unit {
+    private fun navigateToDetailsFragment(movies: List<MovieModel>, position: Int): Unit {
 
-        val viewPagerFragment = GalleryDetailsFragment.newInstance(movies, position)
-
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.framelContainer, viewPagerFragment)
-            .commitAllowingStateLoss()
+        findNavController()
+            .navigate(MoviesFragmentDirections.actionMoviesFragmentToGalleryDetailsFragment(movies.toTypedArray(), position))
     }
 
     private fun addItemDecoration() {
