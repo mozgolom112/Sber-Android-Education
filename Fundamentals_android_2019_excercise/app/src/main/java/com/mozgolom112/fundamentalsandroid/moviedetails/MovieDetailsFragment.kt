@@ -1,29 +1,32 @@
-package com.mozgolom112.fundamentalsandroid
+package com.mozgolom112.fundamentalsandroid.moviedetails
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mozgolom112.fundamentalsandroid.models.Movie
+import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.models.MovieModel
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.support.URL_TO_TRAILER
-import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.fragment_movie_details.*
 
 class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     companion object {
-        fun newInstance(movie: Movie) : MovieDetailsFragment {
-            val fragment = MovieDetailsFragment()
-            addArguments(movie, fragment)
+        fun newInstance(movieModel: MovieModel) : MovieDetailsFragment {
+            val fragment =
+                MovieDetailsFragment()
+            addArguments(
+                movieModel,
+                fragment
+            )
             return fragment
         }
 
-        private fun addArguments(movie: Movie, fragment: MovieDetailsFragment) {
+        private fun addArguments(movieModel: MovieModel, fragment: MovieDetailsFragment) {
             val args: Bundle = Bundle()
-            args.putParcelable(KEY_EXTRA_MOVIE, movie)
+            args.putParcelable(KEY_EXTRA_MOVIE, movieModel)
             fragment.arguments = args
         }
     }
@@ -48,7 +51,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private fun setContent() {
 
-        val movie = arguments?.get(KEY_EXTRA_MOVIE) as Movie
+        val movie = arguments?.get(KEY_EXTRA_MOVIE) as MovieModel
         movie?.apply {
             txtvFilmTitle.text = title
             txtvOverviewText.text = description
@@ -58,4 +61,5 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
             imgvSmallImage.setImageResource(posterImageId)
         }
     }
+
 }

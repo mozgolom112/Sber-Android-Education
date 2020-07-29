@@ -1,12 +1,11 @@
 package com.mozgolom112.fundamentalsandroid.movie
 
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
-import com.mozgolom112.fundamentalsandroid.models.Movie
+import com.mozgolom112.fundamentalsandroid.models.MovieModel
 
 class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
     private val poster: ImageView = view.findViewById(R.id.imgvPoster)
@@ -17,14 +16,17 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         const val LAYOUT = R.layout.list_item_movie
     }
 
-    fun bind(movie: Movie, clickListener:(movie: Movie) -> Unit){
-        setImage(movie.posterImageId, poster)
-        title.text = movie.title
-        description.text = movie.description
+    fun bind(movieModel: MovieModel, clickListener:(position: Int) -> Unit){
+        setImage(movieModel.posterImageId, poster)
+        title.text = movieModel.title
+        description.text = movieModel.description
 
         //TODO('Вопрос, нужно ли выносить setOnClickListener в init метод?')
         view.setOnClickListener {
-            clickListener(movie)
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                clickListener(position)
+            }
         }
     }
 
