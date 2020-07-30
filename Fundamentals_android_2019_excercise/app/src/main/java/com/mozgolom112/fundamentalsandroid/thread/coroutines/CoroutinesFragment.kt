@@ -3,17 +3,18 @@ package com.mozgolom112.fundamentalsandroid.thread.coroutines
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mozgolom112.fundamentalsandroid.R
-import com.mozgolom112.fundamentalsandroid.thread.CounterCoroutinesTask
+import com.mozgolom112.fundamentalsandroid.thread.CounterCoroutinesTaskViewModel
 import kotlinx.android.synthetic.main.fragment_thread.*
 
 
 class CoroutinesFragment : Fragment(R.layout.fragment_thread) {
-    private val counterCoroutinesTask by lazy { CounterCoroutinesTask() }
+
+    private val counterCoroutinesTask: CounterCoroutinesTaskViewModel by viewModels<CounterCoroutinesTaskViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
 
         setOnClickListeners()

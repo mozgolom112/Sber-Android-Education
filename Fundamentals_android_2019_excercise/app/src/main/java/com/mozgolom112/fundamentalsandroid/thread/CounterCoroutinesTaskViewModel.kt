@@ -1,16 +1,16 @@
 package com.mozgolom112.fundamentalsandroid.thread
 
 import android.util.Log
-import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 
-class CounterCoroutinesTask {
+class CounterCoroutinesTaskViewModel : ViewModel() {
 
     private lateinit var job: Job
 
-    private lateinit var coroutineScope: CoroutineScope
+    private var coroutineScope: CoroutineScope? = null
 
     private val count_ = MutableLiveData<Int>(0)
     val count: LiveData<Int>
@@ -27,7 +27,7 @@ class CounterCoroutinesTask {
 
     fun onStartClick(){
         isDone.value = false
-        coroutineScope.launch {
+        coroutineScope?.launch {
             repeat(10){
                 backgroundWork()
             }
@@ -47,7 +47,7 @@ class CounterCoroutinesTask {
     }
 
     fun onCancelClick(){
-        if (coroutineScope == null) coroutineScope.cancel()
+        coroutineScope?.cancel()
         Log.d("onCancelClick", "Coroutine was canceled")
     }
 }
