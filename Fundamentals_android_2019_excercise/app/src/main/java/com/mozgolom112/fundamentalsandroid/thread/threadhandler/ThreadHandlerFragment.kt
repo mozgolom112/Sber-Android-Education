@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozgolom112.fundamentalsandroid.R
 
-class ThreadHandlerFragment : Fragment(R.layout.fragment_thread_handler){
+class ThreadHandlerFragment : Fragment(R.layout.fragment_thread){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
