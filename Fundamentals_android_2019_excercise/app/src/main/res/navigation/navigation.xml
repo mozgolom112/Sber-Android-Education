@@ -25,4 +25,13 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/coroutinesFragment"
+        android:name="com.mozgolom112.fundamentalsandroid.thread.coroutines.CoroutinesFragment"
+        android:label="fragment_coroutines"
+        tools:layout="@layout/fragment_coroutines" />
+    <fragment
+        android:id="@+id/threadHandlerFragment"
+        android:name="com.mozgolom112.fundamentalsandroid.thread.threadhandler.ThreadHandlerFragment"
+        android:label="ThreadHandlerFragment" />
 </navigation>

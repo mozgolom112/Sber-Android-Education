@@ -9,8 +9,8 @@ import com.mozgolom112.fundamentalsandroid.models.MovieModel
 class DetailsPagerAdapter(
     fragmentManager: FragmentManager,
     private val listOfMovieModels: List<MovieModel>
-
-) : FragmentStatePagerAdapter(fragmentManager) {
+    //TODO('Use viewPager2')
+) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     //TODO('Called every time, when we change page')
     override fun getItem(position: Int): MovieDetailsFragment {
         return MovieDetailsFragment.newInstance(listOfMovieModels[position])

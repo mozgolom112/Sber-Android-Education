@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/coroutinesFragment"
+        android:title="@string/open_corountines" />
+    <item
+        android:id="@+id/threadHandlerFragment"
+        android:title="@string/open_thread_handler" />
+</menu>
