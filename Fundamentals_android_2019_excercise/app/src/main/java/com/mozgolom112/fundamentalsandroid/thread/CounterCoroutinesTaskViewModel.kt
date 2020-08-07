@@ -8,30 +8,46 @@ import kotlinx.coroutines.*
 
 class CounterCoroutinesTaskViewModel : ViewModel() {
 
-    private lateinit var job: Job
+    private var job: Job? = null
 
-    private var coroutineScope: CoroutineScope = CoroutineScope(job + Dispatchers.Main)
+    private var coroutineScope: CoroutineScope? = null
 
     private val count_ = MutableLiveData<Int>(0)
     val count: LiveData<Int>
         get() = count_
 
     val isDone = MutableLiveData<Boolean>(false)
+    val isJobNotBeCreatedError = MutableLiveData<Boolean>(false)
+    val isCoroutineExistError = MutableLiveData<Boolean>(false)
+    val isCoroutineCancelledError = MutableLiveData<Boolean>(false)
 
-    fun onCreateClick(){
+    override fun onCleared() {
+        super.onCleared()
+        job?.cancel()
+    }
+
+    fun onCreateClick() {
         job = Job()
-        coroutineScope = CoroutineScope(job + Dispatchers.Main)
+        coroutineScope = CoroutineScope(job as CompletableJob + Dispatchers.Main)
         Log.d("onCreateClick", "Coroutine was created")
 
     }
 
-    fun onStartClick(){
+    fun onStartClick() {
         isDone.value = false
-        coroutineScope?.launch {
-            repeat(10){
-                backgroundWork()
-            }
-            workWasDone()
+
+        val isJobCancelled = job?.isCancelled ?: true
+
+        if (!isJobCancelled) {
+            coroutineScope?.launch {
+                repeat(10) {
+                    backgroundWork()
+                }
+                workWasDone()
+            } ?: Log.d("Error", "coroutineScope must be created before called")
+        } else {
+            isJobNotBeCreatedError.value = true
+            Log.d("Error", "Job must be created before called")
         }
     }
 
@@ -42,12 +58,46 @@ class CounterCoroutinesTaskViewModel : ViewModel() {
     }
 
     private fun workWasDone() {
-        isDone.value = true
         count_.value = 0
+        isDone.value = true
     }
 
-    fun onCancelClick(){
-        coroutineScope?.cancel()
-        Log.d("onCancelClick", "Coroutine was canceled")
+    fun onCancelClick() {
+
+        if (coroutineScope != null) {
+            val isCoroutineScopeActive = coroutineScope?.isActive ?: false
+
+            if (isCoroutineScopeActive) {
+                coroutineScope?.cancel()
+                Log.d("onCancelClick", "${coroutineScope?.isActive}")
+                Log.d("onCancelClick", "Coroutine was canceled")
+            } else {
+                isCoroutineCancelledError.value = true
+                Log.d("onCancelClick", "Coroutine has already canceled")
+            }
+        } else {
+            isCoroutineExistError.value = true
+            Log.d("onCancelClick", "Coroutine is not exist")
+        }
+
+
+    }
+
+    //Support func
+    fun isDoneWasCalled() {
+        //change on init state
+        isDone.value = false
+    }
+
+    fun isJobNotBeCreatedErrorWasCalled() {
+        isJobNotBeCreatedError.value = false
+    }
+
+    fun isCoroutineCancelledErrorWasCalled() {
+        isCoroutineCancelledError.value = false
+    }
+
+    fun isCoroutineExistErrorWasCalled() {
+        isCoroutineExistError.value = false
     }
 }

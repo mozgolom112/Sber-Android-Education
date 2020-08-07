@@ -38,8 +38,32 @@ class CoroutinesFragment : Fragment(R.layout.fragment_thread) {
             count.observe(viewLifecycleOwner, Observer { count ->
                 txtvTextForThreads.text = count.toString()
             })
-            isDone.observe(viewLifecycleOwner, Observer {isDone ->
-                if (isDone) txtvTextForThreads.text = "Done!"
+            isDone.observe(viewLifecycleOwner, Observer { isDone ->
+                if (isDone) {
+                    txtvTextForThreads.text = "Done!"
+                    isDoneWasCalled()
+                }
+            })
+            isJobNotBeCreatedError.observe(viewLifecycleOwner, Observer { isError ->
+                if (isError) {
+                    txtvTextForThreads.text =
+                        "Job must be created. Please press 'Create' before start"
+                    isJobNotBeCreatedErrorWasCalled()
+                }
+            })
+            isCoroutineCancelledError.observe(viewLifecycleOwner, Observer { isError ->
+                if (isError) {
+                    txtvTextForThreads.text =
+                        "Coroutine has already canceled. Please press 'Create' for recreate coroutine with job"
+                    isCoroutineCancelledErrorWasCalled()
+                }
+            })
+            isCoroutineExistError.observe(viewLifecycleOwner, Observer { isError ->
+                if (isError) {
+                    txtvTextForThreads.text =
+                        "Coroutine is not exist. Please press 'Create' for creating coroutine with job"
+                    isCoroutineExistErrorWasCalled()
+                }
             })
         }
     }
