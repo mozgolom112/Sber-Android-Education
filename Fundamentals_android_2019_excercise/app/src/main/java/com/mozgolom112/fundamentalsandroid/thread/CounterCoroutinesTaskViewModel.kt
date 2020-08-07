@@ -10,7 +10,7 @@ class CounterCoroutinesTaskViewModel : ViewModel() {
 
     private lateinit var job: Job
 
-    private var coroutineScope: CoroutineScope? = null
+    private var coroutineScope: CoroutineScope = CoroutineScope(job + Dispatchers.Main)
 
     private val count_ = MutableLiveData<Int>(0)
     val count: LiveData<Int>
