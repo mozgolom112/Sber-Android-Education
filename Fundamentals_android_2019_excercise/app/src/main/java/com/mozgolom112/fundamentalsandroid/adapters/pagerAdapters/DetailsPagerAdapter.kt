@@ -1,10 +1,9 @@
-package com.mozgolom112.fundamentalsandroid.adapters
+package com.mozgolom112.fundamentalsandroid.adapters.pagerAdapters
 
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.mozgolom112.fundamentalsandroid.moviedetails.MovieDetailsFragment
+import com.mozgolom112.fundamentalsandroid.ui.MovieDetailsFragment
 import com.mozgolom112.fundamentalsandroid.models.MovieModel
-
 
 class DetailsPagerAdapter(
     fragmentManager: FragmentManager,

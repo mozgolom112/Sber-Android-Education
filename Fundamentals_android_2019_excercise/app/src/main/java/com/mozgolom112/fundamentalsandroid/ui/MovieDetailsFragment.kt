@@ -1,4 +1,4 @@
-package com.mozgolom112.fundamentalsandroid.moviedetails
+package com.mozgolom112.fundamentalsandroid.ui
 
 import android.content.Intent
 import android.net.Uri

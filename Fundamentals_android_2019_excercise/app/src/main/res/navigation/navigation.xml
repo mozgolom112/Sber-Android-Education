@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.mozgolom112.fundamentalsandroid.movie.MoviesFragment"
+        android:name="com.mozgolom112.fundamentalsandroid.ui.MoviesFragment"
         android:label="fragment_movies"
         tools:layout="@layout/fragment_movies" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/galleryDetailsFragment"
-        android:name="com.mozgolom112.fundamentalsandroid.moviedetails.GalleryDetailsFragment"
+        android:name="com.mozgolom112.fundamentalsandroid.ui.GalleryDetailsFragment"
         android:label="GalleryDetailsFragment" >
         <argument
             android:name="listMovies"
@@ -25,13 +25,4 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
-    <fragment
-        android:id="@+id/coroutinesFragment"
-        android:name="com.mozgolom112.fundamentalsandroid.thread.coroutines.CoroutinesFragment"
-        android:label="fragment_coroutines"
-        tools:layout="@layout/fragment_thread" />
-    <fragment
-        android:id="@+id/threadHandlerFragment"
-        android:name="com.mozgolom112.fundamentalsandroid.thread.threadhandler.ThreadHandlerFragment"
-        android:label="ThreadHandlerFragment" />
 </navigation>

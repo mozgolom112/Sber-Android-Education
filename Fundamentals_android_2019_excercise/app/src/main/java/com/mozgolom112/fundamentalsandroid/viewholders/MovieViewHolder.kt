@@ -1,4 +1,4 @@
-package com.mozgolom112.fundamentalsandroid.movie
+package com.mozgolom112.fundamentalsandroid.viewholders
 
 import android.view.View
 import android.widget.ImageView
