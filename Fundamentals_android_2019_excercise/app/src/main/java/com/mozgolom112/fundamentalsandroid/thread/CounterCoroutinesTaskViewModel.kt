@@ -17,9 +17,8 @@ class CounterCoroutinesTaskViewModel : ViewModel() {
         get() = count_
 
     val isDone = MutableLiveData<Boolean>(false)
-    val isJobNotBeCreatedError = MutableLiveData<Boolean>(false)
-    val isCoroutineExistError = MutableLiveData<Boolean>(false)
-    val isCoroutineCancelledError = MutableLiveData<Boolean>(false)
+
+    val errorMessage = MutableLiveData<String>()
 
     override fun onCleared() {
         super.onCleared()
@@ -39,6 +38,7 @@ class CounterCoroutinesTaskViewModel : ViewModel() {
         val isJobCancelled = job?.isCancelled ?: true
 
         if (!isJobCancelled) {
+            errorMessage.value = null
             coroutineScope?.launch {
                 repeat(10) {
                     backgroundWork()
@@ -46,7 +46,7 @@ class CounterCoroutinesTaskViewModel : ViewModel() {
                 workWasDone()
             } ?: Log.d("Error", "coroutineScope must be created before called")
         } else {
-            isJobNotBeCreatedError.value = true
+            errorMessage.value = "Job must be created. Please press 'Create' before start"
             Log.d("Error", "Job must be created before called")
         }
     }
@@ -72,32 +72,14 @@ class CounterCoroutinesTaskViewModel : ViewModel() {
                 Log.d("onCancelClick", "${coroutineScope?.isActive}")
                 Log.d("onCancelClick", "Coroutine was canceled")
             } else {
-                isCoroutineCancelledError.value = true
+                errorMessage.value = "Coroutine has already canceled. Please press 'Create' for recreate coroutine with job"
                 Log.d("onCancelClick", "Coroutine has already canceled")
             }
         } else {
-            isCoroutineExistError.value = true
+            errorMessage.value = "Coroutine is not exist. Please press 'Create' for creating coroutine with job"
             Log.d("onCancelClick", "Coroutine is not exist")
         }
 
 
-    }
-
-    //Support func
-    fun isDoneWasCalled() {
-        //change on init state
-        isDone.value = false
-    }
-
-    fun isJobNotBeCreatedErrorWasCalled() {
-        isJobNotBeCreatedError.value = false
-    }
-
-    fun isCoroutineCancelledErrorWasCalled() {
-        isCoroutineCancelledError.value = false
-    }
-
-    fun isCoroutineExistErrorWasCalled() {
-        isCoroutineExistError.value = false
     }
 }

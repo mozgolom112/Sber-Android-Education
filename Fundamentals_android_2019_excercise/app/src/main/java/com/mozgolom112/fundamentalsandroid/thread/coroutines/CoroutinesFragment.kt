@@ -19,6 +19,7 @@ class CoroutinesFragment : Fragment(R.layout.fragment_thread) {
 
         setOnClickListeners()
         setObservers()
+
     }
 
     private fun setOnClickListeners() {
@@ -41,31 +42,16 @@ class CoroutinesFragment : Fragment(R.layout.fragment_thread) {
             isDone.observe(viewLifecycleOwner, Observer { isDone ->
                 if (isDone) {
                     txtvTextForThreads.text = "Done!"
-                    isDoneWasCalled()
                 }
             })
-            isJobNotBeCreatedError.observe(viewLifecycleOwner, Observer { isError ->
-                if (isError) {
-                    txtvTextForThreads.text =
-                        "Job must be created. Please press 'Create' before start"
-                    isJobNotBeCreatedErrorWasCalled()
-                }
-            })
-            isCoroutineCancelledError.observe(viewLifecycleOwner, Observer { isError ->
-                if (isError) {
-                    txtvTextForThreads.text =
-                        "Coroutine has already canceled. Please press 'Create' for recreate coroutine with job"
-                    isCoroutineCancelledErrorWasCalled()
-                }
-            })
-            isCoroutineExistError.observe(viewLifecycleOwner, Observer { isError ->
-                if (isError) {
-                    txtvTextForThreads.text =
-                        "Coroutine is not exist. Please press 'Create' for creating coroutine with job"
-                    isCoroutineExistErrorWasCalled()
-                }
+            errorMessage.observe(viewLifecycleOwner, Observer { message ->
+                if (message != null) showErrorMessage(message)
             })
         }
+    }
+
+    private fun showErrorMessage(message: String) {
+        txtvTextForThreads.text = message
     }
 
 }
