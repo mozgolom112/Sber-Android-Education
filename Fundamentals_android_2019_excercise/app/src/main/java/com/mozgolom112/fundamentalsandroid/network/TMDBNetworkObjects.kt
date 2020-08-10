@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class NetworkMovieContainer(val movies: List<NetworkMovie>?)
+data class NetworkMovieContainer(val results: List<NetworkMovie>)
 
 @JsonClass(generateAdapter = true)
 data class NetworkMovie(
@@ -14,7 +14,7 @@ data class NetworkMovie(
     @Json(name = "poster_path")
     val poster_path: String,
     @Json(name = "backdrop_path")
-    val backdrop_path: String,
+    val backdrop_path: String?,
     @Json(name = "overview")
     val overview: String,
     @Json(name = "release_date")
