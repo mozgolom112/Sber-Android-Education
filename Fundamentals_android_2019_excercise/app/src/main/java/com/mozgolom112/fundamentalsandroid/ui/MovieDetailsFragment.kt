@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.domain.Movie
 import com.mozgolom112.fundamentalsandroid.models.MovieModel
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.support.URL_TO_TRAILER
@@ -14,19 +15,19 @@ import kotlinx.android.synthetic.main.fragment_movie_details.*
 class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     companion object {
-        fun newInstance(movieModel: MovieModel) : MovieDetailsFragment {
+        fun newInstance(movie: Movie) : MovieDetailsFragment {
             val fragment =
                 MovieDetailsFragment()
             addArguments(
-                movieModel,
+                movie,
                 fragment
             )
             return fragment
         }
 
-        private fun addArguments(movieModel: MovieModel, fragment: MovieDetailsFragment) {
+        private fun addArguments(movie: Movie, fragment: MovieDetailsFragment) {
             val args: Bundle = Bundle()
-            args.putParcelable(KEY_EXTRA_MOVIE, movieModel)
+            args.putParcelable(KEY_EXTRA_MOVIE, movie)
             fragment.arguments = args
         }
     }
@@ -51,14 +52,15 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private fun setContent() {
 
-        val movie = arguments?.get(KEY_EXTRA_MOVIE) as MovieModel
+        val movie = arguments?.get(KEY_EXTRA_MOVIE) as Movie
         movie?.apply {
             txtvFilmTitle.text = title
-            txtvOverviewText.text = description
+            txtvOverviewText.text = overview
             txtvReleaseDate.text = getString(R.string.release_date)
 
-            imgvBackGround.setImageResource(posterImageId)
-            imgvSmallImage.setImageResource(posterImageId)
+            //TODO("Add picture by coil")
+            //imgvBackGround.setImageResource(posterImageId)
+            //imgvSmallImage.setImageResource(posterImageId)
         }
     }
 

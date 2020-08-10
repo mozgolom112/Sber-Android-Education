@@ -1,4 +1,4 @@
-package com.mozgolom112.fundamentalsandroid.support
+package com.mozgolom112.fundamentalsandroid.support.utils
 
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.models.MovieModel

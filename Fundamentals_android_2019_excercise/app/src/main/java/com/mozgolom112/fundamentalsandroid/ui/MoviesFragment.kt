@@ -4,41 +4,52 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.adapters.recyclerAdapters.MovieRecyclerAdapter
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
-import com.mozgolom112.fundamentalsandroid.support.DataUtil
+import com.mozgolom112.fundamentalsandroid.domain.Movie
+import com.mozgolom112.fundamentalsandroid.viewmodels.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private var recycleAdapter: MovieRecyclerAdapter? = null
-    private val movies = DataUtil.generateMovies()
+    private val viewModel: MovieViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setMovieAdapter()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewModel.apply {
+            movies.observe(viewLifecycleOwner, Observer { movies ->
+                recycleAdapter?.submitList(movies)
+            })
+        }
     }
 
     private fun setMovieAdapter() {
 
         recycleAdapter =
             MovieRecyclerAdapter { position ->
-                navigateToDetailsFragment(movies, position)
+                //TODO("Move invalid list of movies")
+                navigateToDetailsFragment(viewModel.movies.value ?: emptyList(), position)
             }
 
         recyclervMoviesList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleAdapter
         }
-        recycleAdapter?.submitList(movies)
         addItemDecoration()
     }
 
-    private fun navigateToDetailsFragment(movies: List<MovieModel>, position: Int): Unit {
+    private fun navigateToDetailsFragment(movies: List<Movie>, position: Int): Unit {
 
         findNavController()
             .navigate(

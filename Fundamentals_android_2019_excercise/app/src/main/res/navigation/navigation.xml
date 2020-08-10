@@ -20,7 +20,7 @@
         android:label="GalleryDetailsFragment" >
         <argument
             android:name="listMovies"
-            app:argType="com.mozgolom112.fundamentalsandroid.models.MovieModel[]" />
+            app:argType="com.mozgolom112.fundamentalsandroid.domain.Movie[]" />
         <argument
             android:name="position"
             app:argType="integer" />

@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
+import com.mozgolom112.fundamentalsandroid.domain.Movie
 import com.mozgolom112.fundamentalsandroid.models.MovieModel
 
 class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
@@ -16,10 +17,10 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         const val LAYOUT = R.layout.list_item_movie
     }
 
-    fun bind(movieModel: MovieModel, clickListener:(position: Int) -> Unit){
-        setImage(movieModel.posterImageId, poster)
-        title.text = movieModel.title
-        description.text = movieModel.description
+    fun bind(movie: Movie, clickListener:(position: Int) -> Unit){
+        setImage(movie.poster_path, poster)
+        title.text = movie.title
+        description.text = movie.overview
 
         //TODO('Вопрос, нужно ли выносить setOnClickListener в init метод?')
         view.setOnClickListener {
@@ -30,8 +31,8 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
         }
     }
 
-    private fun setImage(resourceId: Int, view: ImageView) {
+    private fun setImage(path: String, view: ImageView) {
         //TODO("Add download res")
-        view.setImageResource(resourceId)
+
     }
 }
