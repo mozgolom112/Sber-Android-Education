@@ -16,6 +16,7 @@ class MovieDetailsViewModel(val movie: Movie) : ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
     val trailerUrl = MutableLiveData<String>("")
+    val isTrailerFound = MutableLiveData<Boolean>(false)
 
     init {
         if (movie != null) {
@@ -24,6 +25,7 @@ class MovieDetailsViewModel(val movie: Movie) : ViewModel() {
                 val results = listResult?.asDomainModel() ?: emptyList()
                 if (results.isNotEmpty()){
                     trailerUrl.value = results[0].url
+                    isTrailerFound.value = true
                 }
             }
         }

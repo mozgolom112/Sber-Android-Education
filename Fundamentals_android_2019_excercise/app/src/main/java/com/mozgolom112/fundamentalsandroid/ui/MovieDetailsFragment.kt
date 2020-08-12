@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import coil.api.load
 import coil.transform.CircleCropTransformation
@@ -55,7 +56,16 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private fun setObservers() {
         viewModel.apply {
-
+            isTrailerFound.observe(viewLifecycleOwner, Observer {isTrailerFound ->
+                if (isTrailerFound){
+                    //TODO("Add loader")
+                    btnvWatchTrailer.visibility = View.VISIBLE
+                    btnvWatchTrailer.isClickable = true
+                } else {
+                    btnvWatchTrailer.visibility = View.INVISIBLE
+                    btnvWatchTrailer.isClickable = false
+                }
+            })
         }
     }
 

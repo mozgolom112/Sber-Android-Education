@@ -2,7 +2,9 @@ package com.mozgolom112.fundamentalsandroid.ui
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,6 +21,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private var recycleAdapter: MovieRecyclerAdapter? = null
     private val viewModel: MovieViewModel by viewModels()
+    //private lateinit var scrollListener: RecyclerView.OnScrollListener
+    //private val lastVisibleItemPosition: Int
+    //    get() =recycleAdapter. .findLastVisibleItemPosition()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,13 +46,31 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                 navigateToDetailsFragment(viewModel.movies.value ?: emptyList(), position)
             }
 
+
         recyclervMoviesList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recycleAdapter
+
         }
+        //setRecyclerViewScrollListener()
         addItemDecoration()
     }
-
+    //TODO("Add pagination https://androidwave.com/pagination-in-recyclerview/")
+    /*
+    private fun setRecyclerViewScrollListener() {
+        scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val totalItemCount = recyclerView!!.layoutManager.itemCount
+                if (totalItemCount == recycleAdapter.findLastVisibleItemPosition() + 1) {
+                    Log.d("MyTAG", "Load new list")
+                    recyclerView.removeOnScrollListener(scrollListener)
+                }
+            }
+        }
+        recyclervMoviesList.addOnScrollListener(scrollListener)
+    }
+    */
     private fun navigateToDetailsFragment(movies: List<Movie>, position: Int): Unit {
 
         findNavController()
