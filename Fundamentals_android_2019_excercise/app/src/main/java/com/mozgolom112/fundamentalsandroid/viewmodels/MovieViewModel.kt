@@ -15,7 +15,11 @@ class MovieViewModel : ViewModel() {
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
+
+
     val movies = MutableLiveData<List<Movie>>()
+    private val currentPage = MutableLiveData<Int>(1)
+    val isLoadState = MutableLiveData<Boolean>(false)
 
     init {
         if (movies.value == null) {
@@ -38,7 +42,30 @@ class MovieViewModel : ViewModel() {
         job.cancel()
     }
 
-    suspend fun getMoviesFromNetwork() = withContext(Dispatchers.IO) {
-        //val container = TMDBApi.getPopularMovies()
+    fun loadNextPageOfMovies(){
+        Log.i("And of list", "Hello there")
+        //TODO("Remove buffer")
+        val temp = movies.value as MutableList<Movie>
+        currentPage.value = currentPage.value?.plus(1)
+        var page = currentPage?.value ?: 1
+        try {
+            coroutineScope.launch {
+                isLoadState.value = true
+                val listResult = TMDBApi.getPopularMovies(page = page).await()
+
+                val result = listResult?.asDomainModel() ?: emptyList()
+                if (result.isNotEmpty()) {
+                    Log.i("getPopularMovies", "Has result")
+                    temp.addAll(result)
+                    movies.postValue(temp)
+                    isLoadState.value = false
+                }
+            }
+        } catch (e: Throwable){
+            Log.i("getNewMovies", "${e.message}")
+            currentPage.value?.minus(1)
+            isLoadState.value = false
+        }
+
     }
 }

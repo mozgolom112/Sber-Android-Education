@@ -16,7 +16,8 @@ interface TMDBInterface {
     //TODO("Remove api key")
     @GET("movie/popular")
     fun getPopularMovies(
-        @Query("api_key") api_key: String = "0ab78bd418ad0887fbd33013f722a8a4"
+        @Query("api_key") api_key: String = "0ab78bd418ad0887fbd33013f722a8a4",
+        @Query("page") page: Int = 1
     ): Deferred<NetworkMovieContainer>
 
     @GET("movie/{movie_id}/videos")

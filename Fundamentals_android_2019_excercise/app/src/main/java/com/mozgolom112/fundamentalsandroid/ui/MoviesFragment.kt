@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
@@ -21,9 +22,10 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private var recycleAdapter: MovieRecyclerAdapter? = null
     private val viewModel: MovieViewModel by viewModels()
-    //private lateinit var scrollListener: RecyclerView.OnScrollListener
-    //private val lastVisibleItemPosition: Int
-    //    get() =recycleAdapter. .findLastVisibleItemPosition()
+    private lateinit var scrollListener: RecyclerView.OnScrollListener
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private val lastVisibleItemPosition: Int
+        get() = linearLayoutManager.findLastVisibleItemPosition()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +37,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         viewModel.apply {
             movies.observe(viewLifecycleOwner, Observer { movies ->
                 recycleAdapter?.submitList(movies)
+                recycleAdapter?.notifyDataSetChanged()
             })
         }
     }
@@ -48,29 +51,33 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
 
         recyclervMoviesList.apply {
-            layoutManager = LinearLayoutManager(context)
+            linearLayoutManager = LinearLayoutManager(context)
+            layoutManager = linearLayoutManager
             adapter = recycleAdapter
+            setItemAnimator(DefaultItemAnimator())
 
         }
-        //setRecyclerViewScrollListener()
+        setRecyclerViewScrollListener()
         addItemDecoration()
     }
-    //TODO("Add pagination https://androidwave.com/pagination-in-recyclerview/")
-    /*
+    //TODO("Add pagination https://androidwave.com/pagination-in-recyclerview/)
+    //https://blog.iamsuleiman.com/android-pagination-tutorial-getting-started-recyclerview/"
+
+
     private fun setRecyclerViewScrollListener() {
         scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val totalItemCount = recyclerView!!.layoutManager.itemCount
-                if (totalItemCount == recycleAdapter.findLastVisibleItemPosition() + 1) {
-                    Log.d("MyTAG", "Load new list")
-                    recyclerView.removeOnScrollListener(scrollListener)
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val isItemLast = lastVisibleItemPosition == recycleAdapter?.itemCount?.minus(1) ?: false
+                val isLoadNow = viewModel.isLoadState?.value ?: false
+                if (isItemLast && !isLoadNow){
+                    viewModel.loadNextPageOfMovies()
                 }
             }
         }
         recyclervMoviesList.addOnScrollListener(scrollListener)
     }
-    */
+
     private fun navigateToDetailsFragment(movies: List<Movie>, position: Int): Unit {
 
         findNavController()
