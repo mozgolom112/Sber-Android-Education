@@ -13,3 +13,7 @@ data class Movie(
     val overview: String,
     val release_date: String
 ): Parcelable
+
+data class Trailer(
+    val url: String
+)

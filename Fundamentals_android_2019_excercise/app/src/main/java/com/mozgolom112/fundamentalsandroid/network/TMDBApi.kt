@@ -9,14 +9,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TMDBInterface {
     //TODO("Remove api key")
     @GET("movie/popular")
     fun getPopularMovies(
-        @Query("api_key") type: String = "0ab78bd418ad0887fbd33013f722a8a4"
+        @Query("api_key") api_key: String = "0ab78bd418ad0887fbd33013f722a8a4"
     ): Deferred<NetworkMovieContainer>
+
+    @GET("movie/{movie_id}/videos")
+    fun getMovieTrailer(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String = "0ab78bd418ad0887fbd33013f722a8a4"
+    ) : Deferred<NetworkTrailerContainer>
 }
 
 //TMDB - The Movie Data Base - free api
