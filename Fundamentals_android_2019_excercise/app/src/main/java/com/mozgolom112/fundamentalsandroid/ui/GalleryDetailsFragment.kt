@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.adapters.pagerAdapters.DetailsPagerAdapter
 import com.mozgolom112.fundamentalsandroid.domain.Movie
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
 import kotlinx.android.synthetic.main.fragment_gallery_details.*
 
 class GalleryDetailsFragment : Fragment(R.layout.fragment_gallery_details) {

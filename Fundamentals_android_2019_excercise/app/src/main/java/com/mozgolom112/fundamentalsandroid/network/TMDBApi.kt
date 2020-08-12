@@ -14,13 +14,14 @@ import retrofit2.http.Query
 interface TMDBInterface {
     //TODO("Remove api key")
     @GET("movie/popular")
-    suspend fun getPopularMovies(
+    fun getPopularMovies(
         @Query("api_key") type: String = "0ab78bd418ad0887fbd33013f722a8a4"
-    ): NetworkMovieContainer
+    ): Deferred<NetworkMovieContainer>
 }
 
 //TMDB - The Movie Data Base - free api
 object TMDB {
+
     private const val BASE_URL = "https://api.themoviedb.org/3/"
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -29,7 +30,7 @@ object TMDB {
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
-        //.addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
     val TMDBApi: TMDBInterface = retrofit.create()

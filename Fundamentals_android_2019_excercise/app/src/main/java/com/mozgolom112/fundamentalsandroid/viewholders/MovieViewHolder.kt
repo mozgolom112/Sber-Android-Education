@@ -4,9 +4,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import coil.transform.CircleCropTransformation
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.domain.Movie
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
 
 class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
     private val poster: ImageView = view.findViewById(R.id.imgvPoster)
@@ -18,7 +19,11 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
     }
 
     fun bind(movie: Movie, clickListener:(position: Int) -> Unit){
-        setImage(movie.poster_path, poster)
+
+        poster.load(movie.poster_path) {
+            crossfade(true)
+            placeholder(R.drawable.image_placeholder)
+        }
         title.text = movie.title
         description.text = movie.overview
 
@@ -29,10 +34,5 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
                 clickListener(position)
             }
         }
-    }
-
-    private fun setImage(path: String, view: ImageView) {
-        //TODO("Add download res")
-
     }
 }

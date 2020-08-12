@@ -5,9 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import coil.api.load
+import coil.transform.CircleCropTransformation
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.domain.Movie
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.support.URL_TO_TRAILER
 import kotlinx.android.synthetic.main.fragment_movie_details.*
@@ -56,12 +57,20 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         movie?.apply {
             txtvFilmTitle.text = title
             txtvOverviewText.text = overview
-            txtvReleaseDate.text = getString(R.string.release_date)
+            txtvReleaseDate.text = release_date
 
-            //TODO("Add picture by coil")
-            //imgvBackGround.setImageResource(posterImageId)
-            //imgvSmallImage.setImageResource(posterImageId)
+            //TODO("Refactor code below")
+            imgvBackGround.load(backdrop_path){
+                crossfade(true)
+                placeholder(R.drawable.image_placeholder)
+            }
+            imgvSmallImage.load(poster_path){
+                crossfade(true)
+                placeholder(R.drawable.image_placeholder)
+            }
         }
     }
+
+
 
 }

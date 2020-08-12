@@ -1,10 +1,10 @@
 package com.mozgolom112.fundamentalsandroid.support.utils
 
 import com.mozgolom112.fundamentalsandroid.R
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
+
 
 object DataUtil {
-
+/*
     fun generateMovies(): MutableList<MovieModel> =
         mutableListOf(
             MovieModel(
@@ -37,4 +37,5 @@ object DataUtil {
                 "Ким Джэ-ха - бывший солдат-наёмник, его также зовут К2. Жена кандидата в президенты нанимает его телохранителем."
             )
         )
+        */
 }

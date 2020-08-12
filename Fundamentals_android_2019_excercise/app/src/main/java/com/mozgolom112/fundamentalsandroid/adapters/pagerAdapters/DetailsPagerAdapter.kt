@@ -4,7 +4,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.mozgolom112.fundamentalsandroid.domain.Movie
 import com.mozgolom112.fundamentalsandroid.ui.MovieDetailsFragment
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
 
 class DetailsPagerAdapter(
     fragmentManager: FragmentManager,

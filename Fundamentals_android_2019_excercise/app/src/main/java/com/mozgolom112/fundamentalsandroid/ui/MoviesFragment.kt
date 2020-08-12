@@ -38,7 +38,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
         recycleAdapter =
             MovieRecyclerAdapter { position ->
-                //TODO("Move invalid list of movies")
                 navigateToDetailsFragment(viewModel.movies.value ?: emptyList(), position)
             }
 

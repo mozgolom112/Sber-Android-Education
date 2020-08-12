@@ -19,13 +19,11 @@ class MovieViewModel : ViewModel() {
 
     init {
         if (movies.value == null) {
-            val api_key = "0ab78bd418ad0887fbd33013f722a8a4"
             //var getPopularMoviesDeferred = TMDBApi.getPopularMovies(api_key)
             coroutineScope.launch {
                 //getMoviesFromNetwork()
-                val listResult = withContext(Dispatchers.IO) {TMDBApi.getPopularMovies(api_key)}
+                val listResult = TMDBApi.getPopularMovies().await()
 
-                //var listResult = TMDBApi.getPopularMovies(api_key)
                 val result = listResult?.asDomainModel() ?: emptyList()
                 if (result.isNotEmpty()) {
                     Log.i("getPopularMovies", "Has result")

@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.mozgolom112.fundamentalsandroid.adapters.diffCallback.MovieDiffCallback
 import com.mozgolom112.fundamentalsandroid.domain.Movie
-import com.mozgolom112.fundamentalsandroid.models.MovieModel
 import com.mozgolom112.fundamentalsandroid.viewholders.MovieViewHolder
 
 class MovieRecyclerAdapter(private val clickListener: (Int) -> Unit) : ListAdapter<Movie, MovieViewHolder>(
