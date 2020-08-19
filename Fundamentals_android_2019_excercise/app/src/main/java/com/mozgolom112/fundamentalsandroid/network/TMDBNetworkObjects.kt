@@ -18,10 +18,20 @@ data class NetworkMovie(
     @Json(name = "overview")
     val overview: String,
     @Json(name = "release_date")
-    val release_date: String
+    val release_date: String,
+    @Json(name = "popularity")
+    val popularity: Double
 )
 @JsonClass(generateAdapter = true)
-data class NetworkTrailerContainer(val results: List<NetworkTrailer>)
+data class NetworkTrailerContainer(
+    @Json(name = "results")
+    val results: List<NetworkTrailer>,
+    @Json(name = "id")
+    val id: Int
+)
 
 @JsonClass(generateAdapter = true)
-data class NetworkTrailer(val key: String)
+data class NetworkTrailer(
+    @Json(name = "key")
+    val key: String
+)
