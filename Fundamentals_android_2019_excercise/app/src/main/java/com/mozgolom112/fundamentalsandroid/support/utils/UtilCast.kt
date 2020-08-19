@@ -78,8 +78,8 @@ private fun castMovieFromDatabase(it: DatabaseMovie): Movie {
         id = it.id,
         title = it.title,
         overview = it.overview,
-        poster_path = IMG_POSTER_TMDB_BASE_URL + it?.poster_path ?: null,
-        backdrop_path = IMG_BACKDROP_TMDB_BASE_URL + it?.backdrop_path ?: null,
+        poster_path = it?.poster_path ?: null,
+        backdrop_path = it?.backdrop_path ?: null,
         release_date = it.release_date,
         popularity = it.popularity
     )

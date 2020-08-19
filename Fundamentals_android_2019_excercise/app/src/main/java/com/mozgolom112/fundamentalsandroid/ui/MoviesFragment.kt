@@ -1,5 +1,6 @@
 package com.mozgolom112.fundamentalsandroid.ui
 
+import android.app.Application
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -14,14 +15,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.adapters.recyclerAdapters.MovieRecyclerAdapter
+import com.mozgolom112.fundamentalsandroid.database.DatabaseTMDB
+import com.mozgolom112.fundamentalsandroid.database.DatabaseTMDB_Impl
 import com.mozgolom112.fundamentalsandroid.domain.Movie
+import com.mozgolom112.fundamentalsandroid.repository.cache.MoviesCache
+import com.mozgolom112.fundamentalsandroid.repository.cache.SharedPreferencesImpl
+import com.mozgolom112.fundamentalsandroid.repository.cache.SharedPreferencesInterface
+import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.viewmodels.MovieViewModel
+import com.mozgolom112.fundamentalsandroid.viewmodels.viewmodelsfactory.MovieDetailsViewModelFactory
+import com.mozgolom112.fundamentalsandroid.viewmodels.viewmodelsfactory.MovieViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private var recycleAdapter: MovieRecyclerAdapter? = null
-    private val viewModel: MovieViewModel by viewModels()
+
+    //ViewModel
+    private val viewModelFactory by lazy { MovieViewModelFactory(requireContext()) }
+    private val viewModel: MovieViewModel by viewModels { viewModelFactory }
+
+    //Paginator
     private lateinit var scrollListener: RecyclerView.OnScrollListener
     private lateinit var linearLayoutManager: LinearLayoutManager
     private val lastVisibleItemPosition: Int
@@ -29,6 +43,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setMovieAdapter()
         setObservers()
     }
@@ -68,9 +83,10 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val isItemLast = lastVisibleItemPosition == recycleAdapter?.itemCount?.minus(1) ?: false
+                val isItemLast =
+                    lastVisibleItemPosition == recycleAdapter?.itemCount?.minus(1) ?: false
                 val isLoadNow = viewModel.isLoadState?.value ?: false
-                if (isItemLast && !isLoadNow){
+                if (isItemLast && !isLoadNow) {
                     viewModel.loadNextPageOfMovies()
                 }
             }

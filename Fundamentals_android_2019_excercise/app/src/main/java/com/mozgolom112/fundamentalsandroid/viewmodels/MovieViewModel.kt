@@ -1,20 +1,30 @@
 package com.mozgolom112.fundamentalsandroid.viewmodels
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mozgolom112.fundamentalsandroid.database.DatabaseTMDB
 import com.mozgolom112.fundamentalsandroid.domain.Movie
 import com.mozgolom112.fundamentalsandroid.network.NetworkMovieContainer
 import com.mozgolom112.fundamentalsandroid.network.TMDB
 import com.mozgolom112.fundamentalsandroid.network.TMDB.TMDBApi
+import com.mozgolom112.fundamentalsandroid.repository.cache.MoviesCache
+import com.mozgolom112.fundamentalsandroid.repository.cache.SharedPreferencesImpl
+import com.mozgolom112.fundamentalsandroid.repository.repositories.MovieRepository
 import com.mozgolom112.fundamentalsandroid.support.utils.asDomainModel
 import kotlinx.coroutines.*
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel(val context: Context) : ViewModel() {
 
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
+    private val database
+            by lazy(Dispatchers.IO) { DatabaseTMDB.getInstance(context) }
+    private val cache
+            by lazy(Dispatchers.IO) { MoviesCache(database.movieDao, database.trailerDao, SharedPreferencesImpl(context)) }
+    private val movieRepository by lazy(Dispatchers.IO) { MovieRepository(TMDBApi, cache)}
 
 
     val movies = MutableLiveData<List<Movie>>()
@@ -22,16 +32,16 @@ class MovieViewModel : ViewModel() {
     val isLoadState = MutableLiveData<Boolean>(false)
 
     init {
-        if (movies.value == null) {
-            //var getPopularMoviesDeferred = TMDBApi.getPopularMovies(api_key)
-            coroutineScope.launch {
-                //getMoviesFromNetwork()
-                val listResult = TMDBApi.getPopularMovies().await()
 
-                val result = listResult?.asDomainModel() ?: emptyList()
-                if (result.isNotEmpty()) {
+        if (movies.value == null) {
+            coroutineScope.launch {
+                try {
+                    Log.i("getPopularMovies", "Start")
+                    movies.value = withContext(Dispatchers.IO){ movieRepository.getPopularMovies() }
                     Log.i("getPopularMovies", "Has result")
-                    movies.value = result
+                }
+                catch (e: Throwable){
+                    Log.e("getPopularMoviesError", e.message)
                 }
             }
         }
