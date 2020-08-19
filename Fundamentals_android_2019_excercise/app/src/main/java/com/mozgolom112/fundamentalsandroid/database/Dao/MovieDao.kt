@@ -14,6 +14,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(movies: List<DatabaseMovie>)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertNewPage(movies: List<DatabaseMovie>)
+
     @Query("DELETE FROM movies")
     fun deleteAll()
 }

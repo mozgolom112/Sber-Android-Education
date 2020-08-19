@@ -23,8 +23,14 @@ class MovieViewModel(val context: Context) : ViewModel() {
     private val database
             by lazy(Dispatchers.IO) { DatabaseTMDB.getInstance(context) }
     private val cache
-            by lazy(Dispatchers.IO) { MoviesCache(database.movieDao, database.trailerDao, SharedPreferencesImpl(context)) }
-    private val movieRepository by lazy(Dispatchers.IO) { MovieRepository(TMDBApi, cache)}
+            by lazy(Dispatchers.IO) {
+                MoviesCache(
+                    database.movieDao,
+                    database.trailerDao,
+                    SharedPreferencesImpl(context)
+                )
+            }
+    private val movieRepository by lazy(Dispatchers.IO) { MovieRepository(TMDBApi, cache) }
 
 
     val movies = MutableLiveData<List<Movie>>()
@@ -37,10 +43,10 @@ class MovieViewModel(val context: Context) : ViewModel() {
             coroutineScope.launch {
                 try {
                     Log.i("getPopularMovies", "Start")
-                    movies.value = withContext(Dispatchers.IO){ movieRepository.getPopularMovies() }
+                    movies.value =
+                        withContext(Dispatchers.IO) { movieRepository.getPopularMovies() }
                     Log.i("getPopularMovies", "Has result")
-                }
-                catch (e: Throwable){
+                } catch (e: Throwable) {
                     Log.e("getPopularMoviesError", e.message)
                 }
             }
@@ -52,30 +58,25 @@ class MovieViewModel(val context: Context) : ViewModel() {
         job.cancel()
     }
 
-    fun loadNextPageOfMovies(){
+    fun loadNextPageOfMovies() {
         Log.i("And of list", "Hello there")
         //TODO("Remove buffer")
         val temp = movies.value as MutableList<Movie>
         currentPage.value = currentPage.value?.plus(1)
         var page = currentPage?.value ?: 1
-        try {
-            coroutineScope.launch {
-                isLoadState.value = true
-                val listResult = TMDBApi.getPopularMovies(page = page).await()
-
-                val result = listResult?.asDomainModel() ?: emptyList()
-                if (result.isNotEmpty()) {
-                    Log.i("getPopularMovies", "Has result")
-                    temp.addAll(result)
-                    movies.postValue(temp)
-                    isLoadState.value = false
-                }
+        coroutineScope.launch {
+            isLoadState.value = true
+            try {
+                val result = movieRepository.getPopularMovies(page)
+                Log.i("getPopularMovies", "Has result")
+                temp.addAll(result)
+                movies.postValue(temp)
+                isLoadState.value = false
+            } catch (e: Throwable) {
+                Log.e("loadNextPageOfMoviesError", e.message)
+                currentPage.value?.minus(1)
+                isLoadState.value = false
             }
-        } catch (e: Throwable){
-            Log.i("getNewMovies", "${e.message}")
-            currentPage.value?.minus(1)
-            isLoadState.value = false
         }
-
     }
 }

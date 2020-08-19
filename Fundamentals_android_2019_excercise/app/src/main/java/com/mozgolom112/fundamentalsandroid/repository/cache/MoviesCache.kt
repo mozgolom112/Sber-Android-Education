@@ -46,8 +46,15 @@ class MoviesCache(
     override fun insertMovies(movies: List<NetworkMovie>) {
         movieDao.deleteAll()
         movieDao.insertAll(movies.asDatabaseModel())
+        
+        updateCachedTime()
+    }
 
-        preferenceHelper.lastCacheTime = System.currentTimeMillis()
+    override fun insertNewPage(movies: List<NetworkMovie>) {
+
+        movieDao.insertNewPage(movies.asDatabaseModel())
+
+        updateCachedTime()
     }
 
     override fun insertTrailer(trailer: NetworkTrailerContainer) {
@@ -68,4 +75,7 @@ class MoviesCache(
         trailerDao.deleteAll()
     }
 
+    private fun updateCachedTime() {
+        preferenceHelper.lastCacheTime = System.currentTimeMillis()
+    }
 }

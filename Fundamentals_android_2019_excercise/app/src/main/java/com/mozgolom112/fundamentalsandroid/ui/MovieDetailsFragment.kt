@@ -24,7 +24,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private val viewModelFactory: MovieDetailsViewModelFactory by lazy {
         val movie = arguments?.get(KEY_EXTRA_MOVIE) as Movie
-        MovieDetailsViewModelFactory(movie)
+        MovieDetailsViewModelFactory(movie, requireContext())
     }
 
     private val viewModel: MovieDetailsViewModel by viewModels { viewModelFactory }

@@ -16,6 +16,8 @@ interface MoviesCacheInterface {
 
     fun insertMovies(movies: List<NetworkMovie>)
 
+    fun insertNewPage(movies: List<NetworkMovie>)
+
     fun insertTrailer(trailer: NetworkTrailerContainer)
 
     fun insertTrailer(trailer: List<Trailer>)
