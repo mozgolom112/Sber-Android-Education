@@ -15,7 +15,8 @@ import com.mozgolom112.fundamentalsandroid.repository.repositories.MovieReposito
 import com.mozgolom112.fundamentalsandroid.support.utils.asDomainModel
 import kotlinx.coroutines.*
 
-class MovieViewModel(val context: Context) : ViewModel() {
+//TODO("Remove context from constructor")
+class MovieViewModel(context: Context) : ViewModel() {
 
     private val job = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
@@ -30,15 +31,22 @@ class MovieViewModel(val context: Context) : ViewModel() {
                     SharedPreferencesImpl(context)
                 )
             }
-    private val movieRepository by lazy(Dispatchers.IO) { MovieRepository(TMDBApi, cache) }
-
+    private val movieRepository: MovieRepository by lazy(Dispatchers.IO) { MovieRepository(TMDBApi, cache) }
 
     val movies = MutableLiveData<List<Movie>>()
     private val currentPage = MutableLiveData<Int>(1)
     val isLoadState = MutableLiveData<Boolean>(false)
 
     init {
+        loadFirstPage()
+    }
 
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
+
+    private fun loadFirstPage() {
         if (movies.value == null) {
             coroutineScope.launch {
                 try {
@@ -51,11 +59,6 @@ class MovieViewModel(val context: Context) : ViewModel() {
                 }
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        job.cancel()
     }
 
     fun loadNextPageOfMovies() {

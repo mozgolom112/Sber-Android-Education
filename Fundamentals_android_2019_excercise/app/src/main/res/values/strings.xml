@@ -10,4 +10,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open_corountines">Open Corountines</string>
     <string name="open_thread_handler">Open Thread Handler</string>
+    <string name="open_background_service">Open Background Service</string>
 </resources>

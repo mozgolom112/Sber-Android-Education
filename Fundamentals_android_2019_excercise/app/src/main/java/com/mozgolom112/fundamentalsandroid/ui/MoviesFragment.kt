@@ -1,29 +1,24 @@
 package com.mozgolom112.fundamentalsandroid.ui
 
-import android.app.Application
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.adapters.recyclerAdapters.MovieRecyclerAdapter
-import com.mozgolom112.fundamentalsandroid.database.DatabaseTMDB
-import com.mozgolom112.fundamentalsandroid.database.DatabaseTMDB_Impl
 import com.mozgolom112.fundamentalsandroid.domain.Movie
-import com.mozgolom112.fundamentalsandroid.repository.cache.MoviesCache
-import com.mozgolom112.fundamentalsandroid.repository.cache.SharedPreferencesImpl
-import com.mozgolom112.fundamentalsandroid.repository.cache.SharedPreferencesInterface
-import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.viewmodels.MovieViewModel
-import com.mozgolom112.fundamentalsandroid.viewmodels.viewmodelsfactory.MovieDetailsViewModelFactory
 import com.mozgolom112.fundamentalsandroid.viewmodels.viewmodelsfactory.MovieViewModelFactory
 import kotlinx.android.synthetic.main.fragment_movies.*
 
@@ -33,7 +28,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     //ViewModel
     private val viewModelFactory by lazy { MovieViewModelFactory(requireContext()) }
-    private val viewModel: MovieViewModel by viewModels { viewModelFactory }
+    private val viewModel: MovieViewModel by viewModels {viewModelFactory}
 
     //Paginator
     private lateinit var scrollListener: RecyclerView.OnScrollListener
@@ -43,9 +38,20 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setHasOptionsMenu(true)
         setMovieAdapter()
         setObservers()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item,
+            requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 
     private fun setObservers() {

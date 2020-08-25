@@ -25,4 +25,9 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/backgroundServiceFragment"
+        android:name="com.mozgolom112.fundamentalsandroid.ui.BackgroundServiceFragment"
+        android:label="fragment_background_service"
+        tools:layout="@layout/fragment_background_service" />
 </navigation>
