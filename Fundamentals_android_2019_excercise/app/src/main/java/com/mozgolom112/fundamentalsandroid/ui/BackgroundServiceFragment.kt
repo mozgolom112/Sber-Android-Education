@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.dependency.Dependencies
+import com.mozgolom112.fundamentalsandroid.services.MAX_PROGRESS
 import com.mozgolom112.fundamentalsandroid.services.ServiceDelegate
 import com.mozgolom112.fundamentalsandroid.viewmodels.BackgroundServiceViewModel
 import com.mozgolom112.fundamentalsandroid.viewmodels.viewmodelsfactory.BackgroundServiceViewModelFactory
@@ -18,10 +19,10 @@ import kotlinx.android.synthetic.main.fragment_background_service.*
 
 class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service) {
 
-    private val serviceDelegate: ServiceDelegate by lazy {Dependencies.serviceDelegate}
+    private val serviceDelegate: ServiceDelegate by lazy { Dependencies.serviceDelegate }
 
     private val viewModelFactory by lazy { BackgroundServiceViewModelFactory(Dependencies.heavyWorkManager) }
-    private val viewModel: BackgroundServiceViewModel by viewModels{viewModelFactory}
+    private val viewModel: BackgroundServiceViewModel by viewModels { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,21 +36,48 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         }
 
         btnStartService.setOnClickListener {
-            activity?.run { serviceDelegate.startDownloadService(this, true) }
+            viewModel.onStartServiceClick()
+            startDownloadService()
         }
+    }
+
+    private fun startDownloadService() {
+        activity?.run { serviceDelegate.startDownloadService(requireActivity(), true) }
     }
 
 
     private fun setObservers() {
         viewModel.apply {
             progressStatus.observe(viewLifecycleOwner, Observer {
-                Log.d("progressStatus", "Current progress status: ${it}")
-                updateProgress(it)
+                isEnableDownloadService.value?.apply {
+                    if (!this) {
+                        Log.d("progressStatus", "Current progress status: ${it}")
+                        updateProgress(it)
+                        if (it == MAX_PROGRESS) {
+                            onStopService()
+                            resetState()
+                            stopDownloadService()
+                        }
+                    }
+                }
+            })
+            isButtonsEnable.observe(viewLifecycleOwner, Observer {
+                setStateForBtn(it)
             })
         }
     }
 
+    private fun stopDownloadService() {
+        activity?.run { serviceDelegate.stopDownloadService(requireActivity()) }
+    }
+
     private fun updateProgress(it: Int?) {
         txtvServiceProgressBar.text = it.toString() + "%"
+        if (it == MAX_PROGRESS) txtvServiceProgressBar.text = "DONE"
+    }
+
+    private fun setStateForBtn(isEnable: Boolean) {
+        btnStartService.isEnabled = isEnable
+        btnStartIntentService.isEnabled = isEnable
     }
 }
