@@ -11,4 +11,6 @@
     <string name="open_corountines">Open Corountines</string>
     <string name="open_thread_handler">Open Thread Handler</string>
     <string name="open_background_service">Open Background Service</string>
+    <string name="notification_text">Fundamentals</string>
+    <string name="notification_channel_name">fundamentals</string>
 </resources>

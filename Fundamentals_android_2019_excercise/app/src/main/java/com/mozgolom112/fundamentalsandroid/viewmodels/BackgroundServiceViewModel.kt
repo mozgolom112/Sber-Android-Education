@@ -13,14 +13,16 @@ class BackgroundServiceViewModel(
     private val heavyWorkManager: HeavyWorkerManager
 ) : ViewModel() {
 
-    val isButtonsEnable = MutableLiveData<Boolean>()
-    val isEnableDownloadService = MutableLiveData<Boolean>() //enable/disable btns for start services
+    val isButtonsEnable = MutableLiveData<Boolean>() //enable/disable btns for start services
+    val isEnableService = MutableLiveData<Boolean>()
+
+    val isEnableDownloadService = MutableLiveData<Boolean>()
+    val isEnableDownloadIntentService = MutableLiveData<Boolean>()
     val progressStatus = heavyWorkManager.getProgressUpdaterService()
 
     override fun onCleared() {
         super.onCleared()
         resetState()
-
     }
 
     fun resetState() {
@@ -32,12 +34,26 @@ class BackgroundServiceViewModel(
 
     fun onStopService(){
         isButtonsEnable.value = true
+        isEnableService.value = true
         isEnableDownloadService.value = true
+        isEnableDownloadIntentService.value = true
+    }
+
+    fun onStopIntentService(){
+        isButtonsEnable.value = true
+        isEnableDownloadIntentService.value = true
     }
 
     fun onStartServiceClick() {
         isButtonsEnable.value = false
         isEnableDownloadService.value = false
+        isEnableService.value = false
+    }
+
+    fun onStartIntentServiceClick() {
+        isButtonsEnable.value = false
+        isEnableDownloadIntentService.value = false
+        isEnableService.value = false
     }
 
 }

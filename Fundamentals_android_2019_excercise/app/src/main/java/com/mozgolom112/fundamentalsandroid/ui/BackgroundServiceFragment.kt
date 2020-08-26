@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_background_service.*
 class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service) {
 
     private val serviceDelegate: ServiceDelegate by lazy { Dependencies.serviceDelegate }
-
     private val viewModelFactory by lazy { BackgroundServiceViewModelFactory(Dependencies.heavyWorkManager) }
     private val viewModel: BackgroundServiceViewModel by viewModels { viewModelFactory }
 
@@ -32,7 +31,8 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
 
     private fun setOnClickListeners() {
         btnStartIntentService.setOnClickListener {
-
+            viewModel.onStartIntentServiceClick()
+            startDownloadIntentService()
         }
 
         btnStartService.setOnClickListener {
@@ -41,22 +41,25 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         }
     }
 
+    private fun startDownloadIntentService() {
+        activity?.run { serviceDelegate.startDownloadIntentService(requireActivity(), true) }
+    }
+
     private fun startDownloadService() {
         activity?.run { serviceDelegate.startDownloadService(requireActivity(), true) }
     }
 
-
     private fun setObservers() {
         viewModel.apply {
             progressStatus.observe(viewLifecycleOwner, Observer {
-                isEnableDownloadService.value?.apply {
+                isEnableService.value?.apply {
                     if (!this) {
                         Log.d("progressStatus", "Current progress status: ${it}")
                         updateProgress(it)
                         if (it == MAX_PROGRESS) {
-                            onStopService()
                             resetState()
-                            stopDownloadService()
+                            stopService()
+                            onStopService()
                         }
                     }
                 }
@@ -67,9 +70,21 @@ class BackgroundServiceFragment : Fragment(R.layout.fragment_background_service)
         }
     }
 
+    private fun stopService() {
+        val isIntentServiceWasStarted = viewModel.isEnableDownloadIntentService.value ?: false
+        if (isIntentServiceWasStarted) stopDownloadIntentService()
+        else stopDownloadService()
+
+    }
+
+    private fun stopDownloadIntentService() {
+        activity?.run { serviceDelegate.stopDownloadIntentService(requireActivity()) }
+    }
+
     private fun stopDownloadService() {
         activity?.run { serviceDelegate.stopDownloadService(requireActivity()) }
     }
+
 
     private fun updateProgress(it: Int?) {
         txtvServiceProgressBar.text = it.toString() + "%"
