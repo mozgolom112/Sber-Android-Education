@@ -19,25 +19,6 @@ class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
         Thread.sleep(DELAY_VALUE)//note, this is a random number, for an example hard work
     }
 
-    private fun startWork(isEnable: Boolean) {
-        isEnable.run {
-            when {
-                this -> {
-                    Dependencies.run {
-                        notificationsManager.showNotification()
-                        heavyWorkManager.startWork()
-                    }
-                }
-                else -> {
-                    Dependencies.run {
-                        notificationsManager.hideNotification()
-                        heavyWorkManager.resetProgress()
-                    }
-                }
-            }
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         Handler(Looper.getMainLooper()).post {
@@ -50,5 +31,19 @@ class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
             }
         }
 
+    }
+
+    private fun startWork(isEnable: Boolean) {
+        isEnable.run {
+
+            if(this) Dependencies.run {
+                    notificationsManager.showNotification()
+                    heavyWorkManager.startWork()
+            } else Dependencies.run {
+                    notificationsManager.hideNotification()
+                    heavyWorkManager.resetProgress()
+
+            }
+        }
     }
 }

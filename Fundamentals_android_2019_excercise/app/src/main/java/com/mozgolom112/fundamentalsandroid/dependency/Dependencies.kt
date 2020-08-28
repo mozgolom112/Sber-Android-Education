@@ -1,6 +1,5 @@
 package com.mozgolom112.fundamentalsandroid.dependency
 
-import android.app.Application
 import android.app.NotificationManager
 import android.content.Context.NOTIFICATION_SERVICE
 import com.mozgolom112.fundamentalsandroid.App

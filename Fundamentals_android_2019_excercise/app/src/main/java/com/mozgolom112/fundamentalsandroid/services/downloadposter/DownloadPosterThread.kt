@@ -112,6 +112,7 @@ class DownloadPosterThread(
         return "${timeStamp}_${fileName}"
     }
 
+    //TODO("Remove interface into external class")
     interface DownloadCallBack {
         fun onProgressUpdate(percent: Int)
         fun onDownloadFinished(filePath: String)

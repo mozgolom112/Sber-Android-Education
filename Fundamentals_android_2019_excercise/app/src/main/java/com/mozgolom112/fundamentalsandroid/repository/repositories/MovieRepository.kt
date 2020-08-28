@@ -14,7 +14,6 @@ class MovieRepository(
     private val cache: MoviesCache
 ) {
 
-
     suspend fun getPopularMovies(): List<Movie> {
         if (cache.isCached()) {
             return cache.getMovies()
@@ -51,7 +50,4 @@ class MovieRepository(
         return networkMovies.asDomainModel() ?: emptyList()
     }
 
-    fun deleteCachedData() {
-        cache.clearCache()
-    }
 }

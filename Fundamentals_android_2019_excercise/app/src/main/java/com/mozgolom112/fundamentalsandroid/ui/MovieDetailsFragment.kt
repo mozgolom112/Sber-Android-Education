@@ -104,7 +104,6 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         viewModel.apply {
             isTrailerFound.observe(viewLifecycleOwner, Observer { isTrailerFound ->
                 if (isTrailerFound) {
-                    //TODO("Add loader")
                     btnvWatchTrailer.visibility = View.VISIBLE
                     btnvWatchTrailer.isClickable = true
                 } else {
@@ -121,7 +120,6 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
             if (trailerURL != null)
                 openUrl(trailerURL)
             else {
-                //TODO("Hide button")
                 Toast.makeText(requireContext(), "Sorry. No trailer here", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -155,43 +153,6 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         DownloadPosterService.startService(requireContext(), url)
     }
 
-    private val isPermissionGranted: Boolean
-        get() = ContextCompat.checkSelfPermission(requireContext(), PERMISSION) ==
-                PackageManager.PERMISSION_GRANTED
-
-    private fun requestPermission() {
-        // Should we show an explanation?
-        if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), PERMISSION)) {
-            // Show an explanation to the user.
-            // After the user sees the explanation, try again to request the permission.
-            showExplainingRationaleDialog()
-        } else {
-            // No explanation needed, we can request the permission.
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(PERMISSION),
-                PERMISSIONS_REQUEST_CODE
-            )
-            // PERMISSIONS_REQUEST_CODE is an app-defined int constant.
-            // The callback method gets the result of the request.
-        }
-    }
-
-    private fun showExplainingRationaleDialog() {
-        AlertDialog.Builder(requireActivity())
-            .setTitle("Write file permission")
-            .setMessage("We need this permission for write down file into FS of your phone")
-            .setPositiveButton("Allow") { _, _ ->
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(PERMISSION),
-                    PERMISSIONS_REQUEST_CODE
-                )
-            }
-            .create()
-            .show()
-    }
-
     private fun setContent() {
 
         val movie = viewModel.movie
@@ -212,5 +173,35 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
         }
     }
 
+    //Permissions
+    private val isPermissionGranted: Boolean
+        get() = ContextCompat.checkSelfPermission(requireContext(), PERMISSION) ==
+                PackageManager.PERMISSION_GRANTED
 
+    private fun requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), PERMISSION)) {
+            showExplainingRationaleDialog()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(PERMISSION),
+                PERMISSIONS_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun showExplainingRationaleDialog() {
+        AlertDialog.Builder(requireActivity())
+            .setTitle("Write file permission")
+            .setMessage("We need this permission for write down file into FS of your phone")
+            .setPositiveButton("Allow") { _, _ ->
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(PERMISSION),
+                    PERMISSIONS_REQUEST_CODE
+                )
+            }
+            .create()
+            .show()
+    }
 }

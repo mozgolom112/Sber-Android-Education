@@ -58,11 +58,8 @@ class HeavyWorkerManager {
     }
 
     private fun foregroundProcess(): Int {
-        return if (counter < MAX_PROGRESS) {
-            Log.d("ForegroundProcess", "${counter}")
-            counter++
-        } else {
-            counter
-        }
+        return if (counter < MAX_PROGRESS) counter++
+        else counter
+
     }
 }

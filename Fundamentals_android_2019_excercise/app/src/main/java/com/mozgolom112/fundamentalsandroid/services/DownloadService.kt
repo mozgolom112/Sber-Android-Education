@@ -4,7 +4,6 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import com.mozgolom112.fundamentalsandroid.dependency.Dependencies
-import com.mozgolom112.fundamentalsandroid.dependency.Dependencies.notificationsManager
 
 const val SERVICE_INT_DATA = "SERVICE_INT_DATA"
 

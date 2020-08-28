@@ -93,8 +93,10 @@ class DownloadPosterService : Service() {
 
             override fun onError(error: String) {
                 Log.e("DownloadService", "Error: $error")
-                notificationManager.notify(ERROR_NOTIFICATION_ID, createErrorNotification())
-                notificationManager.cancel(ONGOING_NOTIFICATION_ID)
+                notificationManager.apply {
+                    notify(ERROR_NOTIFICATION_ID, createErrorNotification())
+                    cancel(ONGOING_NOTIFICATION_ID)
+                }
                 stopSelf()
             }
         }).start()
@@ -131,6 +133,7 @@ class DownloadPosterService : Service() {
         private const val POSTER_URL = "POSTER_URL"
         private const val ONGOING_NOTIFICATION_ID = 987
         private const val ERROR_NOTIFICATION_ID = 1024
+        //for settings. User will show first
         private const val CHANNEL_DEFAULT_IMPORTANCE = "01_Channel"
 
         fun startService(context: Context, posterUrl: String) {

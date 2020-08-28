@@ -23,18 +23,6 @@ class MoviesCache(
         return movieDao.getAll().isNotEmpty() && !isExpired()
     }
 
-    private fun isExpired(): Boolean {
-        val currentTime = System.currentTimeMillis()
-        val lastUpdateTime = this.getLastCacheUpdateTimeMillis()
-
-        return currentTime - lastUpdateTime > EXPIRATION_TIME
-    }
-
-    private fun getLastCacheUpdateTimeMillis(): Long {
-        return preferenceHelper.lastCacheTime
-    }
-
-
     override fun getMovies(): List<Movie> {
         return movieDao.getAll().asDomainModel()
     }
@@ -73,6 +61,18 @@ class MoviesCache(
     override fun clearCache() {
         movieDao.deleteAll()
         trailerDao.deleteAll()
+    }
+
+
+    private fun isExpired(): Boolean {
+        val currentTime = System.currentTimeMillis()
+        val lastUpdateTime = this.getLastCacheUpdateTimeMillis()
+
+        return currentTime - lastUpdateTime > EXPIRATION_TIME
+    }
+
+    private fun getLastCacheUpdateTimeMillis(): Long {
+        return preferenceHelper.lastCacheTime
     }
 
     private fun updateCachedTime() {
