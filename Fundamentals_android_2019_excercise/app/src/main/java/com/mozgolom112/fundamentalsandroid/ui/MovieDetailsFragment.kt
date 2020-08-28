@@ -24,6 +24,7 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.mozgolom112.fundamentalsandroid.R
 import com.mozgolom112.fundamentalsandroid.domain.Movie
+import com.mozgolom112.fundamentalsandroid.services.downloadposter.DownloadPosterService
 import com.mozgolom112.fundamentalsandroid.support.KEY_EXTRA_MOVIE
 import com.mozgolom112.fundamentalsandroid.support.URL_TO_TRAILER
 import com.mozgolom112.fundamentalsandroid.viewmodels.MovieDetailsViewModel
@@ -74,8 +75,10 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item,
-            requireView().findNavController())
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            requireView().findNavController()
+        )
                 || super.onOptionsItemSelected(item)
     }
 
@@ -99,8 +102,8 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private fun setObservers() {
         viewModel.apply {
-            isTrailerFound.observe(viewLifecycleOwner, Observer {isTrailerFound ->
-                if (isTrailerFound){
+            isTrailerFound.observe(viewLifecycleOwner, Observer { isTrailerFound ->
+                if (isTrailerFound) {
                     //TODO("Add loader")
                     btnvWatchTrailer.visibility = View.VISIBLE
                     btnvWatchTrailer.isClickable = true
@@ -147,6 +150,9 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
 
     private fun startDownloadService() {
         Log.d("DetailsFragment", "startDownloadService")
+        val url = viewModel.movie.poster_path ?: ""
+        //TODO("Surround with check")
+        DownloadPosterService.startService(requireContext(), url)
     }
 
     private val isPermissionGranted: Boolean
