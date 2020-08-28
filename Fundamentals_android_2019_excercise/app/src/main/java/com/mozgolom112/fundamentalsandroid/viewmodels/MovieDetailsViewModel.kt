@@ -54,4 +54,8 @@ class MovieDetailsViewModel(val movie: Movie,private val context: Context) : Vie
     }
 
     fun getTrailerUrl(): String? = trailerUrl.value
+
+    fun onFabClick(){
+
+    }
 }
