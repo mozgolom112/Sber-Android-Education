@@ -5,7 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "movies")
-class DatabaseMovie constructor(
+data class DatabaseMovie(
+
     @PrimaryKey
     val id: Int,
     val title: String,
@@ -17,7 +18,7 @@ class DatabaseMovie constructor(
 )
 
 @Entity(tableName = "trailers")
-class DatabaseTrailer constructor(
+data class DatabaseTrailer (
     @PrimaryKey
     val movieId: Int,
     val url: String?

@@ -44,6 +44,7 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
     private val viewModel: MovieDetailsViewModel by viewModels { viewModelFactory }
 
     companion object {
+        //TODO("DONT USE")
         fun newInstance(movie: Movie): MovieDetailsFragment {
             val fragment =
                 MovieDetailsFragment()

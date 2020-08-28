@@ -32,9 +32,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     //Paginator
     private lateinit var scrollListener: RecyclerView.OnScrollListener
-    private lateinit var linearLayoutManager: LinearLayoutManager
-    private val lastVisibleItemPosition: Int
-        get() = linearLayoutManager.findLastVisibleItemPosition()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,6 +50,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         return NavigationUI.onNavDestinationSelected(item,
             requireView().findNavController())
                 || super.onOptionsItemSelected(item)
+        //TODO("Change method")
     }
 
     private fun setObservers() {
@@ -64,7 +63,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     }
 
     private fun setMovieAdapter() {
-
+        val linearLayoutManager = LinearLayoutManager(requireContext())
         recycleAdapter =
             MovieRecyclerAdapter { position ->
                 navigateToDetailsFragment(viewModel.movies.value ?: emptyList(), position)
@@ -72,25 +71,28 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
 
         recyclervMoviesList.apply {
-            linearLayoutManager = LinearLayoutManager(context)
+
             layoutManager = linearLayoutManager
             adapter = recycleAdapter
             setItemAnimator(DefaultItemAnimator())
 
         }
-        setRecyclerViewScrollListener()
+        setRecyclerViewScrollListener(linearLayoutManager)
         addItemDecoration()
     }
     //TODO("Add pagination https://androidwave.com/pagination-in-recyclerview/)
     //https://blog.iamsuleiman.com/android-pagination-tutorial-getting-started-recyclerview/"
 
 
-    private fun setRecyclerViewScrollListener() {
+    private fun setRecyclerViewScrollListener(linearLayoutManager: LinearLayoutManager) {
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                val lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition()
+
                 val isItemLast =
                     lastVisibleItemPosition == recycleAdapter?.itemCount?.minus(1) ?: false
+
                 val isLoadNow = viewModel.isLoadState?.value ?: false
                 if (isItemLast && !isLoadNow) {
                     viewModel.loadNextPageOfMovies()

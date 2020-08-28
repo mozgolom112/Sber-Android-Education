@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.fragment_gallery_details.*
 
 class GalleryDetailsFragment : Fragment(R.layout.fragment_gallery_details) {
 
-    private lateinit var movies: List<Movie>
     private var currentPosition: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -19,14 +18,12 @@ class GalleryDetailsFragment : Fragment(R.layout.fragment_gallery_details) {
         GalleryDetailsFragmentArgs.fromBundle(
             requireArguments()
         ).apply {
-            movies = listMovies.toList()
+            setPagerAdapter(listMovies.toList())
             currentPosition = position
         }
-
-        setPagerAdapter()
     }
 
-    private fun setPagerAdapter() {
+    private fun setPagerAdapter(movies: List<Movie>) {
         val pagerAdapter =
             DetailsPagerAdapter(
                 childFragmentManager,

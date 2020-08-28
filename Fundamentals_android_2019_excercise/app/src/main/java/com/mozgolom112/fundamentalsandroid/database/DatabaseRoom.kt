@@ -15,6 +15,7 @@ abstract class DatabaseTMDB : RoomDatabase() {
     companion object {
         private lateinit var INSTANCE: DatabaseTMDB
 
+        // TODO("Replace with ?:")
         fun getInstance(context: Context): DatabaseTMDB {
             synchronized(DatabaseTMDB::class.java) {
                 if (!::INSTANCE.isInitialized) {
